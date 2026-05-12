@@ -1,0 +1,33 @@
+# Dependencies — 每台机器自己 npm install
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Vite cache
+*.local
+.vite/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Claude Code 内部文件
+.claude/
