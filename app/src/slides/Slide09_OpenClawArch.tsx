@@ -1,93 +1,106 @@
-import React, { useRef, memo, useState, useEffect } from 'react';
+import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Server, Cpu, MessageSquare, Star } from 'lucide-react';
-import DataCard from '@/components/DataCard';
-import ExpandableSection from '@/components/ExpandableSection';
+import { Zap, Cable, AlertTriangle } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
-const CHANNELS = ['飞书', '钉钉', '企微', 'QQ', 'Telegram', 'Slack', 'Discord', 'WhatsApp', 'iMessage'];
-const LAYERS = [
-  { icon: Server, name: 'Gateway 网关', role: '大脑', desc: '始终运行，协调一切，路由请求', color: '#0066CC' },
-  { icon: Cpu, name: 'Node 节点', role: '手脚', desc: '执行具体任务，调用工具，运行Skills', color: '#10B981' },
-  { icon: MessageSquare, name: 'Channel 渠道', role: '感官', desc: '20+平台消息接入', color: '#FF6B35' },
-];
-
 const Slide09_OpenClawArch: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [starCount, setStarCount] = useState(0);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.arch-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 });
-      gsap.fromTo('.arch-layer', { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.2, delay: 0.3 });
-      gsap.fromTo('.arch-stats', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.0 });
+      gsap.fromTo('.v3-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+      gsap.fromTo('.v3-badge', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)', delay: 0.2 });
+      gsap.fromTo('.v3-flow', { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, delay: 0.4 });
+      gsap.fromTo('.v3-limit', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.0 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
-  useEffect(() => {
-    if (!isActive) return;
-    const end = 278932; const dur = 2000; const startTime = Date.now();
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / dur, 1);
-      setStarCount(Math.floor(end * progress));
-      if (progress >= 1) clearInterval(timer);
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isActive]);
-
   return (
-    <section ref={containerRef} className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-16" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="arch-title text-center mb-4">
-        <h2 className="text-h1 font-bold text-[var(--text-primary)]">OpenClaw架构拆解</h2>
-        <p className="text-body text-[var(--text-secondary)] mt-1">开源AI Agent操作系统 — 全球GitHub Star第一</p>
-      </div>
+    <section ref={containerRef}
+      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <div className="flex items-baseline gap-2 mb-6">
-        <span className="text-data font-mono font-extrabold text-[var(--accent)]">{starCount.toLocaleString()}</span>
-        <Star className="w-6 h-6 text-[var(--accent)]" strokeWidth={2} fill="var(--accent)" />
-        <span className="text-body-sm text-[var(--text-secondary)]">发布不到4个月</span>
+      <div className="flex items-center gap-3 mb-2">
+        <h2 className="v3-title text-h1 font-bold text-[var(--text-primary)] opacity-0">v3.0 自主调度</h2>
+        <span className="v3-badge text-caption px-2 py-1 rounded-full font-bold text-white opacity-0" style={{ backgroundColor: '#8B5CF6' }}>紫装</span>
       </div>
+      <p className="text-body text-[var(--text-secondary)] mb-6 max-w-lg text-center">
+        v2.0 每个场景都要手动开发 Workflow。v3.0 让 AI 自己选择、决策、调度
+      </p>
 
-      <div className="max-w-3xl w-full space-y-3 mb-6">
-        {LAYERS.map((l, i) => (
-          <div key={i} className="arch-layer rounded-xl p-5 border-2" style={{ borderColor: l.color, background: `linear-gradient(135deg, ${l.color}08, var(--bg-primary))` }}>
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${l.color}15` }}>
-                <l.icon className="w-5 h-5" style={{ color: l.color }} strokeWidth={2} />
-              </div>
-              <div>
-                <span className="text-h3 font-bold" style={{ color: l.color }}>{l.name}</span>
-                <span className="text-caption text-[var(--text-light)] ml-2">— "{l.role}"</span>
-              </div>
-            </div>
-            <p className="text-body-sm text-[var(--text-secondary)] ml-13">{l.desc}</p>
-            {i === 2 && (
-              <div className="flex flex-wrap gap-1.5 mt-2 ml-13">
-                {CHANNELS.map((ch) => (
-                  <span key={ch} className="px-2 py-0.5 rounded text-caption font-semibold" style={{ backgroundColor: `${l.color}10`, color: l.color }}>{ch}</span>
-                ))}
-              </div>
-            )}
-            {i < 2 && <div className="flex justify-center mt-2"><div className="w-0.5 h-4" style={{ backgroundColor: l.color, opacity: 0.3 }} /></div>}
+      <div className="max-w-2xl w-full">
+        {/* ReAct Flow */}
+        <div className="v3-flow rounded-xl border-2 p-5 mb-4 opacity-0" style={{ borderColor: '#8B5CF6', backgroundColor: '#8B5CF608' }}>
+          <div className="flex items-center gap-2 mb-3">
+            <Zap size={20} style={{ color: '#8B5CF6' }} />
+            <span className="text-body font-bold" style={{ color: '#8B5CF6' }}>ReAct 范式</span>
+            <span className="text-caption px-1.5 rounded" style={{ backgroundColor: '#8B5CF612', color: '#8B5CF6' }}>紫装</span>
           </div>
-        ))}
-      </div>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            {['🤔 思考', '🔧 行动', '👀 观察'].map((step, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span className="text-[var(--text-light)]">→</span>}
+                <span className="px-3 py-1.5 rounded-lg text-body-sm font-semibold" style={{ backgroundColor: '#8B5CF610' }}>{step}</span>
+              </React.Fragment>
+            ))}
+            <span className="text-[var(--text-light)]">→</span>
+            <span className="px-3 py-1.5 rounded-lg text-body-sm font-semibold" style={{ backgroundColor: '#8B5CF610' }}>🔁 循环</span>
+          </div>
+          <p className="text-caption text-[var(--text-secondary)] text-center">
+            AI 自主规划步骤、选择工具、执行操作、观察结果，循环直到完成
+          </p>
+        </div>
 
-      <div className="arch-stats grid grid-cols-3 gap-4 max-w-3xl w-full mb-4">
-        <DataCard value="13,729" label="注册Skills" suffix="个" />
-        <DataCard value="100%" label="完全开源" />
-        <DataCard value="20+" label="平台接入" suffix="个" />
-      </div>
+        {/* MCP */}
+        <div className="v3-flow rounded-xl border-2 p-5 mb-4 opacity-0" style={{ borderColor: '#8B5CF6', backgroundColor: '#8B5CF608' }}>
+          <div className="flex items-center gap-2 mb-3">
+            <Cable size={20} style={{ color: '#8B5CF6' }} />
+            <span className="text-body font-bold" style={{ color: '#8B5CF6' }}>MCP 模型上下文协议</span>
+            <span className="text-caption px-1.5 rounded" style={{ backgroundColor: '#8B5CF612', color: '#8B5CF6' }}>紫装</span>
+          </div>
+          <p className="text-body-sm text-[var(--text-secondary)]">
+            标准化了 AI 调用外部工具的协议。就像 USB-C 接口——所有工具用统一的方式接入，AI 不需要为每个工具单独适配。
+          </p>
+        </div>
 
-      <div className="max-w-3xl w-full">
-        <ExpandableSection toggleLabel="OpenClaw的设计哲学" hintText="点击展开">
-          <p className="text-body-sm text-[var(--text-secondary)]">Unix哲学：只有4个核心工具（Read、Write、Edit、Bash），复杂功能通过Skills组合实现。Gateway常驻运行（loopback-first安全设计），Node按需启停，Channel即插即用。</p>
-        </ExpandableSection>
+        {/* Benefits */}
+        <div className="v3-flow rounded-xl border p-4 mb-4 opacity-0" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
+          <p className="text-body-sm font-bold text-[var(--text-primary)] mb-2">v3.0 的进步</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex items-center gap-1.5 text-caption">
+              <span className="text-[var(--success)]">✓</span>
+              <span className="text-[var(--text-secondary)]">AI 自主选择工具和策略</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-caption">
+              <span className="text-[var(--success)]">✓</span>
+              <span className="text-[var(--text-secondary)]">不用每个场景单独开发</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-caption">
+              <span className="text-[var(--success)]">✓</span>
+              <span className="text-[var(--text-secondary)]">更灵活，覆盖更多场景</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-caption">
+              <span className="text-[var(--success)]">✓</span>
+              <span className="text-[var(--text-secondary)]">降低了开发成本</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="v3-limit max-w-xl w-full rounded-xl border-2 p-4 text-center" style={{ borderColor: 'var(--accent)30', backgroundColor: 'var(--accent)05' }}>
+          <div className="flex items-center justify-center gap-1.5 mb-1">
+            <AlertTriangle size={14} style={{ color: 'var(--accent)' }} />
+            <span className="text-body-sm font-bold" style={{ color: 'var(--accent)' }}>v3.0 的局限</span>
+          </div>
+          <p className="text-body-sm text-[var(--text-primary)]">
+            AI 自主决策带来了<strong>更多不确定性</strong>。且上下文越长，注意力稀释越严重。<br />
+            <span className="text-[var(--text-secondary)]">→ 怎么在保持灵活性的同时控制不确定性？</span>
+          </p>
+        </div>
       </div>
     </section>
   );

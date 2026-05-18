@@ -1,107 +1,93 @@
-import React, { useRef, memo, useState } from 'react';
+import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Search, Share2, FileText, ChevronRight } from 'lucide-react';
-import ExpandableSection from '@/components/ExpandableSection';
+import { AlertTriangle, MessageSquare, Ghost, Brain } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
+const PROBLEMS = [
+  {
+    icon: MessageSquare,
+    title: '意图澄清',
+    desc: '操作越便利，用户输入越模糊',
+    detail: '用户说"帮我处理一下"，AI不知道要处理什么。自然语言的便利性带来了输入的不确定性。',
+    color: 'var(--primary)',
+    costImpact: 'P 参与度：用户需要反复澄清意图',
+  },
+  {
+    icon: Ghost,
+    title: '模型幻觉',
+    desc: '不擅长计算，缺少知识，输出不确定',
+    detail: '大模型本质是概率模型，不是知识库也不是计算器。它会自信地给出错误答案。',
+    color: 'var(--accent)',
+    costImpact: 'U 不确定度：输出结果不可靠',
+  },
+  {
+    icon: Brain,
+    title: '注意力稀释',
+    desc: '上下文越长，模型越"笨"',
+    detail: '研究表明上下文超过一定长度后，模型准确率下降30-40%。信息越多反而越不靠谱。',
+    color: 'var(--success)',
+    costImpact: 'U 不确定度：长对话质量显著下降',
+  },
+];
+
 const Slide06_KnowledgeProblem: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [ragStep, setRagStep] = useState(-1);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.kn-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 });
-      gsap.fromTo('.kn-problem', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.3 });
-      gsap.fromTo('.kn-solution', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, delay: 0.6 });
-      gsap.fromTo('.kn-rag', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 1.2 });
+      gsap.fromTo('.p6-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+      gsap.fromTo('.p6-subtitle', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
+      gsap.fromTo('.p6-card', { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'back.out(1.3)', delay: 0.4 });
+      gsap.fromTo('.p6-footer', { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 1.0 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
-  useGSAP(() => {
-    if (ragStep < 0 || !containerRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(`.rag-step-${ragStep}`, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' });
-      if (ragStep > 0) {
-        gsap.fromTo(`.rag-arrow-${ragStep - 1}`, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3 });
-      }
-    }, containerRef);
-    return () => ctx.revert();
-  }, { scope: containerRef, dependencies: [ragStep] });
-
-  const ragSteps = [
-    { label: '用户提问', icon: '💬', content: '"公司最新的运维流程是什么？"' },
-    { label: '向量检索', icon: '🔍', content: 'Embedding → 搜索知识库 → 匹配Top-K文档' },
-    { label: '检索结果', icon: '📄', content: '找到3篇相关文档（运维流程v3.2.pdf）' },
-    { label: '喂给模型', icon: '🧠', content: '原文 + 检索到的文档一起输入模型' },
-    { label: '生成回答', icon: '✅', content: '基于文档内容给出准确回答' },
-  ];
-
   return (
-    <section ref={containerRef} className="w-full min-h-[100dvh] flex flex-col px-6 py-16" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="kn-title text-center mb-6">
-        <h2 className="text-h1 font-bold text-[var(--text-primary)]">问题2：知识问题</h2>
-        <p className="text-body text-[var(--text-secondary)] mt-1">模型的知识截止在训练数据 — 不懂公司业务</p>
-      </div>
+    <section ref={containerRef}
+      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <div className="kn-problem flex items-center justify-center gap-3 mb-6 p-4 rounded-xl bg-[var(--bg-secondary)] max-w-2xl mx-auto w-full">
-        <span className="text-2xl">🧠</span>
-        <span className="text-body text-[var(--text-light)]">模型 →</span>
-        <span className="text-body text-[var(--accent)]">"公司最新的运维流程是什么？"</span>
-        <span className="text-body text-[var(--text-light)]">→</span>
-        <span className="text-body font-bold text-red-400">❌ 不知道</span>
-      </div>
+      <h2 className="p6-title text-h1 font-bold text-[var(--text-primary)] mb-1 opacity-0">
+        大模型的四大问题
+      </h2>
+      <p className="p6-subtitle text-body text-[var(--text-secondary)] mb-6 max-w-xl text-center opacity-0">
+        清华应届生虽然聪明，但直接上岗会遇到三个核心困难
+      </p>
 
-      <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto w-full mb-6">
-        {[
-          { icon: Search, title: 'RAG', subtitle: '检索增强生成', desc: '用户提问→向量检索知识库→检索到文档→喂给模型→结合文档回答', tag: '解决"知道什么"', color: 'var(--primary)' },
-          { icon: Share2, title: '知识图谱', subtitle: '结构化知识表示', desc: '节点和边连接业务概念，RAG做不了的关联推理，图谱可以', tag: '解决"知道关联"', color: 'var(--success)' },
-          { icon: FileText, title: 'Skills', subtitle: '业务流程知识', desc: '不只"知道什么"，还"知道怎么做"。日报Skill=知道去哪取数据+数据格式+报告模板', tag: '解决"知道怎么做"', color: 'var(--accent)' },
-        ].map((s, i) => (
-          <div key={i} className="kn-solution rounded-xl p-5 border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-card" style={{ borderColor: s.color }}>
-            <s.icon className="w-8 h-8 mb-3" style={{ color: s.color }} strokeWidth={2} />
-            <h3 className="text-h3 font-bold" style={{ color: s.color }}>{s.title}</h3>
-            <p className="text-caption text-[var(--text-light)] mb-2">{s.subtitle}</p>
-            <p className="text-body-sm text-[var(--text-secondary)] mb-3">{s.desc}</p>
-            <span className="inline-block px-2 py-0.5 rounded text-caption font-bold" style={{ backgroundColor: `${s.color}15`, color: s.color }}>{s.tag}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* RAG Interactive Demo */}
-      <div className="kn-rag max-w-3xl mx-auto w-full rounded-xl p-5 border" style={{ borderColor: 'var(--primary)', backgroundColor: 'var(--bg-accent)' }}>
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="text-body font-bold text-[var(--primary)]">RAG检索过程演示</h4>
-          <button onClick={() => setRagStep(ragStep >= ragSteps.length - 1 ? -1 : ragStep + 1)} className="px-3 py-1 rounded-lg text-caption font-bold text-white" style={{ backgroundColor: 'var(--primary)' }}>
-            {ragStep >= ragSteps.length - 1 ? '重置' : ragStep < 0 ? '▶ 开始演示' : '下一步 →'}
-          </button>
-        </div>
-        <div className="flex items-start gap-2 overflow-x-auto pb-2">
-          {ragSteps.map((s, i) => (
-            <React.Fragment key={i}>
-              {i > 0 && <ChevronRight className={`rag-arrow-${i - 1} w-5 h-5 text-[var(--text-light)] flex-shrink-0 mt-4 opacity-0`} />}
-              <div className={`rag-step-${i} flex-shrink-0 rounded-lg p-3 min-w-[140px] border ${i <= ragStep ? 'bg-[var(--card-bg)] border-[var(--primary)]' : 'bg-[var(--bg-secondary)] border-[var(--border)] opacity-30'}`}>
-                <span className="text-xl">{s.icon}</span>
-                <p className="text-caption font-bold text-[var(--text-primary)] mt-1">{s.label}</p>
-                <p className="text-caption text-[var(--text-secondary)] text-xs mt-0.5">{s.content}</p>
+      <div className="max-w-3xl w-full space-y-4">
+        {PROBLEMS.map((p, i) => {
+          const Icon = p.icon;
+          return (
+            <div key={i} className="p6-card rounded-xl border-2 p-5 opacity-0"
+              style={{ borderColor: p.color, backgroundColor: `${p.color}06` }}>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: `${p.color}15` }}>
+                  <Icon size={20} style={{ color: p.color }} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-body font-bold mb-1" style={{ color: p.title === '模型幻觉' ? p.color : undefined }}>{p.title}</h3>
+                  <p className="text-body-sm text-[var(--text-primary)] mb-1">{p.desc}</p>
+                  <p className="text-caption text-[var(--text-secondary)] leading-relaxed">{p.detail}</p>
+                  <div className="mt-2 flex items-center gap-1.5">
+                    <AlertTriangle size={12} style={{ color: p.color }} />
+                    <span className="text-caption font-semibold" style={{ color: p.color }}>{p.costImpact}</span>
+                  </div>
+                </div>
               </div>
-            </React.Fragment>
-          ))}
-        </div>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="max-w-3xl mx-auto w-full mt-4">
-        <ExpandableSection toggleLabel="RAG vs 知识图谱 vs Skills — 什么场景用什么？" hintText="点击展开">
-          <div className="space-y-2 text-body-sm text-[var(--text-secondary)]">
-            <p><strong>RAG</strong>：适合问答场景——"XX指标是多少？"、"最新的流程是什么？"</p>
-            <p><strong>知识图谱</strong>：适合推理场景——"故障A和B是否有关联？"、"影响范围包括哪些？"</p>
-            <p><strong>Skills</strong>：适合流程场景——"帮我生成日报"、"处理这批邮件"、"执行数据稽核"</p>
-          </div>
-        </ExpandableSection>
-      </div>
+      <p className="p6-footer text-body text-[var(--text-light)] mt-6">
+        怎么解决？让我们看看 v1.0 的方案 →
+      </p>
     </section>
   );
 };

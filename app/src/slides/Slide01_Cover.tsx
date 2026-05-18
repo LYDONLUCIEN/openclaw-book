@@ -1,213 +1,171 @@
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useState, useMemo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Calendar } from 'lucide-react';
-import HeroOrb1 from '@/components/assets/HeroOrb1';
-import HeroOrb2 from '@/components/assets/HeroOrb2';
-import Badge from '@/components/Badge';
+import { HelpCircle, Cpu, Sparkles, Brain, Bot, Code2, Wrench, MessageSquare, BookOpen, Layers, Zap, Search, Database, GitBranch, Terminal, Puzzle, Eye } from 'lucide-react';
 
-interface Slide01Props {
-  isActive: boolean;
+interface SlideProps { isActive: boolean; }
+
+const TAGS = [
+  { text: 'Skill', icon: Puzzle },
+  { text: 'Agent', icon: Bot },
+  { text: 'ReAct', icon: Zap },
+  { text: 'Function Call', icon: GitBranch },
+  { text: 'RAG', icon: Search },
+  { text: 'Workflow', icon: Layers },
+  { text: 'MCP', icon: Wrench },
+  { text: 'Harness Eng.', icon: Wrench },
+  { text: 'Prompt', icon: MessageSquare },
+  { text: 'OpenClaw', icon: Code2 },
+  { text: 'Hermes Agent', icon: Sparkles },
+  { text: 'Claude Code', icon: Terminal },
+  { text: 'Fine-tuning', icon: Cpu },
+  { text: 'Embedding', icon: Layers },
+  { text: 'Vector DB', icon: Database },
+  { text: 'AutoGPT', icon: Bot },
+  { text: 'Coze', icon: Layers },
+  { text: 'Dify', icon: Layers },
+  { text: 'Manus', icon: Eye },
+  { text: 'Copilot', icon: Cpu },
+  { text: 'AI Model', icon: Brain },
+  { text: 'Few-shot', icon: BookOpen },
+  { text: 'Tool Use', icon: Wrench },
+  { text: 'Vibe Coding', icon: Sparkles },
+];
+
+const COLORS = [
+  'var(--primary)', 'var(--accent)', 'var(--secondary)',
+  'var(--success)', 'var(--text-secondary)', '#8B5CF6', '#EC4899',
+];
+
+function seededRandom(seed: number) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
 }
 
-/**
- * Slide 01 — Cover Page
- * Hero entrance animation with decorative gradient orbs
- * GSAP SplitText-like character animation for the title
- */
-const Slide01_Cover: React.FC<Slide01Props> = ({ isActive }) => {
+const QUESTIONS = [
+  { q: 'Skill、Agent、ReAct、Function Call、Harness Eng…\n这些到底都是什么？', sub: '感觉每个都在说不同的东西' },
+  { q: 'OpenClaw 是什么？', sub: '为什么大家都在讨论它？' },
+  { q: '为什么网上铺天盖地，我却完全用不起来 OpenClaw？', sub: '配置了半天，效果还不如手写代码' },
+];
+
+const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const titleLine1Ref = useRef<HTMLDivElement>(null);
-  const titleLine2Ref = useRef<HTMLDivElement>(null);
-  const orb1Ref = useRef<HTMLDivElement>(null);
-  const orb2Ref = useRef<HTMLDivElement>(null);
+  const [phase, setPhase] = useState(0);
 
-  useGSAP(
-    () => {
-      if (!isActive || !containerRef.current) return;
+  const tagPositions = useMemo(() =>
+    TAGS.map((_, i) => ({
+      x: (seededRandom(i * 7 + 1) - 0.5) * 78,
+      y: (seededRandom(i * 13 + 3) - 0.5) * 62,
+      rot: (seededRandom(i * 11 + 5) - 0.5) * 28,
+      scale: 0.7 + seededRandom(i * 17 + 7) * 0.5,
+    })),
+  []);
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({ delay: 0.2 });
+  // Phase 0: tags fly in
+  useGSAP(() => {
+    if (!isActive || phase !== 0 || !containerRef.current) return;
+    const ctx = gsap.context(() => {
+      const tags = containerRef.current!.querySelectorAll('.chaos-tag');
+      gsap.set(tags, { opacity: 0, scale: 0.3 });
+      gsap.to(tags, {
+        opacity: 0.6,
+        scale: (i: number) => tagPositions[i]?.scale || 1,
+        duration: 0.5,
+        stagger: { each: 0.03, from: 'random' },
+        ease: 'back.out(2)',
+        delay: 0.2,
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, { scope: containerRef, dependencies: [isActive, phase] });
 
-        // 1. Event badge animation
-        tl.fromTo(
-          '.cover-badge',
-          { opacity: 0, scale: 0.9 },
-          { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }
-        );
+  // Phase 1: questions animate in
+  useGSAP(() => {
+    if (!isActive || phase !== 1 || !containerRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.q-card', { opacity: 0, y: 30, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.15, ease: 'back.out(1.5)' });
+    }, containerRef);
+    return () => ctx.revert();
+  }, { scope: containerRef, dependencies: [isActive, phase] });
 
-        // 2. Title Line 1 — per-character animation
-        if (titleLine1Ref.current) {
-          const chars1 = titleLine1Ref.current.querySelectorAll('.char');
-          tl.fromTo(
-            chars1,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              stagger: 0.02,
-              ease: 'back.out(1.7)',
-            },
-            0.4
-          );
-        }
-
-        // 3. Title Line 2 — per-character animation (starts 0.15s after line 1)
-        if (titleLine2Ref.current) {
-          const chars2 = titleLine2Ref.current.querySelectorAll('.char');
-          tl.fromTo(
-            chars2,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              stagger: 0.02,
-              ease: 'back.out(1.7)',
-            },
-            0.55
-          );
-        }
-
-        // 4. Subtitle
-        tl.fromTo(
-          '.cover-subtitle',
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-          1.0
-        );
-
-        // 5. Decorative divider
-        tl.fromTo(
-          '.cover-divider',
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.6, ease: 'power3.out' },
-          1.2
-        );
-
-        // 6. Presenter info
-        tl.fromTo(
-          '.cover-presenter',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5 },
-          1.4
-        );
-
-        // Continuous orb floating animation
-        if (orb1Ref.current) {
-          gsap.to(orb1Ref.current, {
-            y: -20,
-            duration: 8,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1,
-          });
-        }
-        if (orb2Ref.current) {
-          gsap.to(orb2Ref.current, {
-            y: 20,
-            duration: 8,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1,
-            delay: 3,
-          });
-        }
-      }, containerRef);
-
-      return () => ctx.revert();
-    },
-    { scope: containerRef, dependencies: [isActive] }
-  );
-
-  // Split text into characters for animation
-  const renderChars = (text: string) => {
-    return text.split('').map((char, i) => (
-      <span
-        key={i}
-        className="char inline-block"
-        style={{ whiteSpace: char === ' ' ? 'pre' : undefined }}
-      >
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
+  const handleClick = () => {
+    setPhase(phase < 1 ? phase + 1 : 0);
   };
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden"
+    <section ref={containerRef}
+      className="w-full min-h-[100dvh] flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden cursor-pointer select-none"
       style={{ backgroundColor: 'var(--bg-primary)' }}
-    >
-      {/* Decorative Orb 1 — Top-right */}
-      <div
-        ref={orb1Ref}
-        className="absolute -top-20 -right-20 w-[500px] h-[500px] pointer-events-none hidden md:block"
-        style={{ opacity: 0.06, filter: 'blur(80px)' }}
-      >
-        <HeroOrb1 width={500} height={500} />
+      onClick={handleClick}>
+
+      {/* Background tags (always rendered, fade with phase) */}
+      <div className={`absolute inset-0 transition-opacity duration-500 ${phase === 0 ? 'opacity-100' : 'opacity-[0.06]'}`}>
+        {TAGS.map((tag, i) => {
+          const pos = tagPositions[i];
+          const color = COLORS[i % COLORS.length];
+          const Icon = tag.icon;
+          return (
+            <span key={i}
+              className="chaos-tag absolute flex items-center gap-1.5 px-3 py-1.5 rounded-full text-caption font-semibold border whitespace-nowrap"
+              style={{
+                left: `${45 + pos.x}%`, top: `${42 + pos.y}%`,
+                borderColor: color, color: color, backgroundColor: 'var(--bg-secondary)',
+              }}>
+              <Icon size={14} strokeWidth={2} />
+              {tag.text}
+            </span>
+          );
+        })}
       </div>
 
-      {/* Decorative Orb 2 — Bottom-left */}
-      <div
-        ref={orb2Ref}
-        className="absolute -bottom-20 -left-20 w-[400px] h-[400px] pointer-events-none hidden md:block"
-        style={{ opacity: 0.05, filter: 'blur(80px)' }}
-      >
-        <HeroOrb2 width={400} height={400} />
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
-        {/* Event Badge */}
-        <div className="cover-badge mb-6 opacity-0">
-          <Badge variant="primary">
-            <Calendar className="w-3.5 h-3.5 mr-1.5 inline" strokeWidth={2} />
-            <span>中国移动内部培训 · 2026</span>
-          </Badge>
+      {/* Phase 0: Prompt */}
+      {phase === 0 && (
+        <div className="relative z-10 text-center">
+          <h2 className="text-h1 font-bold text-[var(--text-primary)] mb-3">
+            你可能听过这些名词……
+          </h2>
+          <p className="text-body text-[var(--text-light)] animate-pulse">
+            点击提出你的疑问 →
+          </p>
         </div>
+      )}
 
-        {/* Main Title — Line 1 */}
-        <div
-          ref={titleLine1Ref}
-          className="text-display-xl md:text-display-xl text-[var(--primary)] leading-[1.05] tracking-[-0.03em] font-extrabold opacity-0"
-          style={{ opacity: 1 }}
-        >
-          <span className="inline-block">{renderChars('AI智能体')}</span>
+      {/* Phase 1: Three Questions */}
+      {phase === 1 && (
+        <div className="relative z-10 max-w-2xl w-full space-y-4">
+          <div className="text-center mb-6">
+            <HelpCircle className="w-12 h-12 mx-auto mb-3 text-[var(--accent)]" strokeWidth={1.5} />
+            <h2 className="text-h2 font-bold text-[var(--text-primary)]">你可能正面临这些问题</h2>
+          </div>
+
+          {QUESTIONS.map((item, i) => (
+            <div key={i} className="q-card rounded-xl border-2 p-5 opacity-0"
+              style={{
+                borderColor: i === 0 ? 'var(--primary)' : i === 1 ? 'var(--accent)' : 'var(--secondary)',
+                backgroundColor: i === 0 ? 'var(--primary)06' : i === 1 ? 'var(--accent)06' : 'var(--secondary)06',
+              }}>
+              <h3 className="text-body font-bold text-[var(--text-primary)] leading-relaxed">
+                {item.q.split('\n').map((line, j) => (
+                  <span key={j}>{j > 0 && <br />}{line}</span>
+                ))}
+              </h3>
+              <p className="text-caption text-[var(--text-secondary)] mt-1">{item.sub}</p>
+            </div>
+          ))}
+
+          <p className="text-body text-[var(--text-light)] text-center mt-4 animate-pulse">
+            接下来，让我们逐一回答 →
+          </p>
         </div>
+      )}
 
-        {/* Main Title — Line 2 */}
-        <div
-          ref={titleLine2Ref}
-          className="text-display-xl md:text-display-xl text-[var(--primary)] leading-[1.05] tracking-[-0.03em] font-extrabold mt-1"
-        >
-          <span className="inline-block">{renderChars('技术讲座')}</span>
-        </div>
-
-        {/* Subtitle */}
-        <p className="cover-subtitle text-h2 text-[var(--text-secondary)] mt-6 max-w-[600px] opacity-0">
-          从OpenClaw到企业落地
-        </p>
-
-        {/* Decorative Divider */}
-        <div
-          className="cover-divider w-[120px] h-0.5 mt-8 origin-center"
-          style={{
-            background:
-              'linear-gradient(90deg, transparent, var(--secondary), transparent)',
-            transform: 'scaleX(0)',
-          }}
-        />
-
-        {/* Presenter Info */}
-        <div className="cover-presenter mt-8 text-body-sm text-[var(--text-light)] opacity-0">
-          <span>技术部 · 2026年1月</span>
-        </div>
+      {/* Bottom hint */}
+      <div className="absolute bottom-8 text-caption text-[var(--text-light)]">
+        {phase === 0 ? '点击任意处继续' : '点击重置'}
       </div>
     </section>
   );
 };
 
-// Use React.memo to prevent unnecessary re-renders from parent
 export default memo(Slide01_Cover);

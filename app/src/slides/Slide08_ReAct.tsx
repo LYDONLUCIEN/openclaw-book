@@ -1,108 +1,98 @@
-import React, { useRef, memo, useState, useEffect } from 'react';
+import React, { useRef, memo, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Brain, Zap, Eye, CheckCircle } from 'lucide-react';
+import { Search, GitBranch } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
-interface Step { type: 'think' | 'act' | 'observe' | 'done'; label: string; content: string; toolReq?: string; toolRes?: string; }
-
-const STEPS: Step[] = [
-  { type: 'think', label: 'THINK 思考', content: '用户要求生成网络运维周报。我需要：1) 查询本周告警数据 2) 获取网络性能指标 3) 生成报告。先从查询告警数据开始。' },
-  { type: 'act', label: 'ACT 行动', content: '调用 query_database 工具查询告警数据', toolReq: '{ tool: "query_database", sql: "SELECT * FROM alerts WHERE week=\'current\'" }' },
-  { type: 'observe', label: 'OBSERVE 观察', content: '本周共156条告警，其中3条严重、23条警告。严重告警集中在SPN网络。', toolRes: '{ rows: 156, critical: 3, warning: 23, normal: 130 }' },
-  { type: 'think', label: 'THINK 思考', content: '已获取告警数据，3条严重告警在SPN网络。接下来查询SPN网络性能指标...' },
-  { type: 'act', label: 'ACT 行动', content: '调用 query_api 工具查询SPN性能', toolReq: '{ tool: "query_api", endpoint: "/api/spn/performance" }' },
-  { type: 'observe', label: 'OBSERVE 观察', content: 'SPN网络可用率99.97%，平均时延12ms，均在正常范围。', toolRes: '{ availability: "99.97%", latency: "12ms", throughput: "850Gbps" }' },
-  { type: 'done', label: '✅ 任务完成', content: '综合分析完成：告警数据和性能指标已收集，生成周报。' },
-];
-
-const TYPE_COLORS = { think: 'var(--primary)', act: 'var(--accent)', observe: 'var(--success)', done: 'var(--secondary)' };
-const TYPE_ICONS = { think: Brain, act: Zap, observe: Eye, done: CheckCircle };
-
 const Slide08_ReAct: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentStep, setCurrentStep] = useState(-1);
-  const [typing, setTyping] = useState('');
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.react-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 });
-      gsap.fromTo('.react-subtitle', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.3 });
+      gsap.fromTo('.v2-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+      gsap.fromTo('.v2-badge', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)', delay: 0.2 });
+      gsap.fromTo('.v2-card', { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.5, stagger: 0.12, delay: 0.4 });
+      gsap.fromTo('.v2-limit', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.0 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
-  useEffect(() => {
-    if (currentStep < 0 || currentStep >= STEPS.length) return;
-    const step = STEPS[currentStep];
-    let idx = 0;
-    setTyping('');
-    const timer = setInterval(() => {
-      idx++;
-      setTyping(step.content.slice(0, idx));
-      if (idx >= step.content.length) clearInterval(timer);
-    }, 20);
-    return () => clearInterval(timer);
-  }, [currentStep]);
-
-  const nextStep = () => setCurrentStep(prev => (prev >= STEPS.length - 1 ? -1 : prev + 1));
+  const tools = [
+    {
+      name: 'RAG 检索增强',
+      icon: Search,
+      color: '#3B82F6',
+      tier: '蓝装',
+      solves: '按需加载知识，不用全记住',
+      how: '把知识存入向量库，AI 需要时检索相关片段，精准注入上下文',
+      benefit: '减少了 Prompt 长度，知识更精准',
+    },
+    {
+      name: 'Workflow 工作流',
+      icon: GitBranch,
+      color: '#3B82F6',
+      tier: '蓝装',
+      solves: '用代码代替描述，增加处理确定性',
+      how: '把标准流程固化为节点图，AI 按流程执行，减少随机性',
+      benefit: '流程确定性强，输出可控',
+    },
+  ];
 
   return (
-    <section ref={containerRef} className="w-full min-h-[100dvh] flex flex-col px-6 py-16" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="react-title text-center mb-2">
-        <h2 className="text-h1 font-bold text-[var(--text-primary)]">ReAct：思考→行动→观察</h2>
+    <section ref={containerRef}
+      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}>
+
+      <div className="flex items-center gap-3 mb-2">
+        <h2 className="v2-title text-h1 font-bold text-[var(--text-primary)] opacity-0">v2.0 流程标准化</h2>
+        <span className="v2-badge text-caption px-2 py-1 rounded-full font-bold text-white opacity-0" style={{ backgroundColor: '#3B82F6' }}>蓝装</span>
       </div>
-      <p className="react-subtitle text-body text-[var(--text-secondary)] text-center mb-6">
-        当模型有了记忆+知识+行动能力，它就能自主完成复杂任务
+      <p className="text-body text-[var(--text-secondary)] mb-5 max-w-lg text-center">
+        v1.0 知识和工具都靠 Prompt 塞进去，太粗糙。v2.0 用 RAG 按需加载 + Workflow 固化流程
       </p>
 
-      <div className="max-w-3xl mx-auto w-full flex-1">
-        {/* Steps display */}
-        <div className="space-y-3 mb-4">
-          {STEPS.slice(0, currentStep + 1).map((step, i) => {
-            const color = TYPE_COLORS[step.type];
-            const Icon = TYPE_ICONS[step.type];
-            const isCurrent = i === currentStep;
-            return (
-              <div key={i} className={`rounded-xl p-4 border-l-4 ${isCurrent ? 'shadow-card' : 'opacity-70'}`} style={{ borderColor: color, backgroundColor: isCurrent ? `${color}08` : 'var(--bg-secondary)' }}>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <Icon className="w-4 h-4" style={{ color }} strokeWidth={2} />
-                  <span className="text-caption font-bold" style={{ color }}>{step.label}</span>
+      <div className="max-w-2xl w-full space-y-3">
+        {tools.map((tool, i) => {
+          const Icon = tool.icon;
+          const isExp = expanded === i;
+          return (
+            <div key={i}
+              className={`v2-card rounded-xl border-2 p-4 cursor-pointer transition-all duration-200 ${isExp ? 'ring-1' : ''}`}
+              style={{ borderColor: tool.color, backgroundColor: isExp ? `${tool.color}08` : `${tool.color}04` }}
+              onClick={(e) => { e.stopPropagation(); setExpanded(isExp ? null : i); }}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${tool.color}15`, color: tool.color }}>
+                  <Icon size={18} />
                 </div>
-                <p className="text-body-sm text-[var(--text-primary)] font-mono">{isCurrent ? typing : step.content}{isCurrent && typing.length < step.content.length && <span className="animate-pulse">|</span>}</p>
-                {step.toolReq && (isCurrent ? currentStep === i : true) && (
-                  <div className="mt-2 rounded-lg p-2 text-xs font-mono bg-[var(--bg-secondary)] border">
-                    <span className="text-[var(--accent)]">📤 请求: </span>{step.toolReq}
-                    {step.toolRes && <><br /><span className="text-[var(--success)]">📥 返回: </span>{step.toolRes}</>}
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-body font-bold" style={{ color: tool.color }}>{tool.name}</span>
+                    <span className="text-caption px-1.5 rounded" style={{ backgroundColor: `${tool.color}12`, color: tool.color }}>{tool.tier}</span>
                   </div>
-                )}
+                  <p className="text-caption text-[var(--text-secondary)] mt-0.5">解决：{tool.solves}</p>
+                </div>
               </div>
-            );
-          })}
-        </div>
+              {isExp && (
+                <div className="mt-3 ml-13 pl-2 border-l-2" style={{ borderColor: `${tool.color}30` }}>
+                  <p className="text-caption text-[var(--text-secondary)]"><span className="font-bold">做法：</span>{tool.how}</p>
+                  <p className="text-caption mt-1"><span className="font-bold" style={{ color: tool.color }}>效果：</span>{tool.benefit}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
 
-        {/* Control */}
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <button onClick={nextStep} className="px-6 py-2.5 rounded-full text-body font-bold text-white transition-all duration-200 hover:scale-105" style={{ background: 'linear-gradient(90deg, var(--primary), var(--accent))' }}>
-            {currentStep < 0 ? '▶ 开始ReAct模拟' : currentStep >= STEPS.length - 1 ? '🔄 重新演示' : `下一步 → (${currentStep + 1}/${STEPS.length})`}
-          </button>
-        </div>
-
-        {/* Progress bar */}
-        {currentStep >= 0 && (
-          <div className="w-full h-2 rounded-full bg-[var(--bg-secondary)] mb-4">
-            <div className="h-full rounded-full transition-all duration-300" style={{ width: `${((currentStep + 1) / STEPS.length) * 100}%`, background: 'linear-gradient(90deg, var(--primary), var(--accent))' }} />
-          </div>
-        )}
-
-        {/* Bottom insight */}
-        <div className="rounded-xl p-4 text-center" style={{ background: 'linear-gradient(90deg, var(--bg-accent), var(--bg-secondary))', border: '1px solid var(--border)' }}>
-          <p className="text-body font-bold text-[var(--text-primary)]">
-            ReAct核心：不是一次回答，而是 <span style={{ color: 'var(--primary)' }}>思考</span> → <span style={{ color: 'var(--accent)' }}>调用工具</span> → <span style={{ color: 'var(--success)' }}>观察结果</span> → 继续思考 的循环
-          </p>
-        </div>
+      <div className="v2-limit max-w-xl w-full mt-5 rounded-xl border-2 p-4 text-center" style={{ borderColor: 'var(--accent)30', backgroundColor: 'var(--accent)05' }}>
+        <p className="text-body-sm text-[var(--text-primary)]">
+          <span className="font-bold" style={{ color: 'var(--accent)' }}>v2.0 的局限：</span>
+          Workflow 效果不错，但开发成本高、局限性大——每个场景都要单独开发。<br />
+          <span className="text-[var(--text-secondary)]">→ 能不能让 AI 自己选择和调度？</span>
+        </p>
       </div>
     </section>
   );

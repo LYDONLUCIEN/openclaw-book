@@ -1,88 +1,107 @@
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Sparkles, User, Wrench, Brain } from 'lucide-react';
-import ExpandableSection from '@/components/ExpandableSection';
+import { GitBranch, Cpu, Smartphone, Layers } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
-const PYRAMID = [
-  { name: 'Session 会话层', icon: Sparkles, desc: '当前对话实时上下文', example: '"用户刚说：帮我查一下今天的告警"', color: '#94A3B8', width: '100%' },
-  { name: 'USER 用户层', icon: User, desc: '用户偏好，MEMORY.md持久化', example: '"用户偏好简体中文，关注网络KPI"', color: '#00B4D8', width: '80%' },
-  { name: 'TOOLS 工具层', icon: Wrench, desc: 'Skills动态渐进式加载', example: '"当前加载：日报生成 + 告警查询"', color: '#10B981', width: '60%' },
-  { name: 'SOUL 灵魂层', icon: Brain, desc: 'Agent身份，永久存储', example: '"你是网络运维专家Agent，风格简洁专业"', color: '#0066CC', width: '40%' },
+const ARCH = [
+  {
+    name: 'Gateway', subtitle: '通信枢纽', icon: GitBranch, color: '#3B82F6',
+    desc: '所有 AI 通信统一经过 Gateway',
+    points: ['清晰可追溯：每条请求响应完整记录', '可控可审计：拦截、过滤、限流', '协议标准化：后端切换模型无感'],
+  },
+  {
+    name: 'Node', subtitle: '执行节点', icon: Cpu, color: '#10B981',
+    desc: '将 AI 操作封装为标准化节点',
+    points: ['可规划：输入输出明确', '确定性更强：结果可预测', '性能更好：可并行、可缓存'],
+  },
+  {
+    name: 'Channel', subtitle: '用户通道', icon: Smartphone, color: '#F59E0B',
+    desc: '打通各种用户触达渠道',
+    points: ['多渠道：企微/飞书/钉钉/邮件一键接入', '统一体验：AI 能力和记忆完全一致', '用户无感：不关心背后是哪个模型'],
+  },
+  {
+    name: 'Memory', subtitle: '记忆系统', icon: Layers, color: '#8B5CF6',
+    desc: '四层记忆：Session → User → Tools → Soul',
+    points: ['会话记忆：当前对话上下文', '用户记忆：偏好和历史经验', '工具记忆：工具使用经验', '灵魂记忆：Agent 核心身份'],
+  },
 ];
 
 const Slide11_OpenClawMemory: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.mem-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 });
-      // Build pyramid from bottom up
-      const layers = containerRef.current!.querySelectorAll('.pyr-layer');
-      gsap.fromTo(layers, { opacity: 0, scaleY: 0, transformOrigin: 'bottom center' }, { opacity: 1, scaleY: 1, duration: 0.5, stagger: 0.2, ease: 'back.out(1.3)', delay: 0.3 });
-      gsap.fromTo('.mem-process', { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.5, delay: 1.2 });
-      gsap.fromTo('.mem-detail', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.5 });
+      gsap.fromTo('.a11-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+      gsap.fromTo('.a11-subtitle', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
+      gsap.fromTo('.a11-card', { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, delay: 0.4 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
+  useGSAP(() => {
+    if (!isActive || expanded === null || !containerRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.a11-detail', { opacity: 0 }, { opacity: 1, duration: 0.25 });
+    }, containerRef);
+    return () => ctx.revert();
+  }, { scope: containerRef, dependencies: [isActive, expanded] });
+
   return (
-    <section ref={containerRef} className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-16" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="mem-title text-center mb-6">
-        <h2 className="text-h1 font-bold text-[var(--text-primary)]">四层记忆系统</h2>
-        <p className="text-body text-[var(--text-secondary)] mt-1">从身份到实时 — Agent如何"记住"一切</p>
-      </div>
+    <section ref={containerRef}
+      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <div className="grid md:grid-cols-5 gap-6 max-w-5xl w-full mb-6">
-        {/* Pyramid */}
-        <div className="md:col-span-3 flex flex-col-reverse items-center gap-2">
-          {PYRAMID.map((layer, i) => (
-            <div key={i} className="pyr-layer rounded-xl p-4 border-2 transition-all duration-300 hover:scale-[1.02]" style={{ width: layer.width, borderColor: layer.color, background: `linear-gradient(135deg, ${layer.color}10, ${layer.color}05)` }}>
-              <div className="flex items-center gap-2 mb-1">
-                <layer.icon className="w-4 h-4" style={{ color: layer.color }} strokeWidth={2} />
-                <span className="text-body-sm font-bold" style={{ color: layer.color }}>{layer.name}</span>
+      <h2 className="a11-title text-h1 font-bold text-[var(--text-primary)] mb-1 opacity-0">
+        龙虾的更多能力
+      </h2>
+      <p className="a11-subtitle text-body text-[var(--text-secondary)] mb-5 max-w-2xl text-center opacity-0">
+        除了核心的 Skills 和 Harness，OpenClaw 还有这些重要的架构设计。点击展开详情。
+      </p>
+
+      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-3">
+        {ARCH.map((item, i) => {
+          const Icon = item.icon;
+          const isExp = expanded === i;
+          return (
+            <div key={i}
+              className={`a11-card rounded-xl border-2 p-4 cursor-pointer transition-all duration-200 ${isExp ? 'ring-1 col-span-1 md:col-span-2' : ''}`}
+              style={{ borderColor: isExp ? item.color : `${item.color}60`, backgroundColor: isExp ? `${item.color}08` : `${item.color}04` }}
+              onClick={(e) => { e.stopPropagation(); setExpanded(isExp ? null : i); }}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${item.color}15`, color: item.color }}>
+                  <Icon size={18} />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-body font-bold" style={{ color: item.color }}>{item.name}</span>
+                    <span className="text-caption text-[var(--text-light)]">{item.subtitle}</span>
+                  </div>
+                  <p className="text-caption text-[var(--text-secondary)] mt-0.5">{item.desc}</p>
+                </div>
               </div>
-              <p className="text-caption text-[var(--text-secondary)]">{layer.desc}</p>
-              <p className="text-caption text-[var(--text-light)] mt-1 italic">{layer.example}</p>
+
+              {isExp && (
+                <div className="a11-detail mt-3 grid grid-cols-1 md:grid-cols-3 gap-2">
+                  {item.points.map((pt, j) => (
+                    <div key={j} className="rounded-lg p-2.5" style={{ backgroundColor: `${item.color}06` }}>
+                      <p className="text-caption text-[var(--text-primary)]">{pt}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          ))}
-        </div>
-
-        {/* Retrieval process */}
-        <div className="md:col-span-2">
-          <h4 className="text-h3 font-bold text-[var(--text-primary)] mb-3">记忆检索过程</h4>
-          <div className="mem-process space-y-2">
-            {['用户提问', 'SOUL提供身份约束', 'TOOLS加载相关Skills', 'USER提供偏好', 'Session提供当前上下文', '综合生成回答'].map((s, i) => (
-              <div key={i} className="flex items-center gap-2 text-body-sm">
-                <span className="w-6 h-6 rounded-full flex items-center justify-center text-caption font-bold text-white flex-shrink-0" style={{ backgroundColor: 'var(--primary)' }}>{i + 1}</span>
-                <span className="text-[var(--text-primary)]">{s}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+          );
+        })}
       </div>
 
-      <div className="mem-detail grid grid-cols-3 gap-3 max-w-3xl w-full mb-4">
-        {[
-          { label: '预压缩机制', desc: '长对话自动摘要保留关键信息' },
-          { label: '语义搜索', desc: 'Embedding + BM25混合检索' },
-          { label: '检索延迟', desc: '平均200ms' },
-        ].map((d, i) => (
-          <div key={i} className="rounded-lg p-3 bg-[var(--bg-secondary)] border border-[var(--border)] text-center">
-            <p className="text-body-sm font-bold text-[var(--text-primary)]">{d.label}</p>
-            <p className="text-caption text-[var(--text-secondary)]">{d.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="max-w-3xl w-full">
-        <ExpandableSection toggleLabel="为什么Harness工程（SOUL层）很重要？" hintText="点击展开">
-          <p className="text-body-sm text-[var(--text-secondary)]">SOUL层是Agent的"身份锚点"。没有SOUL，模型在长对话中容易偏离角色定位，产生不一致的行为。Harness工程通过预设约束（如"你是XX专家"、"回答风格简洁"等），减少模型的无效探索空间，从根本上降低了上下文消耗。这和渐进式披露、上下文压缩一起构成了记忆管理的三板斧。</p>
-        </ExpandableSection>
-      </div>
+      <p className="text-caption text-[var(--text-light)] mt-5">
+        这些架构 + Skills + Harness = OpenClaw 火爆的完整原因
+      </p>
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout';
+import Slide00_Cover from '@/slides/Slide00_Cover';
 import Slide01_Cover from '@/slides/Slide01_Cover';
 import Slide02_Chaos from '@/slides/Slide02_Chaos';
 import Slide03_Ecosystem from '@/slides/Slide03_Ecosystem';
@@ -20,9 +21,10 @@ import Slide18_Status from '@/slides/Slide18_Status';
 import Slide19_Summary from '@/slides/Slide19_Summary';
 import Slide20_Thanks from '@/slides/Slide20_Thanks';
 
-const TOTAL_SLIDES = 20;
+const TOTAL_SLIDES = 21;
 
 const slides = [
+  Slide00_Cover,
   Slide01_Cover,
   Slide02_Chaos,
   Slide03_Ecosystem,
