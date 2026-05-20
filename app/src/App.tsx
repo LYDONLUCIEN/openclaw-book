@@ -5,7 +5,6 @@ import Slide02_Chaos from '@/slides/Slide02_Chaos';
 import Slide03_Ecosystem from '@/slides/Slide03_Ecosystem';
 import Slide04_ThreeProblems from '@/slides/Slide04_ThreeProblems';
 import Slide05_MemoryProblem from '@/slides/Slide05_MemoryProblem';
-import Slide06_KnowledgeProblem from '@/slides/Slide06_KnowledgeProblem';
 import Slide07_ActionProblem from '@/slides/Slide07_ActionProblem';
 import Slide08_ReAct from '@/slides/Slide08_ReAct';
 import Slide09_OpenClawArch from '@/slides/Slide09_OpenClawArch';
@@ -19,7 +18,8 @@ import Slide16_Scene3 from '@/slides/Slide16_Scene3';
 import Slide17_Scene4 from '@/slides/Slide17_Scene4';
 import Slide18_Status from '@/slides/Slide18_Status';
 import Slide19_Summary from '@/slides/Slide19_Summary';
-import Slide20_Thanks from '@/slides/Slide20_Thanks';
+import Slide20_Summary from '@/slides/Slide20_Summary';
+import Slide21_Thanks from '@/slides/Slide21_Thanks';
 
 const TOTAL_SLIDES = 21;
 
@@ -30,7 +30,6 @@ const slides = [
   Slide03_Ecosystem,
   Slide04_ThreeProblems,
   Slide05_MemoryProblem,
-  Slide06_KnowledgeProblem,
   Slide07_ActionProblem,
   Slide08_ReAct,
   Slide09_OpenClawArch,
@@ -44,7 +43,8 @@ const slides = [
   Slide17_Scene4,
   Slide18_Status,
   Slide19_Summary,
-  Slide20_Thanks,
+  Slide20_Summary,
+  Slide21_Thanks,
 ];
 
 export default function App() {

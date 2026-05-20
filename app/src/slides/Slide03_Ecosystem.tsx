@@ -11,48 +11,48 @@ const CHARACTERS = [
     classType: '【重盾职业】执行者',
     icon: Shield,
     color: '#3B82F6',
-    stats: { C: 90, P: 15, U: 5 },
+    stats: { certainty: 95, completeness: 10, convenience: 85 },
     special: '绝对确定性',
     specialDesc: '逻辑完全可控，输出零偏差',
     pro: '结果100%可预测，边界最清晰',
-    con: '开发周期长，灵活度最低',
-    tagline: '可靠准确，但灵活度低',
+    con: '覆盖场景窄，灵活度最低',
+    tagline: '确定又可靠，但灵活度低',
   },
   {
     name: '工作流/低代码开发',
     classType: '【工匠职业】调度者',
     icon: ClipboardList,
     color: '#F97316',
-    stats: { C: 80, P: 25, U: 10 },
+    stats: { certainty: 90, completeness: 20, convenience: 75 },
     special: '流程确定性',
     specialDesc: '善用工具，流程标准化',
-    pro: '可视化配置，流程固化后输出确定',
-    con: '开发成本众包给用户，使用者=开发者',
-    tagline: '善用工具，但成本转移',
+    pro: '流程可控，工具善用，输出确定',
+    con: '使用者也是开发者，灵活性有限',
+    tagline: '善用工具，但灵活度有限',
   },
   {
     name: '传统机器学习',
     classType: '【游侠职业】判断者',
     icon: BarChart3,
     color: '#10B981',
-    stats: { C: 65, P: 20, U: 35 },
+    stats: { certainty: 65, completeness: 35, convenience: 80 },
     special: '经验封装',
     specialDesc: '一套方法论应对各类问题',
     pro: '简单粗暴，可处理非结构化数据',
-    con: '大量数据标注，场景迁移成本高',
-    tagline: '简单粗暴，但标注成本高',
+    con: '标注成本高，场景迁移难',
+    tagline: '经验可封装，但标注成本高',
   },
   {
     name: '普通大模型',
     classType: '【法师职业】通才',
     icon: Sparkles,
     color: '#8B5CF6',
-    stats: { C: 10, P: 40, U: 80 },
+    stats: { certainty: 20, completeness: 90, convenience: 60 },
     special: '通用智能',
-    specialDesc: '组合技能多，覆盖面极广',
+    specialDesc: '覆盖面极广，零门槛启动',
     pro: '零门槛使用，覆盖场景最多',
-    con: '对用户要求高，好效果差，不确定性极高',
-    tagline: '组合技多，但操作要求高',
+    con: '输出不确定性极高，需要用户反复纠正',
+    tagline: '覆盖面最广，但不确定度极高',
   },
 ];
 
@@ -84,7 +84,7 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
       CHARACTERS.forEach((_, i) => {
         const bars = containerRef.current!.querySelectorAll(`.g3-bar-fill-${i}`);
         bars.forEach((bar, j) => {
-          const target = [CHARACTERS[i].stats.C, CHARACTERS[i].stats.P, CHARACTERS[i].stats.U][j];
+          const target = [CHARACTERS[i].stats.certainty, CHARACTERS[i].stats.completeness, CHARACTERS[i].stats.convenience][j];
           gsap.to(bar, { width: `${target}%`, duration: 0.6, ease: 'power3.out', delay: 0.4 + i * 0.1 });
         });
         gsap.fromTo(`.g3-card-${i}`, { opacity: 0, y: 20 },
@@ -94,6 +94,12 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive, phase] });
+
+  const statDefs = [
+    { label: '确定性', name: 'Certainty', color: 'var(--success)' },
+    { label: '完备性', name: 'Completeness', color: 'var(--accent)' },
+    { label: '便利性', name: 'Convenience', color: 'var(--primary)' },
+  ];
 
   return (
     <section ref={containerRef}
@@ -105,7 +111,7 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
         游戏加点：职业图鉴
       </h2>
       <p className="g3-subtitle text-body text-[var(--text-secondary)] mb-5 opacity-0">
-        四种思维模式，四种 C·P·U 加点策略
+        四种技术路线，四种特性加点策略——各有擅长，也各有代价
       </p>
 
       {/* Phase 0: Three equal bars at 35 */}
@@ -113,13 +119,9 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
         <div className="g3-base-section opacity-0">
           <div className="g3-base-bars max-w-sm w-full rounded-xl border p-6" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
             <p className="text-body font-bold text-[var(--text-primary)] mb-4 text-center">
-              假设初始状态：三个维度都是 {BASE_VALUE}
+              我们希望系统同时具备三个特性
             </p>
-            {[
-              { label: 'C 复杂度', color: 'var(--accent)' },
-              { label: 'P 参与度', color: 'var(--primary)' },
-              { label: 'U 不确定度', color: 'var(--success)' },
-            ].map((s) => (
+            {statDefs.map((s) => (
               <div key={s.label} className="mb-3 last:mb-0">
                 <div className="flex justify-between text-caption mb-1">
                   <span className="font-bold" style={{ color: s.color }}>{s.label}</span>
@@ -132,7 +134,7 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
             ))}
           </div>
           <p className="g3-hint text-body text-[var(--text-light)] mt-5 text-center opacity-0">
-            不同职业会在这三个维度上重新分配点数。点击查看 →
+            不同技术路线会在三个特性上有不同的侧重。点击查看 →
           </p>
         </div>
       )}
@@ -143,6 +145,7 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {CHARACTERS.map((char, i) => {
               const Icon = char.icon;
+              const statValues = [char.stats.certainty, char.stats.completeness, char.stats.convenience];
               return (
                 <div key={i} className={`g3-card-${i} rounded-xl border-2 p-3 md:p-4 transition-all duration-300`}
                   style={{ borderColor: char.color, backgroundColor: `${char.color}06` }}>
@@ -159,15 +162,11 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
 
                   {/* Stats with animated bars */}
                   <div className="mb-2">
-                    {[
-                      { label: 'C', name: '复杂度', val: char.stats.C, color: 'var(--accent)' },
-                      { label: 'P', name: '参与度', val: char.stats.P, color: 'var(--primary)' },
-                      { label: 'U', name: '不确定度', val: char.stats.U, color: 'var(--success)' },
-                    ].map((s) => (
+                    {statDefs.map((s, j) => (
                       <div key={s.label} className="mb-1">
                         <div className="flex justify-between text-caption">
-                          <span className="font-bold" style={{ color: s.color }}>{s.label} {s.name}</span>
-                          <span className="font-mono" style={{ color: s.color }}>{s.val}</span>
+                          <span className="font-bold" style={{ color: s.color }}>{s.label}</span>
+                          <span className="font-mono" style={{ color: s.color }}>{statValues[j]}</span>
                         </div>
                         <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: `${s.color}20` }}>
                           <div className={`g3-bar-fill-${i} h-full rounded-full`} style={{ width: `${BASE_VALUE}%`, backgroundColor: s.color }} />
@@ -184,11 +183,11 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
                   <p className="text-caption font-semibold text-[var(--text-primary)]">{char.tagline}</p>
                   <div className="mt-1 space-y-0.5">
                     <div className="flex gap-1 text-caption">
-                      <span className="text-[var(--success)] shrink-0">+</span>
+                      <span className="text-[var(--success)] shrink-0">✓</span>
                       <span className="text-[var(--text-secondary)]">{char.pro}</span>
                     </div>
                     <div className="flex gap-1 text-caption">
-                      <span className="text-[var(--accent)] shrink-0">−</span>
+                      <span className="text-[var(--text-light)] shrink-0">△</span>
                       <span className="text-[var(--text-secondary)]">{char.con}</span>
                     </div>
                   </div>
@@ -198,13 +197,13 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
           </div>
 
           <div className="g3-footer flex items-center justify-center gap-4 mt-5 text-caption">
-            <span className="font-bold" style={{ color: 'var(--accent)' }}>C = 复杂度（开发成本）</span>
-            <span className="font-bold" style={{ color: 'var(--primary)' }}>P = 参与度（操作成本）</span>
-            <span className="font-bold" style={{ color: 'var(--success)' }}>U = 不确定度（确认成本）</span>
+            <span className="font-bold" style={{ color: 'var(--success)' }}>确定性 — 输出可靠可预测</span>
+            <span className="font-bold" style={{ color: 'var(--accent)' }}>完备性 — 场景覆盖广</span>
+            <span className="font-bold" style={{ color: 'var(--primary)' }}>便利性 — 使用简单高效</span>
           </div>
 
           <p className="text-body text-[var(--text-light)] mt-3 text-center">
-            四种职业，四种取舍——都绕不开不可能三角。下一页，让我们看看氪金后的形态 →
+            四种路线，各有擅长——都朝着三个特性的不同方向发力。下一页，让我们看看升级后的形态 →
           </p>
         </div>
       )}

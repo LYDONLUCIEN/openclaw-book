@@ -7,37 +7,40 @@ interface SlideProps { isActive: boolean; }
 
 const GEAR_DEFS = [
   {
-    label: '输入',
-    icon: '📥',
-    color: 'var(--primary)',
-    shortDesc: '用户对系统的操作和指令',
-    fullTitle: 'P — 参与度 (Participation)',
-    fullDesc: '用户使用系统时需要投入的智能总量。',
-    detail: '对系统操作越多、需要做的决策越多、需要规划的事情越多——参与度就越高。如果系统覆盖的场景少，用户就要自己补充，参与度也高。',
-    costName: '确认成本',
-    examples: ['命令行操作', '写长Prompt', '手动配置工作流', '一步步教AI'],
-  },
-  {
-    label: '处理',
-    icon: '⚙️',
-    color: 'var(--accent)',
-    shortDesc: '系统内部的加工与运算',
-    fullTitle: 'C — 复杂度 (Complexity)',
-    fullDesc: '系统构建本身需要的智能投入总量。复杂度越高，开发成本越大。',
-    detail: '系统越复杂，能解决的场景越多，但需要设计、编码、测试的人力也越多。确定性要求越高，开发成本越大。更高的复杂度往往意味着系统完备度空间更大，但达到它需要更多开发成本。',
-    costName: '开发成本',
-    examples: ['编写代码', '训练模型', '设计工作流', '编写Skills'],
-  },
-  {
-    label: '输出',
-    icon: '📤',
+    label: '确定性',
+    icon: '🎯',
     color: 'var(--success)',
-    shortDesc: '系统返回的结果与反馈',
-    fullTitle: 'U — 不确定度 (Uncertainty)',
-    fullDesc: '系统输出的结果偏离预期的程度。不确定度越高，需要人力确认和修正的成本越大。',
-    detail: '结果不准确需要人工校验，出现意外需要调整，这些都是确认成本。大模型的输出是概率性的，天然具有高不确定度。系统越"智能"，输出越灵活，不确定度也越高。',
+    shortDesc: '系统输出结果可靠、可预测',
+    fullTitle: '确定性 (Certainty)',
+    fullDesc: '系统输出结果的可靠性和可预测程度。确定性越高，结果越稳定可信。',
+    detail: '确定性高的系统，输出结果无需人工反复审核，错误率低，边界情况可控。提升确定性需要投入开发验证——逻辑越严谨，系统越可靠。',
+    costName: '确认成本',
+    costDesc: '低确定性的系统需要人工验收和纠错，花费确认成本',
+    examples: ['结果无需人工审核', '输出格式稳定可控', '边界情况可预测', '错误率低'],
+  },
+  {
+    label: '完备性',
+    icon: '🧩',
+    color: 'var(--accent)',
+    shortDesc: '系统能覆盖更多场景、解决更多问题',
+    fullTitle: '完备性 (Completeness)',
+    fullDesc: '系统能覆盖的场景范围和解决问题的广度。完备性越高，能处理的情况越多。',
+    detail: '完备性高的系统，能自动处理各种情况，不需要人工逐个场景开发。提升完备性需要投入建设——设计、训练、知识整理，让系统能力持续扩展。',
+    costName: '开发成本',
+    costDesc: '低完备性的系统需要人工逐场景开发，花费开发成本',
+    examples: ['多场景自动处理', '知识库持续扩展', '新业务快速适配', '异常情况自动应对'],
+  },
+  {
+    label: '便利性',
+    icon: '⚡',
+    color: 'var(--primary)',
+    shortDesc: '用户使用简单、上手快、自动化程度高',
+    fullTitle: '便利性 (Convenience)',
+    fullDesc: '用户使用系统的便捷程度和自动化水平。便利性越高，用户需要做的越少。',
+    detail: '便利性高的系统，用户一键即可完成任务，不需要手动配置和反复操作。提升便利性需要投入技术——更智能的交互、更好的自动化、持续的优化。',
     costName: '操作成本',
-    examples: ['人工审核AI输出', '纠正错误结果', '处理异常情况', '补充AI遗漏'],
+    costDesc: '低便利性的系统需要大量手动操作，花费操作成本',
+    examples: ['自然语言交互', '一键完成任务', '自动记忆偏好', '无需手动配置'],
   },
 ];
 
@@ -103,9 +106,9 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
       className="w-full min-h-[100dvh] flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden"
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <h2 className="tri-title text-h1 font-bold text-[var(--text-primary)] mb-2 opacity-0">不可能三角</h2>
+      <h2 className="tri-title text-h1 font-bold text-[var(--text-primary)] mb-2 opacity-0">三个好特性</h2>
       <p className="tri-intro text-body text-[var(--text-secondary)] max-w-xl text-center mb-5 opacity-0">
-        构建自动化系统，核心三个模块。每个模块对应一种成本维度。
+        构建自动化系统，我们希望它同时具备三个特性。每个特性越高，系统越好。
       </p>
 
       {/* Three Gears */}
@@ -128,9 +131,11 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
               {expandedGear === i && (
                 <div className="tri-expanded mt-3 max-w-xs rounded-xl border p-3 text-left" style={{ borderColor: gear.color, backgroundColor: `${gear.color}06` }}>
                   <span className="text-body-sm font-bold block mb-1" style={{ color: gear.color }}>{gear.fullTitle}</span>
-                  <span className="text-body-sm font-bold text-[var(--text-secondary)] block mb-1">= {gear.costName}</span>
                   <p className="text-caption text-[var(--text-secondary)] leading-relaxed">{gear.fullDesc}</p>
                   <p className="text-caption text-[var(--text-light)] leading-relaxed mt-1">{gear.detail}</p>
+                  <div className="mt-2 rounded px-2 py-1" style={{ backgroundColor: `${gear.color}10` }}>
+                    <span className="text-caption font-semibold" style={{ color: gear.color }}>{gear.costDesc}</span>
+                  </div>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {gear.examples.map((ex, j) => (
                       <span key={j} className="text-caption px-1.5 py-0.5 rounded" style={{ backgroundColor: `${gear.color}10`, color: gear.color }}>{ex}</span>
@@ -147,14 +152,14 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
       </div>
 
       <div className="tri-hint flex items-center gap-4 text-caption text-[var(--text-light)] mt-3 mb-4 opacity-0">
-        <span className="flex items-center gap-1"><MousePointerClick size={12} /> 点击齿轮展开详细定义</span>
+        <span className="flex items-center gap-1"><MousePointerClick size={12} /> 点击卡片展开详细定义</span>
         <span>|</span>
         <span className="cursor-pointer hover:text-[var(--text-secondary)]" onClick={handlePhaseClick}>
-          点击查看不可能三角 →
+          点击查看三角关系 →
         </span>
       </div>
 
-      {/* Phase 1: Proper Impossible Triangle SVG */}
+      {/* Phase 1: Triangle showing the three properties */}
       {phase === 1 && (
         <div className="tri-triangle-section flex flex-col items-center opacity-0">
           <svg width="360" height="240" viewBox="0 0 360 240" className="mb-3">
@@ -162,57 +167,59 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
             <line className="tri-edge-anim" x1="180" y1="25" x2="40" y2="200"
               stroke="var(--accent)" strokeWidth="2.5" strokeDasharray="300" />
             <line className="tri-edge-anim" x1="40" y1="200" x2="320" y2="200"
-              stroke="var(--primary)" strokeWidth="2.5" strokeDasharray="300" />
-            <line className="tri-edge-anim" x1="320" y1="200" x2="180" y2="25"
               stroke="var(--success)" strokeWidth="2.5" strokeDasharray="300" />
+            <line className="tri-edge-anim" x1="320" y1="200" x2="180" y2="25"
+              stroke="var(--primary)" strokeWidth="2.5" strokeDasharray="300" />
 
-            {/* Edge labels */}
-            <text x="95" y="108" textAnchor="middle" fill="var(--accent)" fontSize="10" transform="rotate(-50, 95, 108)">开发成本 ↕</text>
-            <text x="180" y="218" textAnchor="middle" fill="var(--primary)" fontSize="10">确认成本 ↕</text>
-            <text x="265" y="108" textAnchor="middle" fill="var(--success)" fontSize="10" transform="rotate(50, 265, 108)">操作成本 ↕</text>
+            {/* Edge labels - what you invest */}
+            <text x="95" y="108" textAnchor="middle" fill="var(--accent)" fontSize="10" transform="rotate(-50, 95, 108)">开发投入 ↕</text>
+            <text x="180" y="218" textAnchor="middle" fill="var(--success)" fontSize="10">验证投入 ↕</text>
+            <text x="265" y="108" textAnchor="middle" fill="var(--primary)" fontSize="10" transform="rotate(50, 265, 108)">技术投入 ↕</text>
 
-            {/* C Vertex (bottom-left) */}
+            {/* Completeness Vertex (bottom-left) */}
             <g className="tri-vertex">
               <circle cx="40" cy="200" r="26" fill="var(--accent)12" stroke="var(--accent)" strokeWidth="2" />
-              <text x="40" y="196" textAnchor="middle" fill="var(--accent)" fontSize="16" fontWeight="bold">C</text>
-              <text x="40" y="210" textAnchor="middle" fill="var(--accent)" fontSize="8">复杂度</text>
+              <text x="40" y="194" textAnchor="middle" fill="var(--accent)" fontSize="13" fontWeight="bold">完备性</text>
+              <text x="40" y="210" textAnchor="middle" fill="var(--accent)" fontSize="8">Completeness</text>
             </g>
 
-            {/* P Vertex (top) */}
+            {/* Certainty Vertex (top) */}
             <g className="tri-vertex">
-              <circle cx="180" cy="25" r="26" fill="var(--primary)12" stroke="var(--primary)" strokeWidth="2" />
-              <text x="180" y="21" textAnchor="middle" fill="var(--primary)" fontSize="16" fontWeight="bold">P</text>
-              <text x="180" y="35" textAnchor="middle" fill="var(--primary)" fontSize="8">参与度</text>
+              <circle cx="180" cy="25" r="26" fill="var(--success)12" stroke="var(--success)" strokeWidth="2" />
+              <text x="180" y="19" textAnchor="middle" fill="var(--success)" fontSize="13" fontWeight="bold">确定性</text>
+              <text x="180" y="35" textAnchor="middle" fill="var(--success)" fontSize="8">Certainty</text>
             </g>
 
-            {/* U Vertex (bottom-right) */}
+            {/* Convenience Vertex (bottom-right) */}
             <g className="tri-vertex">
-              <circle cx="320" cy="200" r="26" fill="var(--success)12" stroke="var(--success)" strokeWidth="2" />
-              <text x="320" y="196" textAnchor="middle" fill="var(--success)" fontSize="16" fontWeight="bold">U</text>
-              <text x="320" y="210" textAnchor="middle" fill="var(--success)" fontSize="8">不确定度</text>
+              <circle cx="320" cy="200" r="26" fill="var(--primary)12" stroke="var(--primary)" strokeWidth="2" />
+              <text x="320" y="194" textAnchor="middle" fill="var(--primary)" fontSize="13" fontWeight="bold">便利性</text>
+              <text x="320" y="210" textAnchor="middle" fill="var(--primary)" fontSize="8">Convenience</text>
             </g>
 
             {/* Center */}
-            <text x="180" y="150" textAnchor="middle" fill="var(--text-primary)" fontSize="14" fontWeight="600" opacity="0.8">不可能三角</text>
-            <text x="180" y="166" textAnchor="middle" fill="var(--text-light)" fontSize="10">三者不可同时最优</text>
+            <text x="180" y="145" textAnchor="middle" fill="var(--text-primary)" fontSize="14" fontWeight="600" opacity="0.8">三个都想做好</text>
+            <text x="180" y="163" textAnchor="middle" fill="var(--text-light)" fontSize="10">需要持续投入</text>
           </svg>
 
           <div className="tri-conclusion text-center max-w-lg">
             <p className="text-h3 font-bold text-[var(--text-primary)]">
-              所有技术选择，都是在这三个维度上的取舍
+              所有技术方案，都在追求这三个特性
             </p>
             <p className="text-body text-[var(--text-secondary)] mt-1">
-              你无法同时拥有「低开发成本」「低操作成本」「低确认成本」
+              确定性、完备性、便利性——做得越好，系统越强
             </p>
-            <p className="text-caption text-[var(--text-light)] mt-2">
-              C + P + U = 常数K（问题的内在复杂度）
-            </p>
+            <div className="flex items-center justify-center gap-4 mt-3 text-caption">
+              <span style={{ color: 'var(--success)' }}>低确定性 → 确认成本</span>
+              <span style={{ color: 'var(--accent)' }}>低完备性 → 开发成本</span>
+              <span style={{ color: 'var(--primary)' }}>低便利性 → 操作成本</span>
+            </div>
           </div>
         </div>
       )}
 
       <div className="absolute bottom-5 text-caption text-[var(--text-light)]">
-        {phase === 0 ? '点击齿轮查看定义 | 点击文字查看三角' : '点击返回'}
+        {phase === 0 ? '点击卡片查看定义 | 点击文字查看三角' : '点击返回'}
       </div>
     </section>
   );

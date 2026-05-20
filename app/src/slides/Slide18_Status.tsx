@@ -1,114 +1,163 @@
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Brain, Cpu, Bot, Wrench, Globe, Database, Zap, Users, BarChart3, Shield } from 'lucide-react';
-import Badge from '@/components/Badge';
+import { Eye, Bot, RefreshCw, Palette, Code, Lightbulb } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
+const ITERATION_ROUNDS = [
+  {
+    round: '第 1 轮',
+    human: '描述需求：这是一个面向移动内部的 AI Agent 课件，需要覆盖技术原理到实战场景',
+    agent: 'Agent 生成初版大纲：21页结构，从基础概念到进阶用法',
+    color: '#3B82F6',
+  },
+  {
+    round: '第 2 轮',
+    human: '反馈：不要"不可能三角"，换成三个正面特性（确定性、完备性、便利性）',
+    agent: '重构叙事框架：把所有数值反转，从"代价"改为"追求"',
+    color: '#8B5CF6',
+  },
+  {
+    round: '第 3 轮',
+    human: '反馈：SKILL.md 的格式要真实，不要编造；MCP 要用真实的代码示例',
+    agent: '搜索真实 OpenClaw 文档，替换为实际的 YAML frontmatter + 高德地图 MCP 代码',
+    color: '#10B981',
+  },
+  {
+    round: '第 N 轮',
+    human: '审核每一页的文案、动画、配色：调整措辞，优化信息密度，控制节奏',
+    agent: '逐页调整：精简冗余、补充细节、统一风格',
+    color: '#F97316',
+  },
+];
+
 const Slide18_Status: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [phase, setPhase] = useState(0);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
-      tl.fromTo('.status-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
-        .fromTo('.status-left', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }, 0.3)
-        .fromTo('.status-right', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }, 0.4)
-        .fromTo('.status-path', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.7);
+      if (phase === 0) {
+        gsap.fromTo('.st-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+        gsap.fromTo('.st-subtitle', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
+        gsap.fromTo('.st-round', { opacity: 0, x: -20 },
+          { opacity: 1, x: 0, duration: 0.35, stagger: 0.1, delay: 0.4 });
+        gsap.fromTo('.st-quote', { opacity: 0, scale: 0.95 },
+          { opacity: 1, scale: 1, duration: 0.6, delay: 1.2 });
+      } else {
+        gsap.fromTo('.st-detail', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 });
+      }
     }, containerRef);
     return () => ctx.revert();
-  }, { scope: containerRef, dependencies: [isActive] });
+  }, { scope: containerRef, dependencies: [isActive, phase] });
 
   return (
-    <section ref={containerRef} className="w-full min-h-[100dvh] flex flex-col items-center justify-center px-6 py-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <div className="status-title text-center mb-10">
-        <h2 className="text-h1 font-bold text-[var(--text-primary)]">我们已有的AI能力</h2>
-        <p className="text-body text-[var(--text-secondary)] mt-2">聚智智能体平台 + 磐匠数字员工</p>
-      </div>
+    <section ref={containerRef}
+      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl w-full">
-        {/* 聚智智能体平台 */}
-        <div className="status-left rounded-2xl p-7 border-2 border-[var(--primary)] bg-[var(--bg-accent)]">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-12 h-12 rounded-xl bg-[var(--primary)] flex items-center justify-center">
-              <Brain className="w-6 h-6 text-white" strokeWidth={2} />
-            </div>
-            <div>
-              <h3 className="text-h2 font-bold text-[var(--primary)]">聚智智能体平台</h3>
-              <span className="text-caption text-[var(--text-secondary)]">Agent能力中枢</span>
-            </div>
-          </div>
-          <div className="space-y-3">
-            {[
-              { icon: Database, label: '300+ 模型接入', desc: 'MoMA平台智能路由' },
-              { icon: Wrench, label: '150+ 内置行业技能', desc: 'MobileClaw框架' },
-              { icon: Cpu, label: '九天大模型', desc: '全栈自控，适配17个国产AI芯片' },
-              { icon: Globe, label: '多渠道部署', desc: '内网环境安全运行' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-[var(--bg-primary)]">
-                <item.icon className="w-5 h-5 text-[var(--primary)] flex-shrink-0 mt-0.5" strokeWidth={2} />
-                <div>
-                  <span className="text-body-sm font-semibold text-[var(--text-primary)]">{item.label}</span>
-                  <p className="text-caption text-[var(--text-secondary)]">{item.desc}</p>
+      <h2 className="st-title text-h1 font-bold text-[var(--text-primary)] mb-1 opacity-0">
+        实战演示：这个课件本身
+      </h2>
+      <p className="st-subtitle text-body text-[var(--text-secondary)] max-w-2xl text-center mb-4 opacity-0">
+        人机协作的真实产物——不是全自动，而是持续迭代的共同创作
+      </p>
+
+      {phase === 0 && (
+        <div className="max-w-3xl w-full">
+          {/* Iteration rounds */}
+          <div className="space-y-2 mb-4">
+            {ITERATION_ROUNDS.map((round, i) => (
+              <div key={i}
+                className="st-round rounded-xl border-2 p-3.5 opacity-0"
+                style={{ borderColor: `${round.color}40`, backgroundColor: `${round.color}04` }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-caption font-bold px-2 py-0.5 rounded" style={{ backgroundColor: `${round.color}15`, color: round.color }}>
+                    {round.round}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="flex items-start gap-2">
+                    <Eye size={12} className="shrink-0 mt-1" style={{ color: '#3B82F6' }} />
+                    <div>
+                      <span className="text-[10px] font-bold block" style={{ color: '#3B82F6' }}>人的决策</span>
+                      <p className="text-caption text-[var(--text-secondary)]">{round.human}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Bot size={12} className="shrink-0 mt-1" style={{ color: '#8B5CF6' }} />
+                    <div>
+                      <span className="text-[10px] font-bold block" style={{ color: '#8B5CF6' }}>AI 的执行</span>
+                      <p className="text-caption text-[var(--text-secondary)]">{round.agent}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
 
-        {/* 磐匠数字员工 */}
-        <div className="status-right rounded-2xl p-7 border-2 border-[var(--secondary)] bg-[var(--bg-accent)]">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-12 h-12 rounded-xl bg-[var(--secondary)] flex items-center justify-center">
-              <Bot className="w-6 h-6 text-white" strokeWidth={2} />
-            </div>
-            <div>
-              <h3 className="text-h2 font-bold text-[var(--secondary)]">磐匠数字员工</h3>
-              <span className="text-caption text-[var(--text-secondary)]">RPA自动化基座</span>
-            </div>
+          {/* Bottom indicator */}
+          <div className="flex items-center justify-center gap-2 text-caption text-[var(--text-light)]">
+            <RefreshCw size={12} />
+            <span>如此反复数十轮，直至质量和节奏达到预期</span>
           </div>
-          <div className="space-y-3">
+
+          <button
+            className="w-full mt-4 py-2.5 rounded-xl border-2 text-body-sm font-bold transition-all"
+            style={{ borderColor: '#F97316', backgroundColor: '#F9731608', color: '#F97316' }}
+            onClick={(e) => { e.stopPropagation(); setPhase(1); }}>
+            点击查看协作分工 →
+          </button>
+        </div>
+      )}
+
+      {phase === 1 && (
+        <div className="st-detail max-w-3xl w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
             {[
-              { icon: Users, label: '17,000+ 数字员工', desc: '年节省70万人天' },
-              { icon: Zap, label: '"观摩式"无代码生成', desc: '降低使用门槛' },
-              { icon: BarChart3, label: 'RPA → IPA → Agent', desc: '持续演进升级' },
-              { icon: Shield, label: '浏览器自动化', desc: '打通内部系统壁垒' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-[var(--bg-primary)]">
-                <item.icon className="w-5 h-5 text-[var(--secondary)] flex-shrink-0 mt-0.5" strokeWidth={2} />
-                <div>
-                  <span className="text-body-sm font-semibold text-[var(--text-primary)]">{item.label}</span>
-                  <p className="text-caption text-[var(--text-secondary)]">{item.desc}</p>
+              { icon: Palette, label: '人负责', items: ['审美判断', '叙事节奏', '信息取舍', '最终决策'], color: '#3B82F6' },
+              { icon: Code, label: 'AI 负责', items: ['代码实现', '动画效果', '文案初稿', '批量修改'], color: '#8B5CF6' },
+              { icon: Lightbulb, label: '人+AI 共同', items: ['结构设计', '内容迭代', '方案对比', '质量优化'], color: '#10B981' },
+            ].map((col, i) => {
+              const Icon = col.icon;
+              return (
+                <div key={i} className="rounded-xl border-2 p-4" style={{ borderColor: col.color, backgroundColor: `${col.color}06` }}>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Icon size={16} style={{ color: col.color }} />
+                    <span className="text-body-sm font-bold" style={{ color: col.color }}>{col.label}</span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {col.items.map((item, j) => (
+                      <div key={j} className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: col.color }} />
+                        <span className="text-caption text-[var(--text-secondary)]">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </div>
-      </div>
 
-      {/* 升级路径 */}
-      <div className="status-path mt-10 max-w-4xl w-full rounded-2xl p-6 bg-[var(--bg-secondary)] border border-[var(--border)]">
-        <h4 className="text-h3 font-bold text-[var(--text-primary)] text-center mb-4">Agent升级路径</h4>
-        <div className="flex items-center justify-center gap-3 flex-wrap">
-          {[
-            { label: '九天大模型', color: 'var(--primary)', sub: '模型底座' },
-            { label: '聚智平台', color: 'var(--secondary)', sub: '技能市场' },
-            { label: 'OpenClaw/Hermes', color: 'var(--accent)', sub: 'Agent框架' },
-            { label: '磐匠RPA', color: 'var(--success)', sub: '浏览器自动化' },
-          ].map((item, i) => (
-            <React.Fragment key={i}>
-              <div className="flex flex-col items-center px-5 py-3 rounded-xl border-2 min-w-[120px]" style={{ borderColor: item.color, backgroundColor: `${item.color}10` }}>
-                <span className="text-body-sm font-bold" style={{ color: item.color }}>{item.label}</span>
-                <span className="text-caption text-[var(--text-light)]">{item.sub}</span>
-              </div>
-              {i < 3 && <span className="text-[var(--text-light)] text-2xl">+</span>}
-            </React.Fragment>
-          ))}
-          <span className="text-2xl text-[var(--text-light)]">=</span>
-          <Badge variant="accent">企业级AI Agent</Badge>
+          <button
+            className="w-full py-2 rounded-lg border text-caption text-[var(--text-light)]"
+            onClick={(e) => { e.stopPropagation(); setPhase(0); }}>
+            ← 返回迭代过程
+          </button>
         </div>
+      )}
+
+      {/* Golden quote */}
+      <div className="st-quote rounded-xl border-2 p-5 max-w-2xl w-full text-center mt-4 opacity-0"
+        style={{ borderColor: '#F97316', backgroundColor: '#F9731608' }}>
+        <p className="text-h3 font-bold" style={{ color: '#F97316' }}>
+          "你可以外包你的思考，但不能外包你的理解。"
+        </p>
+        <p className="text-caption text-[var(--text-secondary)] mt-2">
+          AI 生成内容的上限，取决于人对业务理解的深度
+        </p>
       </div>
     </section>
   );

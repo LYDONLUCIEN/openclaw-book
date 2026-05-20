@@ -1,7 +1,7 @@
 import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { AlertTriangle, MessageSquare, Ghost, Brain } from 'lucide-react';
+import { MessageSquare, Ghost, Brain } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
@@ -11,24 +11,24 @@ const PROBLEMS = [
     title: '意图澄清',
     desc: '操作越便利，用户输入越模糊',
     detail: '用户说"帮我处理一下"，AI不知道要处理什么。自然语言的便利性带来了输入的不确定性。',
-    color: 'var(--primary)',
-    costImpact: 'P 参与度：用户需要反复澄清意图',
+    color: 'var(--success)',
+    propImpact: '影响确定性：需要反复澄清意图',
   },
   {
     icon: Ghost,
     title: '模型幻觉',
     desc: '不擅长计算，缺少知识，输出不确定',
     detail: '大模型本质是概率模型，不是知识库也不是计算器。它会自信地给出错误答案。',
-    color: 'var(--accent)',
-    costImpact: 'U 不确定度：输出结果不可靠',
+    color: 'var(--success)',
+    propImpact: '影响确定性：输出结果不可靠',
   },
   {
     icon: Brain,
     title: '注意力稀释',
     desc: '上下文越长，模型越"笨"',
     detail: '研究表明上下文超过一定长度后，模型准确率下降30-40%。信息越多反而越不靠谱。',
-    color: 'var(--success)',
-    costImpact: 'U 不确定度：长对话质量显著下降',
+    color: 'var(--accent)',
+    propImpact: '影响完备性：长对话质量显著下降',
   },
 ];
 
@@ -53,10 +53,10 @@ const Slide06_KnowledgeProblem: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       <h2 className="p6-title text-h1 font-bold text-[var(--text-primary)] mb-1 opacity-0">
-        大模型的四大问题
+        大模型的三个核心困难
       </h2>
       <p className="p6-subtitle text-body text-[var(--text-secondary)] mb-6 max-w-xl text-center opacity-0">
-        清华应届生虽然聪明，但直接上岗会遇到三个核心困难
+        清华应届生虽然聪明，但直接上岗会遇到三个核心困难——它们分别影响我们的三个好特性
       </p>
 
       <div className="max-w-3xl w-full space-y-4">
@@ -75,8 +75,7 @@ const Slide06_KnowledgeProblem: React.FC<SlideProps> = ({ isActive }) => {
                   <p className="text-body-sm text-[var(--text-primary)] mb-1">{p.desc}</p>
                   <p className="text-caption text-[var(--text-secondary)] leading-relaxed">{p.detail}</p>
                   <div className="mt-2 flex items-center gap-1.5">
-                    <AlertTriangle size={12} style={{ color: p.color }} />
-                    <span className="text-caption font-semibold" style={{ color: p.color }}>{p.costImpact}</span>
+                    <span className="text-caption font-semibold px-1.5 py-0.5 rounded" style={{ color: p.color, backgroundColor: `${p.color}10` }}>{p.propImpact}</span>
                   </div>
                 </div>
               </div>
@@ -86,7 +85,7 @@ const Slide06_KnowledgeProblem: React.FC<SlideProps> = ({ isActive }) => {
       </div>
 
       <p className="p6-footer text-body text-[var(--text-light)] mt-6">
-        怎么解决？让我们看看 v1.0 的方案 →
+        怎么逐个解决，提升三个特性？让我们看看 v1.0 的方案 →
       </p>
     </section>
   );

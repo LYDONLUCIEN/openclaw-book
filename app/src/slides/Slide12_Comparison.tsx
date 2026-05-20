@@ -1,168 +1,136 @@
-import React, { useRef, memo, useState } from 'react';
+import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Sparkles, Crown, BookOpen, AlertTriangle, Zap, RotateCcw } from 'lucide-react';
+import { MessageSquare, Bot, Clock, Brain } from 'lucide-react';
 
 interface SlideProps { isActive: boolean; }
 
+const LEVELS = [
+  {
+    level: 1,
+    title: '人设对话',
+    color: '#10B981',
+    icon: MessageSquare,
+    points: [
+      '拥有持久记忆的对话伙伴，风格与上下文跨会话保持一致',
+      '相比普通大模型：记忆连续、人格稳定、可积累用户偏好',
+    ],
+    tag: '确定性 · 完备性 ↑',
+    when: '客服、培训、知识问答',
+  },
+  {
+    level: 2,
+    title: '任务助手',
+    color: '#3B82F6',
+    icon: Bot,
+    points: [
+      '执行明确任务，自动沉淀操作经验为 Skill',
+      '遇到能力边界时，自动编撰新 Skill 扩展能力',
+    ],
+    tag: '完备性 ↑ 便利性 ↑',
+    when: '数据处理、文档生成、流程执行',
+  },
+  {
+    level: 3,
+    title: '定时调度',
+    color: '#8B5CF6',
+    icon: Clock,
+    points: [
+      '按计划自动执行：日报、周报、监控巡检、数据同步',
+      '需要充分调教后才能稳定运行，Heartbeat 驱动周期触发',
+    ],
+    tag: '便利性 ↑↑ 确定性 ·',
+    when: '定期报告、自动化运维、持续监控',
+  },
+  {
+    level: 4,
+    title: '自主决策',
+    color: '#F97316',
+    icon: Brain,
+    points: [
+      '非流程化复杂任务，需人工先走通一遍再交给 Agent',
+      '必须持续监管，防止目标偏移和意外操作',
+    ],
+    tag: '三个特性 ↑ 但需监管',
+    when: '调研分析、方案设计、复杂决策',
+  },
+];
+
 const Slide12_Comparison: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState(0);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.hermes-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
-      gsap.fromTo('.hermes-desc', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.3 });
-      gsap.fromTo('.hermes-flow', { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, delay: 0.5 });
-      gsap.fromTo('.hermes-hint', { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 1.2 });
+      gsap.fromTo('.cmp-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+      gsap.fromTo('.cmp-subtitle', { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.2 });
+      gsap.fromTo('.cmp-card', { opacity: 0, y: 30, scale: 0.92 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.12, ease: 'back.out(1.4)', delay: 0.5 });
+      gsap.fromTo('.cmp-footer', { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 1.4 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
-  const handleClick = () => {
-    if (phase === 0) {
-      const ctx = gsap.context(() => {
-        gsap.to('.hermes-flow', { opacity: 0.15, duration: 0.4 });
-        gsap.to('.hermes-hint', { opacity: 0, duration: 0.2 });
-        gsap.fromTo('.reveal-section', { opacity: 0, scale: 0.9 },
-          { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.5)', delay: 0.4 });
-      }, containerRef);
-      ctx.revert();
-      setPhase(1);
-    } else if (phase === 1) {
-      const ctx = gsap.context(() => {
-        gsap.fromTo('.token-warning', { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, delay: 0.2 });
-        gsap.fromTo('.quote-card', { opacity: 0, scale: 0.95 },
-          { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)', delay: 0.6 });
-      }, containerRef);
-      ctx.revert();
-      setPhase(2);
-    } else {
-      setPhase(0);
-    }
-  };
-
   return (
     <section ref={containerRef}
-      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden cursor-pointer select-none"
-      style={{ backgroundColor: 'var(--bg-primary)' }}
-      onClick={handleClick}>
+      className="w-full min-h-[100dvh] flex flex-col items-center px-6 py-10 md:py-14 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <h2 className="hermes-title text-h1 font-bold text-[var(--text-primary)] mb-2 opacity-0">
-        Hermes Agent — AI 自己写 Skill
+      <h2 className="cmp-title text-h1 font-bold text-[var(--text-primary)] mb-2 opacity-0">
+        如何使用 OpenClaw？
       </h2>
-      <p className="hermes-desc text-body text-[var(--text-secondary)] mb-5 max-w-2xl text-center opacity-0">
-        最后一件终极装备：让 AI 自动识别新模式，自动编写新 Skill。<br />
-        系统可以自我演化——这正是 OpenClaw 的终极形态。
+      <p className="cmp-subtitle text-body text-[var(--text-secondary)] mb-6 max-w-xl text-center opacity-0">
+        四个使用层级，从对话到自主——层级越高，能力越强，调教成本也越高
       </p>
 
-      {/* Phase 0: Hermes flow */}
-      <div className="max-w-3xl w-full">
-        {[
-          { icon: Sparkles, title: 'AI 执行任务', desc: 'Agent 在执行过程中遇到新模式或新流程', color: '#8B5CF6' },
-          { icon: RotateCcw, title: 'Hermes 自动识别', desc: '自动判断：这是一个可复用的技能吗？', color: '#3B82F6' },
-          { icon: BookOpen, title: '自动编写 Skill', desc: '生成 Prompt + SOP + Tool 配置', color: '#10B981' },
-          { icon: Zap, title: '存入 Skill 库', desc: '下次直接调用，不再重复教学', color: '#F59E0B' },
-        ].map((step, i) => {
-          const Icon = step.icon;
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl w-full">
+        {LEVELS.map((lv) => {
+          const Icon = lv.icon;
           return (
-            <div key={i} className="hermes-flow flex items-start gap-3 mb-3 opacity-0">
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center"
-                  style={{ backgroundColor: `${step.color}15`, color: step.color }}>
+            <div key={lv.level}
+              className="cmp-card rounded-xl border-2 p-5 transition-all duration-300 opacity-0"
+              style={{
+                borderColor: lv.color,
+                backgroundColor: `${lv.color}06`,
+              }}>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg text-white shrink-0"
+                  style={{ backgroundColor: lv.color }}>
+                  {lv.level}
+                </div>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: `${lv.color}15`, color: lv.color }}>
                   <Icon size={18} />
                 </div>
-                {i < 3 && <div className="w-0.5 h-4 mt-1" style={{ backgroundColor: `${step.color}30` }} />}
+                <span className="text-h3 font-bold" style={{ color: lv.color }}>{lv.title}</span>
               </div>
-              <div className="flex-1 rounded-lg border p-3"
-                style={{ borderColor: `${step.color}40`, backgroundColor: `${step.color}05` }}>
-                <span className="text-body-sm font-bold" style={{ color: step.color }}>{step.title}</span>
-                <p className="text-caption text-[var(--text-secondary)] mt-0.5">{step.desc}</p>
+
+              <ul className="space-y-1.5 mb-3 pl-1">
+                {lv.points.map((pt, j) => (
+                  <li key={j} className="flex items-start gap-2 text-caption text-[var(--text-secondary)]">
+                    <span className="shrink-0 mt-1 w-1 h-1 rounded-full" style={{ backgroundColor: lv.color }} />
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="rounded-full px-3 py-1 text-caption font-semibold"
+                  style={{ backgroundColor: `${lv.color}15`, color: lv.color }}>
+                  {lv.tag}
+                </span>
+                <span className="text-caption text-[var(--text-light)]">适用：{lv.when}</span>
               </div>
             </div>
           );
         })}
       </div>
 
-      <p className="hermes-hint text-body text-[var(--text-light)] mt-4 opacity-0">
-        Hermes 让开发成本进一步降低——AI 帮你写代码。点击查看 OpenClaw 完全体 →
-      </p>
-
-      {/* Phase 1: Final Stats Reveal */}
-      {phase >= 1 && (
-        <div className="reveal-section max-w-2xl w-full mt-2 opacity-0">
-          <div className="rounded-xl border-2 p-5 text-center"
-            style={{ borderColor: '#F59E0B', backgroundColor: '#F59E0B08', boxShadow: '0 0 30px #F59E0B20' }}>
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Crown size={24} style={{ color: '#F59E0B' }} />
-              <span className="text-h2 font-bold" style={{ color: '#F59E0B' }}>OpenClaw 完全体</span>
-              <span className="text-caption px-2 py-0.5 rounded-full font-bold text-white" style={{ backgroundColor: '#F59E0B' }}>
-                氪金角色
-              </span>
-            </div>
-
-            {/* Stats */}
-            <div className="flex justify-center gap-6 mb-3">
-              {[
-                { label: 'C 复杂度', value: 50, color: 'var(--accent)', cost: '开发成本' },
-                { label: 'P 参与度', value: 8, color: 'var(--primary)', cost: '操作成本' },
-                { label: 'U 不确定度', value: 15, color: 'var(--success)', cost: '确认成本' },
-              ].map((s) => (
-                <div key={s.label} className="text-center">
-                  <div className="h-20 w-20 rounded-full mx-auto mb-1 flex items-center justify-center border-3"
-                    style={{ borderColor: s.color, backgroundColor: `${s.color}10` }}>
-                    <span className="text-h1 font-extrabold" style={{ color: s.color }}>{s.value}</span>
-                  </div>
-                  <span className="text-caption font-bold block" style={{ color: s.color }}>{s.label}</span>
-                  <span className="text-caption text-[var(--text-light)]">{s.cost}</span>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-caption text-[var(--text-secondary)]">
-              8件装备全部穿满：Prompt → RAG → FC → Workflow → ReAct → Skills → Harness → Hermes
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Phase 2: Token warning + Quote */}
-      {phase >= 2 && (
-        <>
-          <div className="token-warning max-w-2xl w-full mt-4 opacity-0">
-            <div className="rounded-xl border-2 p-4" style={{ borderColor: '#EF4444', backgroundColor: '#EF444408' }}>
-              <div className="flex items-start gap-2">
-                <AlertTriangle size={18} style={{ color: '#EF4444' }} className="shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-body-sm font-bold" style={{ color: '#EF4444' }}>隐性成本：Token + 模型智能上限</span>
-                  <p className="text-caption text-[var(--text-secondary)] mt-1">
-                    OpenClaw 的人力成本确实降低了，但 Token（算力）是新的隐性维度。
-                    且模型的智能引入有上限——如果没有更聪明的大模型，已达上限的不确定度就只能转移到确认成本（人工校验）上。
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="quote-card max-w-xl w-full mt-4 opacity-0">
-            <div className="rounded-xl border-2 p-4 text-center"
-              style={{ borderColor: 'var(--primary)', backgroundColor: 'var(--primary)08' }}>
-              <p className="text-h3 font-bold text-[var(--primary)]">
-                "不可能三角不会消失，但它会升维。"
-              </p>
-              <p className="text-caption text-[var(--text-secondary)] mt-2">
-                OpenClaw 不是打破三角，而是通过改变成本结构，把整个三角变大。
-              </p>
-            </div>
-          </div>
-        </>
-      )}
-
-      <div className="absolute bottom-6 text-caption text-[var(--text-light)]">
-        {phase === 0 ? '点击查看 OpenClaw 完全体' : phase === 1 ? '点击查看隐性成本' : '点击重置'}
+      <div className="cmp-footer rounded-xl border-2 p-4 max-w-3xl w-full mt-5 text-center opacity-0"
+        style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
+        <p className="text-body-sm text-[var(--text-primary)]">
+          不要一开始就追求 Level 4——从 Level 1 积累经验，逐级验证后再升级
+        </p>
       </div>
     </section>
   );

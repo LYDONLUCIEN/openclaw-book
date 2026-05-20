@@ -55,7 +55,7 @@ const Slide04_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
       onClick={handleClick}>
 
       <h2 className="rv-title text-h1 font-bold text-[var(--text-primary)] mb-3 opacity-0">
-        OpenClaw — 氪金之后的大模型
+        OpenClaw — 全面升级的大模型
       </h2>
 
       {/* Phase 0: LLM vs OpenClaw Comparison */}
@@ -66,12 +66,12 @@ const Slide04_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
             <Sparkles size={28} style={{ color: '#8B5CF6' }} />
           </div>
           <span className="text-body font-bold" style={{ color: '#8B5CF6' }}>普通大模型</span>
-          <span className="text-caption text-[var(--text-secondary)] block mt-0.5">法师·规划者</span>
+          <span className="text-caption text-[var(--text-secondary)] block mt-0.5">法师·通才</span>
           <div className="mt-3 space-y-2">
             {[
-              { label: 'C 复杂度', val: 10, color: 'var(--accent)' },
-              { label: 'P 参与度', val: 40, color: 'var(--primary)' },
-              { label: 'U 不确定度', val: 80, color: 'var(--success)' },
+              { label: '确定性', val: 20, color: 'var(--success)' },
+              { label: '完备性', val: 90, color: 'var(--accent)' },
+              { label: '便利性', val: 60, color: 'var(--primary)' },
             ].map(s => (
               <div key={s.label}>
                 <div className="flex justify-between text-caption mb-0.5">
@@ -84,14 +84,14 @@ const Slide04_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
               </div>
             ))}
           </div>
-          <p className="text-caption text-[var(--text-light)] mt-2">聪明但会胡说</p>
+          <p className="text-caption text-[var(--text-light)] mt-2">覆盖广但不可靠</p>
         </div>
 
         {/* Arrow */}
         <div className="flex items-center pt-12">
           <div className="text-center">
             <Crown size={24} style={{ color: '#F59E0B' }} />
-            <span className="text-caption font-bold block" style={{ color: '#F59E0B' }}>氪金</span>
+            <span className="text-caption font-bold block" style={{ color: '#F59E0B' }}>升级</span>
           </div>
         </div>
 
@@ -101,12 +101,12 @@ const Slide04_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
             <Crown size={28} style={{ color: '#F59E0B' }} />
           </div>
           <span className="text-body font-bold" style={{ color: '#F59E0B' }}>OpenClaw</span>
-          <span className="text-caption text-[var(--text-secondary)] block mt-0.5">氪金角色</span>
+          <span className="text-caption text-[var(--text-secondary)] block mt-0.5">升级角色</span>
           <div className="mt-3 space-y-2">
             {[
-              { label: 'C 复杂度', val: 50, color: 'var(--accent)' },
-              { label: 'P 参与度', val: 8, color: 'var(--primary)' },
-              { label: 'U 不确定度', val: 15, color: 'var(--success)' },
+              { label: '确定性', val: 85, color: 'var(--success)' },
+              { label: '完备性', val: 50, color: 'var(--accent)' },
+              { label: '便利性', val: 92, color: 'var(--primary)' },
             ].map(s => (
               <div key={s.label}>
                 <div className="flex justify-between text-caption mb-0.5">
@@ -119,19 +119,19 @@ const Slide04_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
               </div>
             ))}
           </div>
-          <span className="text-caption px-2 py-0.5 rounded-full font-bold text-white inline-block mt-2" style={{ backgroundColor: '#F59E0B' }}>Token 换智能</span>
+          <span className="text-caption px-2 py-0.5 rounded-full font-bold text-white inline-block mt-2" style={{ backgroundColor: '#F59E0B' }}>三个特性全面升级</span>
         </div>
       </div>
 
       <p className="rv-hint text-body text-[var(--text-secondary)] opacity-0">
-        为什么差距这么大？因为 OpenClaw 穿上了 <span className="font-bold">8件装备</span>。点击看看都是什么 →
+        三个特性都显著更好——怎么做到的？因为穿上了 <span className="font-bold">8件装备</span>。点击看看 →
       </p>
 
-      {/* Phase 1: Equipment mapping from slide 1 concepts */}
+      {/* Phase 1: Equipment mapping */}
       {phase >= 1 && (
         <div className="max-w-3xl w-full mt-2">
           <p className="rv-equip-title text-body font-bold text-[var(--text-primary)] mb-2 opacity-0">
-            还记得第一页出现的那些概念吗？它们就是 OpenClaw 的装备：
+            每件装备都在提升某个特性：
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
@@ -159,14 +159,14 @@ const Slide04_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
       {phase >= 2 && (
         <div className="rv-arch max-w-xl w-full mt-4 text-center opacity-0">
           <p className="text-body text-[var(--text-secondary)]">
-            从绿装到橙装，每升一级都在解决上一级留下的问题。<br />
+            从绿装到橙装，每升一级都在提升系统的三个特性。<br />
             接下来我们逐步拆解这个升级过程 →
           </p>
         </div>
       )}
 
       <div className="absolute bottom-5 text-caption text-[var(--text-light)]">
-        {phase === 0 ? '点击查看装备' : phase === 1 ? '点击查看架构创新' : '点击重置'}
+        {phase === 0 ? '点击查看装备' : phase === 1 ? '点击查看总结' : '点击重置'}
       </div>
     </section>
   );

@@ -8,6 +8,7 @@ import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 import TopBar from './TopBar';
 import BottomNav from './BottomNav';
 import ProgressBar from './ProgressBar';
+import TOC from './TOC';
 interface LayoutProps {
   totalSlides: number;
   slides: React.ComponentType<{ isActive: boolean }>[];
@@ -144,6 +145,13 @@ const LayoutInner: React.FC<{ slides: React.ComponentType<{ isActive: boolean }>
           </div>
         ))}
       </div>
+
+      {/* Table of Contents */}
+      <TOC
+        currentSlide={currentSlide}
+        totalSlides={totalSlides}
+        onGoToSlide={goToSlide}
+      />
 
       {/* Bottom Navigation */}
       <BottomNav

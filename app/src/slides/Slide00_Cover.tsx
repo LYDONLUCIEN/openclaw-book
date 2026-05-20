@@ -75,7 +75,7 @@ const Slide00_Cover: React.FC<SlideProps> = ({ isActive }) => {
         </div>
 
         <div ref={titleLine2Ref} className="text-h2 md:text-h1 text-[var(--primary-dark)] leading-[1.15] tracking-[-0.02em] font-bold mt-2">
-          <span className="inline-block">{renderChars('从理解成本到快速上手')}</span>
+          <span className="inline-block">{renderChars('从理解特性到快速上手')}</span>
         </div>
 
         <p className="cover-subtitle text-h3 text-[var(--text-secondary)] mt-6 max-w-[600px] opacity-0">

@@ -1,0 +1,23 @@
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "f6288f6e9bab49008fd4322b11d16c58.10oPwDjA2KoGSACs",
+    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+    "API_TIMEOUT_MS": "3000000",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1,
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "GLM-4.5-air",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "GLM-5.1",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "GLM-5.1"
+  },
+  "enabledPlugins": {
+    "glm-plan-usage@zai-coding-plugins": true,
+    "glm-plan-bug@zai-coding-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "zai-coding-plugins": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/soulhappy/.npm/_npx/2f024689b4d0d3b0/node_modules/@z_ai/coding-helper/zai-coding-plugins"
+      }
+    }
+  }
+}
