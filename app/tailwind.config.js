@@ -89,6 +89,7 @@ module.exports = {
         'h2': ['1.75rem', { lineHeight: '1.25', letterSpacing: '0', fontWeight: '600' }],
         'h3': ['1.375rem', { lineHeight: '1.3', letterSpacing: '0', fontWeight: '600' }],
         'body': ['1.125rem', { lineHeight: '1.6', letterSpacing: '0.01em', fontWeight: '400' }],
+        'body-lg': ['1.25rem', { lineHeight: '1.5', letterSpacing: '0.01em', fontWeight: '400' }],
         'body-sm': ['0.9375rem', { lineHeight: '1.5', letterSpacing: '0.01em', fontWeight: '400' }],
         'caption': ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.02em', fontWeight: '500' }],
         'data': ['3.5rem', { lineHeight: '1.0', letterSpacing: '-0.02em', fontWeight: '800' }],

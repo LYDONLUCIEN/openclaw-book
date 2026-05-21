@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { Maximize, Minimize } from 'lucide-react';
 import CmLogo from './assets/CmLogo';
 import ThemeToggle from './ThemeToggle';
+import PDFExportButton from './PDFExportButton';
 import type { Theme } from '@/hooks/useTheme';
 
 interface TopBarProps {
@@ -13,7 +14,7 @@ interface TopBarProps {
 }
 
 /**
- * Fixed top bar, hidden on slide 0 and 20 (cover and thank-you)
+ * Fixed top bar, hidden on cover and thank-you slides
  */
 const TopBar: React.FC<TopBarProps> = ({
   currentSlide,
@@ -21,7 +22,7 @@ const TopBar: React.FC<TopBarProps> = ({
   onThemeChange,
   className,
 }) => {
-  const isHidden = currentSlide === 0 || currentSlide === 20;
+  const isHidden = currentSlide === 0 || currentSlide === 22;
 
   // Fullscreen state tracking
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -64,8 +65,9 @@ const TopBar: React.FC<TopBarProps> = ({
         </span>
       </div>
 
-      {/* Right: Fullscreen + Theme Toggle */}
+      {/* Right: PDF + Fullscreen + Theme Toggle */}
       <div className="flex items-center gap-2 flex-shrink-0">
+        <PDFExportButton />
         <button
           onClick={toggleFullscreen}
           className={cn(

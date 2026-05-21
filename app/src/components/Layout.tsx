@@ -131,10 +131,11 @@ const LayoutInner: React.FC<{ slides: React.ComponentType<{ isActive: boolean }>
       <TopBar currentSlide={currentSlide} theme={theme} onThemeChange={setTheme} />
 
       {/* Slide Container */}
-      <div className="relative w-full min-h-[100dvh] overflow-hidden">
+      <div className="relative w-full min-h-[100dvh] overflow-hidden" data-slide-container>
         {slides.map((SlideComponent, index) => (
           <div
             key={index}
+            data-slide-index={index}
             ref={(el) => { slideRefs.current[index] = el; }}
             className="absolute inset-0 w-full min-h-[100dvh] overflow-y-auto"
             role="region"
