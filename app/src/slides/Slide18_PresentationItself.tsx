@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { User, Bot } from 'lucide-react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
@@ -39,12 +40,13 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
       className="w-full min-h-[100dvh] flex flex-col items-center justify-between pt-16 pb-20 px-6 relative overflow-hidden"
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <h2 className="pi-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-5 opacity-0">
+      <h2 className="pi-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-3 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={2} />
         实战案例：本课件的诞生过程
       </h2>
 
       {/* Timeline */}
-      <div className="max-w-5xl w-full mb-5">
+      <div className="max-w-5xl w-full mb-3">
         <div className="flex items-start gap-0">
           {ITERATIONS.map((it, i) => (
             <div key={i} className="pi-timeline flex-1 flex flex-col items-center opacity-0">
@@ -75,9 +77,9 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
       {/* Two columns: division of labor */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-5xl w-full mb-5">
         {/* Human */}
-        <div className="pi-col rounded-xl border-2 p-5 opacity-0"
+        <div className="pi-col rounded-xl border-2 p-4 opacity-0"
           style={{ borderColor: '#3B82F6', backgroundColor: '#3B82F606' }}>
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: '#3B82F615', color: '#3B82F6' }}>
               <User size={16} />
@@ -86,7 +88,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
               {'🧑'} 人类职责
             </span>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-2">
             {HUMAN_TASKS.map((task, i) => (
               <span key={i}
                 className="rounded-full px-3 py-1 text-caption font-semibold"
@@ -95,12 +97,14 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
               </span>
             ))}
           </div>
+          <img src="./images/slide19-human-work.png" alt="人类工作示例"
+            className="w-full rounded-lg object-cover" style={{ maxHeight: '180px' }} />
         </div>
 
         {/* AI */}
-        <div className="pi-col rounded-xl border-2 p-5 opacity-0"
+        <div className="pi-col rounded-xl border-2 p-4 opacity-0"
           style={{ borderColor: '#10B981', backgroundColor: '#10B98106' }}>
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{ backgroundColor: '#10B98115', color: '#10B981' }}>
               <Bot size={16} />
@@ -109,7 +113,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
               {'🤖'} AI 职责
             </span>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-2">
             {AI_TASKS.map((task, i) => (
               <span key={i}
                 className="rounded-full px-3 py-1 text-caption font-semibold"
@@ -118,11 +122,13 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
               </span>
             ))}
           </div>
+          <img src="./images/slide19-ai-work.png" alt="AI工作示例"
+            className="w-full rounded-lg object-cover" style={{ maxHeight: '180px' }} />
         </div>
       </div>
 
       {/* Prominent quote */}
-      <div className="pi-quote rounded-2xl border-2 px-8 py-5 max-w-5xl w-full text-center mb-4 opacity-0"
+      <div className="pi-quote rounded-2xl border-2 px-8 py-4 max-w-5xl w-full text-center mb-3 opacity-0"
         style={{ borderColor: '#F97316', backgroundColor: '#F973160A' }}>
         <p className="text-h3 font-bold" style={{ color: '#F97316' }}>
           &ldquo;可以外包思考过程，但不能外包理解本身&rdquo;
@@ -130,7 +136,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
       </div>
 
       {/* Footer */}
-      <div className="pi-footer rounded-xl border p-3 max-w-5xl w-full text-center opacity-0"
+      <div className="pi-footer rounded-xl border p-2 max-w-5xl w-full text-center opacity-0"
         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
         <p className="text-caption text-[var(--text-secondary)]">
           本课件 = 开发成本弥补确定性的工程实践

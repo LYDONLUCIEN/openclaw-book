@@ -1,6 +1,7 @@
 import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
@@ -87,7 +88,8 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       {/* Title */}
-      <h2 className="tri-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0">
+      <h2 className="tri-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={1} />
         系统三特性的不可能三角
       </h2>
       <p className="tri-intro text-body text-[var(--text-secondary)] max-w-2xl text-center mb-6 opacity-0">

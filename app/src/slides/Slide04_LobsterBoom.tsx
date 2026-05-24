@@ -9,7 +9,7 @@ const HIGHLIGHTS = [
   {
     icon: Star,
     title: 'GitHub Stars 数据',
-    stat: '278K+',
+    stat: '374K+',
     statLabel: 'Stars（历史级增速）',
     desc: 'OpenClaw 在发布数周内迅速登顶 GitHub 全球热门榜单，成为开源社区现象级项目。',
     detail: '开源模型与工具链的完整度是其爆发式增长的核心驱动力，社区贡献者遍布全球。',

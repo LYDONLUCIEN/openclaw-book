@@ -128,7 +128,7 @@ const LayoutInner: React.FC<{ slides: React.ComponentType<{ isActive: boolean }>
       <ProgressBar current={currentSlide} total={totalSlides} />
 
       {/* Top Bar */}
-      <TopBar currentSlide={currentSlide} theme={theme} onThemeChange={setTheme} />
+      <TopBar currentSlide={currentSlide} totalSlides={totalSlides} theme={theme} onThemeChange={setTheme} />
 
       {/* Slide Container */}
       <div className="relative w-full min-h-[100dvh] overflow-hidden" data-slide-container>

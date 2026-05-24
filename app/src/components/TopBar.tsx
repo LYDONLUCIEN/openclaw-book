@@ -8,6 +8,7 @@ import type { Theme } from '@/hooks/useTheme';
 
 interface TopBarProps {
   currentSlide: number;
+  totalSlides: number;
   theme: Theme;
   onThemeChange: (theme: Theme) => void;
   className?: string;
@@ -18,11 +19,12 @@ interface TopBarProps {
  */
 const TopBar: React.FC<TopBarProps> = ({
   currentSlide,
+  totalSlides,
   theme,
   onThemeChange,
   className,
 }) => {
-  const isHidden = currentSlide === 0 || currentSlide === 22;
+  const isHidden = currentSlide === 0 || currentSlide === totalSlides - 1;
 
   // Fullscreen state tracking
   const [isFullscreen, setIsFullscreen] = useState(false);

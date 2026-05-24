@@ -1,75 +1,242 @@
 import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import HeroOrb1 from '@/components/assets/HeroOrb1';
-import HeroOrb2 from '@/components/assets/HeroOrb2';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
+const ROWS = [
+  {
+    color: '#F97316',
+    tag: '01',
+    left: {
+      title: '三特性与成本的不可能三角',
+      points: ['便利性 ↔ 操作成本', '完备性 ↔ 开发成本', '确定性 ↔ 确认成本'],
+    },
+    right: {
+      line1: '成本不会消失',
+      line2: '只会转移',
+    },
+  },
+  {
+    color: '#8B5CF6',
+    tag: '02',
+    left: {
+      title: 'Harness 与 Skills 的角色',
+      points: ['Skills 提供具体工具能力', 'Harness 负责编排与约束', '模型智能是升级的货币'],
+    },
+    right: {
+      line1: '保证对知识的准确理解',
+      line2: '对工具的准确使用',
+    },
+  },
+  {
+    color: '#10B981',
+    tag: '03',
+    left: {
+      title: '成本叠加时间维度',
+      points: ['时间、精力、金钱的投入', '让转移后的成本变得可接受', '学习到的东西是未来的机会'],
+    },
+    right: {
+      line1: '成本加上时间的可能性',
+      line2: '就是投资',
+    },
+  },
+];
+
 const Slide23_Thanks: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const orb1Ref = useRef<HTMLDivElement>(null);
-  const orb2Ref = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.2 });
-
-      tl.fromTo('.thanks-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'back.out(1.7)' })
-        .fromTo('.thanks-dept', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.6)
-        .fromTo('.thanks-divider', { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power3.out' }, 0.9)
-        .fromTo('.thanks-qr', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.3)' }, 1.1)
-        .fromTo('.thanks-date', { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.4);
-
-      if (orb1Ref.current) {
-        gsap.to(orb1Ref.current, { y: -20, duration: 8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-      }
-      if (orb2Ref.current) {
-        gsap.to(orb2Ref.current, { y: 20, duration: 8, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 3 });
-      }
+      tl.fromTo('.sm-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+      ROWS.forEach((_, i) => {
+        tl.fromTo(`.sm-row-${i}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.3 + i * 0.2);
+      });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
   return (
     <section ref={containerRef}
-      className="w-full min-h-[100dvh] flex flex-col items-center justify-center pt-8 pb-16 px-6 relative overflow-hidden"
+      className="w-full h-[100dvh] flex flex-col items-center pt-14 pb-16 px-4 md:px-8"
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      {/* Background orbs */}
-      <div ref={orb1Ref} className="absolute -top-20 -right-20 w-[500px] h-[500px] pointer-events-none hidden md:block"
-        style={{ opacity: 0.06, filter: 'blur(80px)' }}>
-        <HeroOrb1 width={500} height={500} />
-      </div>
-      <div ref={orb2Ref} className="absolute -bottom-20 -left-20 w-[400px] h-[400px] pointer-events-none hidden md:block"
-        style={{ opacity: 0.05, filter: 'blur(80px)' }}>
-        <HeroOrb2 width={400} height={400} />
-      </div>
+      <h2 className="sm-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={3} />
+        总结
+      </h2>
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-xl mx-auto">
-        <h1 className="thanks-title text-display-xl font-extrabold leading-[1.05] tracking-[-0.03em]"
-          style={{ color: 'var(--primary)' }}>
-          谢谢聆听
-        </h1>
+      {/* 3×3 Grid: rows = conclusions, cols = [knowledge | diagram | quote] */}
+      <div className="flex-1 min-h-0 w-full max-w-6xl mx-auto grid grid-rows-3 gap-3">
 
-        <p className="thanks-dept text-h3 text-[var(--text-secondary)] mt-5">
-          北京公司数智化部
-        </p>
+        {/* Row 0: Impossible Triangle */}
+        <div className="sm-row-0 min-h-0 grid grid-cols-[2fr_3fr_2fr] gap-3 rounded-xl border-2 p-3 md:p-4 opacity-0"
+          style={{ borderColor: `${ROWS[0].color}30`, backgroundColor: `${ROWS[0].color}06` }}>
 
-        <div className="thanks-divider w-[120px] h-0.5 mt-6 origin-center"
-          style={{ background: 'linear-gradient(90deg, transparent, var(--primary), transparent)', transform: 'scaleX(0)' }} />
+          {/* Left: Knowledge points */}
+          <div className="flex flex-col justify-center">
+            <span className="text-caption font-bold px-2 py-0.5 rounded inline-block w-fit mb-2"
+              style={{ backgroundColor: `${ROWS[0].color}15`, color: ROWS[0].color }}>{ROWS[0].tag}</span>
+            <h3 className="text-body font-bold text-[var(--text-primary)] mb-2">{ROWS[0].left.title}</h3>
+            <ul className="space-y-1">
+              {ROWS[0].left.points.map((p) => (
+                <li key={p} className="text-caption text-[var(--text-secondary)] leading-snug flex items-start gap-1.5">
+                  <span className="mt-0.5 flex-shrink-0" style={{ color: ROWS[0].color }}>●</span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* QR code placeholder */}
-        <div className="thanks-qr mt-8 w-48 h-48 border-2 border-dashed rounded-xl flex items-center justify-center"
-          style={{ borderColor: 'var(--border)' }}>
-          <p className="text-caption text-[var(--text-light)] px-4 text-center leading-snug">
-            [二维码占位：<br />内部社区/入门文档链接]
-          </p>
+          {/* Middle: Triangle diagram */}
+          <div className="flex items-center justify-center">
+            <svg viewBox="0 0 240 150" className="w-full max-w-[260px]">
+              {/* Triangle edges */}
+              <line x1="120" y1="28" x2="20" y2="120" stroke={`${ROWS[0].color}40`} strokeWidth="1.5" strokeDasharray="5,3" />
+              <line x1="120" y1="28" x2="220" y2="120" stroke={`${ROWS[0].color}40`} strokeWidth="1.5" strokeDasharray="5,3" />
+              <line x1="20" y1="120" x2="220" y2="120" stroke={`${ROWS[0].color}40`} strokeWidth="1.5" strokeDasharray="5,3" />
+
+              {/* Center: Cost label */}
+              <circle cx="120" cy="88" r="18" fill={`${ROWS[0].color}15`} stroke={ROWS[0].color} strokeWidth="1.2" />
+              <text x="120" y="92" textAnchor="middle" fill={ROWS[0].color} fontSize="10" fontWeight="bold">成本</text>
+
+              {/* Top vertex: 操作成本 */}
+              <circle cx="120" cy="28" r="13" fill="#3B82F620" stroke="#3B82F6" strokeWidth="1.2" />
+              <text x="120" y="10" textAnchor="middle" fill="#3B82F6" fontSize="10" fontWeight="bold">操作成本</text>
+
+              {/* Bottom-left vertex: 开发成本 */}
+              <circle cx="20" cy="120" r="13" fill="#10B98120" stroke="#10B981" strokeWidth="1.2" />
+              <text x="20" y="142" textAnchor="middle" fill="#10B981" fontSize="10" fontWeight="bold">开发成本</text>
+
+              {/* Bottom-right vertex: 确认成本 */}
+              <circle cx="220" cy="120" r="13" fill="#F9731620" stroke="#F97316" strokeWidth="1.2" />
+              <text x="220" y="142" textAnchor="middle" fill="#F97316" fontSize="10" fontWeight="bold">确认成本</text>
+            </svg>
+          </div>
+
+          {/* Right: Golden quote */}
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-body-lg md:text-h3 font-bold leading-relaxed" style={{ color: ROWS[0].color }}>
+                {ROWS[0].right.line1}
+              </p>
+              <p className="text-body-lg md:text-h3 font-bold leading-relaxed" style={{ color: ROWS[0].color }}>
+                {ROWS[0].right.line2}
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="thanks-date mt-8 text-body-sm text-[var(--text-light)]">
-          <span>2026年5月</span>
+        {/* Row 1: Harness & Skills */}
+        <div className="sm-row-1 min-h-0 grid grid-cols-[2fr_3fr_2fr] gap-3 rounded-xl border-2 p-3 md:p-4 opacity-0"
+          style={{ borderColor: `${ROWS[1].color}30`, backgroundColor: `${ROWS[1].color}06` }}>
+
+          {/* Left: Knowledge points */}
+          <div className="flex flex-col justify-center">
+            <span className="text-caption font-bold px-2 py-0.5 rounded inline-block w-fit mb-2"
+              style={{ backgroundColor: `${ROWS[1].color}15`, color: ROWS[1].color }}>{ROWS[1].tag}</span>
+            <h3 className="text-body font-bold text-[var(--text-primary)] mb-2">{ROWS[1].left.title}</h3>
+            <ul className="space-y-1">
+              {ROWS[1].left.points.map((p) => (
+                <li key={p} className="text-caption text-[var(--text-secondary)] leading-snug flex items-start gap-1.5">
+                  <span className="mt-0.5 flex-shrink-0" style={{ color: ROWS[1].color }}>●</span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Middle: Layer diagram */}
+          <div className="flex items-center justify-center">
+            <div className="flex items-center gap-4">
+              <div className="flex flex-col gap-2">
+                <div className="px-5 py-2 rounded-lg border-2 text-body-sm font-bold text-center"
+                  style={{ borderColor: ROWS[1].color, color: ROWS[1].color, backgroundColor: `${ROWS[1].color}10` }}>
+                  Harness 编排层
+                </div>
+                <div className="px-5 py-2 rounded-lg border-2 text-body-sm font-bold text-center"
+                  style={{ borderColor: ROWS[1].color, color: ROWS[1].color, backgroundColor: `${ROWS[1].color}10` }}>
+                  Skills 工具层
+                </div>
+                <div className="px-5 py-2 rounded-lg border text-body-sm font-bold text-center"
+                  style={{ borderColor: `${ROWS[1].color}50`, color: `${ROWS[1].color}AA`, backgroundColor: `${ROWS[1].color}06` }}>
+                  大模型基座
+                </div>
+              </div>
+              <svg width="24" height="100" viewBox="0 0 24 100" className="flex-shrink-0">
+                <line x1="12" y1="8" x2="12" y2="92" stroke={ROWS[1].color} strokeWidth="2" />
+                <polygon points="5,12 12,2 19,12" fill={ROWS[1].color} />
+                <polygon points="5,88 12,98 19,88" fill={ROWS[1].color} />
+              </svg>
+            </div>
+          </div>
+
+          {/* Right: Golden quote */}
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-body-lg md:text-h3 font-bold leading-relaxed" style={{ color: ROWS[1].color }}>
+                {ROWS[1].right.line1}
+              </p>
+              <p className="text-body-lg md:text-h3 font-bold leading-relaxed" style={{ color: ROWS[1].color }}>
+                {ROWS[1].right.line2}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Row 2: Cost + Time */}
+        <div className="sm-row-2 min-h-0 grid grid-cols-[2fr_3fr_2fr] gap-3 rounded-xl border-2 p-3 md:p-4 opacity-0"
+          style={{ borderColor: `${ROWS[2].color}30`, backgroundColor: `${ROWS[2].color}06` }}>
+
+          {/* Left: Knowledge points */}
+          <div className="flex flex-col justify-center">
+            <span className="text-caption font-bold px-2 py-0.5 rounded inline-block w-fit mb-2"
+              style={{ backgroundColor: `${ROWS[2].color}15`, color: ROWS[2].color }}>{ROWS[2].tag}</span>
+            <h3 className="text-body font-bold text-[var(--text-primary)] mb-2">{ROWS[2].left.title}</h3>
+            <ul className="space-y-1">
+              {ROWS[2].left.points.map((p) => (
+                <li key={p} className="text-caption text-[var(--text-secondary)] leading-snug flex items-start gap-1.5">
+                  <span className="mt-0.5 flex-shrink-0" style={{ color: ROWS[2].color }}>●</span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Middle: Cost → Investment flow */}
+          <div className="flex items-center justify-center">
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              {['时间', '精力', '金钱'].map((item) => (
+                <div key={item} className="px-4 py-2 rounded-lg border-2 text-body-sm font-bold"
+                  style={{ borderColor: `${ROWS[2].color}60`, color: ROWS[2].color, backgroundColor: `${ROWS[2].color}10` }}>
+                  {item}
+                </div>
+              ))}
+              <svg width="32" height="16" viewBox="0 0 32 16" className="flex-shrink-0">
+                <line x1="0" y1="8" x2="22" y2="8" stroke={ROWS[2].color} strokeWidth="2.5" />
+                <polygon points="18,3 32,8 18,13" fill={ROWS[2].color} />
+              </svg>
+              <div className="px-5 py-2 rounded-lg border-2 text-body-sm font-bold"
+                style={{ borderColor: ROWS[2].color, color: ROWS[2].color, backgroundColor: `${ROWS[2].color}15` }}>
+                投资
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Golden quote */}
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-body-lg md:text-h3 font-bold leading-relaxed" style={{ color: ROWS[2].color }}>
+                {ROWS[2].right.line1}
+              </p>
+              <p className="text-body-lg md:text-h3 font-bold leading-relaxed" style={{ color: ROWS[2].color }}>
+                {ROWS[2].right.line2}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

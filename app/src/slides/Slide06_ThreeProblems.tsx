@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { AlertTriangle, Ear, Eye, Brain } from 'lucide-react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean }
 
@@ -58,7 +59,8 @@ const Slide06_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       {/* Title */}
-      <h2 className="tp-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-3 opacity-0">
+      <h2 className="tp-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-3 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={1} />
         裸体大模型的三个核心问题
       </h2>
 
@@ -68,7 +70,7 @@ const Slide06_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
           style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
           <AlertTriangle size={18} style={{ color: '#F59E0B' }} />
           <span className="text-body-sm text-[var(--text-secondary)]">
-            类比清北应届生：记忆有限（输入）、理解偏差（处理）、执行出错（输出）
+            清北应届生：理解偏差（输入）、信息遗漏（处理）、执行出错（输出）
           </span>
         </div>
       </div>

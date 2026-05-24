@@ -1,6 +1,7 @@
 import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
@@ -10,18 +11,21 @@ const PRODUCTS = [
     desc: '自动沉淀流程为Skill，自我优化闭环',
     tag: 'Skills思路实现',
     color: '#3B82F6',
+    imgSrc: '/images/hermes-agent.png',
   },
   {
     name: 'EvoMap',
     desc: '社区投票筛选优质Skill，群体智慧择优',
     tag: 'Skills思路实现',
     color: '#10B981',
+    imgSrc: '/images/evomap.png',
   },
   {
     name: 'Claude Code',
     desc: '能自我改造的Agent，具备干细胞级自适应能力',
     tag: 'Harness思路实现',
     color: '#8B5CF6',
+    imgSrc: '/images/claude-code.png',
   },
 ];
 
@@ -56,7 +60,8 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       {/* Title */}
-      <h2 className="ls-title text-h1 md:text-display-xl font-bold text-[var(--text-primary)] mb-5 opacity-0">
+      <h2 className="ls-title text-h1 md:text-display-xl font-bold text-[var(--text-primary)] mb-5 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={1} />
         同类产品与龙虾定位
       </h2>
 
@@ -68,11 +73,22 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
       </div>
 
       {/* Product cards */}
-      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-6 flex-1">
+      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-6">
         {PRODUCTS.map((product) => (
           <div key={product.name}
-            className="ls-card rounded-xl border-2 p-5 opacity-0"
+            className="ls-card rounded-xl border-2 p-4 md:p-5 opacity-0"
             style={{ borderColor: `${product.color}50`, backgroundColor: `${product.color}08` }}>
+            {/* Image placeholder */}
+            <div className="ls-card-img w-full aspect-video rounded-lg border-2 border-dashed flex items-center justify-center mb-3 overflow-hidden relative"
+              style={{ borderColor: `${product.color}30`, backgroundColor: `${product.color}06` }}>
+              <img src={product.imgSrc} alt={product.name}
+                className="w-full h-full object-contain relative z-10"
+                onLoad={(e) => { ((e.target as HTMLImageElement).nextElementSibling as HTMLElement)?.remove(); }}
+                onError={(e) => { (e.target as HTMLImageElement).remove(); }} />
+              <span className="text-caption text-[var(--text-secondary)] opacity-40">
+                待添加图片
+              </span>
+            </div>
             <div className="flex items-center gap-2 mb-2">
               <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: product.color }} />
               <h3 className="text-body-lg font-bold" style={{ color: product.color }}>{product.name}</h3>

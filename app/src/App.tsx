@@ -20,18 +20,19 @@ import Slide13_LobsterSummary from '@/slides/Slide13_LobsterSummary';
 // 第二章：怎么用
 import Slide14_DeployLevels from '@/slides/Slide14_DeployLevels';
 import Slide15_FourProblems from '@/slides/Slide15_FourProblems';
-import Slide16_CostStrategy from '@/slides/Slide16_CostStrategy';
+import Slide15b_WhyCantUse from '@/slides/Slide15b_WhyCantUse';
 import Slide17_Examples from '@/slides/Slide17_Examples';
+import Slide17b_LevelExamples from '@/slides/Slide17b_LevelExamples';
 import Slide18_PresentationItself from '@/slides/Slide18_PresentationItself';
-import Slide19_PayToWin from '@/slides/Slide19_PayToWin';
 
 // 第三章：未来
 import Slide20_Future from '@/slides/Slide20_Future';
 import Slide21_SelfCheck from '@/slides/Slide21_SelfCheck';
 import Slide22_FinalWords from '@/slides/Slide22_FinalWords';
 import Slide23_Thanks from '@/slides/Slide23_Thanks';
+import Slide24_Thanks from '@/slides/Slide24_Thanks';
 
-const TOTAL_SLIDES = 23;
+const TOTAL_SLIDES = 24;
 
 const slides = [
   // 引导章
@@ -52,15 +53,16 @@ const slides = [
   // 第二章：怎么用
   Slide14_DeployLevels,
   Slide15_FourProblems,
-  Slide16_CostStrategy,
+  Slide15b_WhyCantUse,
   Slide17_Examples,
+  Slide17b_LevelExamples,
   Slide18_PresentationItself,
-  Slide19_PayToWin,
   // 第三章：未来
   Slide20_Future,
   Slide21_SelfCheck,
   Slide22_FinalWords,
   Slide23_Thanks,
+  Slide24_Thanks,
 ];
 
 export default function App() {

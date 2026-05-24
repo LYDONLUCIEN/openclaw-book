@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Database, GitBranch, ArrowRight, ArrowUp, CheckCircle } from 'lucide-react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean }
 
@@ -35,7 +36,8 @@ const Slide08_BlueGear: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       {/* Title */}
-      <h2 className="bl-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0">
+      <h2 className="bl-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={1} />
         v2.0 蓝装 — 流程标准化
       </h2>
 

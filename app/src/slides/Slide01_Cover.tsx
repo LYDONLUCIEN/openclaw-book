@@ -1,7 +1,8 @@
 import React, { useRef, memo, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { TrendingUp, Star, ShoppingBag, AlertTriangle, ChevronRight, Image } from 'lucide-react';
+import { TrendingUp, Star, ShoppingBag, ChevronRight, Image } from 'lucide-react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
@@ -27,7 +28,12 @@ const MOBILE_STRATEGY = { label: '移动 Token 战略', desc: '20+ 平台已接�
 
 const COL3_TERMS = ['Prompt', 'RAG', 'ReAct', 'MCP', 'Function Call', 'Workflow', 'Skills', 'Harness', 'Fine-tuning', 'Embedding', 'Vector DB', 'Vibe Coding'];
 
-const COL3_RISKS = ['模型幻觉', 'Token消耗巨大', '自主决策失控', '数据安全风险'];
+const COL3_HIGHLIGHTS = [
+  { icon: '🔥', text: '催生现象级 AI 应用 Motlbook 诞生' },
+  { icon: '🤖', text: '全 AI Agent 自主讨论的论坛，人类旁观' },
+  { icon: '👥', text: '已有 170 万+ Agent 进入社群自主讨论' },
+  { icon: '💬', text: '出现「天网」「末世」「赛博永生」等帖子' },
+];
 
 const QUESTIONS = [
   { q: '龙虾爆火，其中技术原理是什么？', color: 'var(--primary)' },
@@ -68,7 +74,8 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
       onClick={() => setPhase(phase === 0 ? 1 : 0)}>
 
       {/* Title */}
-      <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
+      <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={1} />
         OpenClaw 现象全景
       </h2>
 
@@ -78,7 +85,7 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
             {/* Column 1: Hype + Data */}
-            <div className="s1-col rounded-xl border-2 p-4 md:p-5 opacity-0"
+            <div className="s1-col flex flex-col rounded-xl border-2 p-4 md:p-5 opacity-0"
               style={{ borderColor: 'var(--primary)60', backgroundColor: 'var(--primary)04' }}>
               <div className="flex items-center gap-2 mb-3">
                 <TrendingUp size={16} style={{ color: 'var(--primary)' }} />
@@ -93,16 +100,15 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
                   </div>
                 ))}
               </div>
-              {/* GitHub trend chart placeholder */}
-              <div className="w-full h-24 rounded-lg border-2 border-dashed flex flex-col items-center justify-center gap-1"
+              {/* GitHub trend chart */}
+              <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--primary)30' }}>
-                <Image size={20} style={{ color: 'var(--text-light)' }} />
-                <span className="text-caption text-[var(--text-light)]">[GitHub 趋势图]</span>
+                <img src="/images/github-trend.png" alt="GitHub 趋势图" className="w-full h-auto object-contain" />
               </div>
             </div>
 
             {/* Column 2: Vendors + Strategy */}
-            <div className="s1-col rounded-xl border-2 p-4 md:p-5 opacity-0"
+            <div className="s1-col flex flex-col rounded-xl border-2 p-4 md:p-5 opacity-0"
               style={{ borderColor: 'var(--accent)60', backgroundColor: 'var(--accent)04' }}>
               <div className="flex items-center gap-2 mb-3">
                 <ShoppingBag size={16} style={{ color: 'var(--accent)' }} />
@@ -116,24 +122,24 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
                   </span>
                 ))}
               </div>
-              {/* Vendor icons placeholder */}
-              <div className="w-full h-16 rounded-lg border-2 border-dashed flex flex-col items-center justify-center gap-1 mb-3"
-                style={{ borderColor: 'var(--accent)30' }}>
-                <span className="text-caption text-[var(--text-light)]">[各厂商 Claw 产品图标]</span>
-              </div>
               {/* Mobile strategy */}
-              <div className="rounded-lg px-3 py-2.5 border-2" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--accent)08' }}>
+              <div className="rounded-lg px-3 py-2.5 border-2 mb-3" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--accent)08' }}>
                 <span className="text-body-sm font-bold block" style={{ color: 'var(--accent)' }}>{MOBILE_STRATEGY.label}</span>
                 <span className="text-caption text-[var(--text-secondary)]">{MOBILE_STRATEGY.desc}</span>
               </div>
+              {/* 龙虾热门新闻截图 */}
+              <div className="mt-auto w-full rounded-lg overflow-hidden border"
+                style={{ borderColor: 'var(--accent)30' }}>
+                <img src="/images/lobster-news.png" alt="龙虾热门新闻" className="w-full h-auto object-contain" />
+              </div>
             </div>
 
-            {/* Column 3: Terms + Risks */}
-            <div className="s1-col rounded-xl border-2 p-4 md:p-5 opacity-0"
+            {/* Column 3: Terms + Phenomenon */}
+            <div className="s1-col flex flex-col rounded-xl border-2 p-4 md:p-5 opacity-0"
               style={{ borderColor: 'var(--secondary)60', backgroundColor: 'var(--secondary)04' }}>
               <div className="flex items-center gap-2 mb-3">
-                <AlertTriangle size={16} style={{ color: 'var(--secondary)' }} />
-                <h3 className="text-body font-bold" style={{ color: 'var(--secondary)' }}>技术名词与使用风险</h3>
+                <Image size={16} style={{ color: 'var(--secondary)' }} />
+                <h3 className="text-body font-bold" style={{ color: 'var(--secondary)' }}>现象级 AI 应用诞生</h3>
               </div>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {COL3_TERMS.map((term, i) => (
@@ -144,18 +150,18 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
                 ))}
               </div>
               <div className="space-y-1.5 mb-3">
-                {COL3_RISKS.map((risk, i) => (
-                  <div key={i} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg"
-                    style={{ backgroundColor: '#EF444408' }}>
-                    <span className="text-caption">⚠️</span>
-                    <span className="text-body-sm font-semibold" style={{ color: '#EF4444' }}>{risk}</span>
+                {COL3_HIGHLIGHTS.map((item, i) => (
+                  <div key={i} className="flex items-start gap-1.5 px-2.5 py-1.5 rounded-lg"
+                    style={{ backgroundColor: 'var(--secondary)08' }}>
+                    <span className="text-caption shrink-0">{item.icon}</span>
+                    <span className="text-body-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{item.text}</span>
                   </div>
                 ))}
               </div>
-              {/* Complaint screenshots placeholder */}
-              <div className="w-full h-20 rounded-lg border-2 border-dashed flex flex-col items-center justify-center gap-1"
+              {/* 换皮术截图 */}
+              <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--secondary)30' }}>
-                <span className="text-caption text-[var(--text-light)]">[用户吐槽截图]</span>
+                <img src="/images/huanpi.png" alt="现象级应用截图" className="w-full h-auto object-contain" />
               </div>
             </div>
           </div>

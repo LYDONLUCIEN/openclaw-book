@@ -1,38 +1,30 @@
 import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { AlertTriangle, Coins, ShieldAlert, Shield } from 'lucide-react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
-const PROBLEMS = [
+const LEVELS = [
   {
-    title: '模型幻觉',
-    icon: AlertTriangle,
-    desc: '概率性生成模型非事实数据库，输出缺乏事实保证',
-    tag: '模型本质 · 不可根除',
-    color: '#EF4444',
+    level: 1, title: '人设对话', desc: '角色设定与知识注入',
+    detail: 'System Prompt + RAG，定义Agent身份与知识边界',
+    tag: '确定性 · 完备性↑', color: '#10B981', img: 'level1-demo.png',
   },
   {
-    title: 'Token 消耗',
-    icon: Coins,
-    desc: '单次交互Token开销显著（一句问候≈13,500 tokens）',
-    tag: '模型本质 · 成本线性增长',
-    color: '#F59E0B',
+    level: 2, title: '任务助理', desc: '多轮对话完成任务',
+    detail: 'Function Call + MCP，多轮交互完成复杂任务',
+    tag: '完备性↑ 便利性↑', color: '#3B82F6', img: 'level2-demo.png',
   },
   {
-    title: '自主决策风险',
-    icon: ShieldAlert,
-    desc: '缺乏常识推理与风险感知，关键决策需人工兜底',
-    tag: '模型本质 · 不可根除',
-    color: '#EF4444',
+    level: 3, title: '定时调度', desc: 'Cron 自动化执行',
+    detail: 'Harness调度引擎，定时触发无人值守任务',
+    tag: '便利性↑↑ 确定性·', color: '#8B5CF6', img: 'level3-demo.png',
   },
   {
-    title: '安全边界',
-    icon: Shield,
-    desc: '运行环境污染、权限过大、数据泄露等风险',
-    tag: '架构层面 · 可通过工程改善',
-    color: '#8B5CF6',
+    level: 4, title: '自主决策', desc: '自主规划执行',
+    detail: 'Agent自主拆解目标、规划路径，需人工监管兜底',
+    tag: '三特性↑', color: '#F97316', img: 'level4-demo.png',
   },
 ];
 
@@ -42,70 +34,60 @@ const Slide15_FourProblems: React.FC<SlideProps> = ({ isActive }) => {
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.fp-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
-      gsap.fromTo('.fp-card', { opacity: 0, y: 25, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.1, ease: 'back.out(1.4)', delay: 0.3 });
-      gsap.fromTo('.fp-bottom', { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.4, delay: 1.0 });
+      const tl = gsap.timeline({ delay: 0.1 });
+      tl.fromTo('.fp-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
+      LEVELS.forEach((_, i) => {
+        tl.fromTo(`.fp-cell-${i}`, { opacity: 0, scale: 0.9 },
+          { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.3)' }, 0.3 + i * 0.12);
+      });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
   return (
     <section ref={containerRef}
-      className="w-full min-h-[100dvh] flex flex-col items-center justify-between pt-16 pb-20 px-6 relative overflow-hidden"
+      className="w-full min-h-[100dvh] flex flex-col items-center pt-16 pb-20 px-6 relative overflow-hidden"
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
-      <h2 className="fp-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
-        核心局限性
+      <h2 className="fp-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={2} />
+        四层使用模型
       </h2>
 
-      {/* 2x2 Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 max-w-5xl w-full flex-1">
-        {PROBLEMS.map((p, i) => {
-          const Icon = p.icon;
-          return (
-            <div key={i}
-              className="fp-card rounded-xl border-2 p-5 md:p-6 opacity-0"
-              style={{
-                borderColor: p.color,
-                backgroundColor: `${p.color}06`,
-              }}>
-              {/* Header */}
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `${p.color}15`, color: p.color }}>
-                  <Icon size={18} />
-                </div>
-                <span className="text-body font-bold" style={{ color: p.color }}>{p.title}</span>
-              </div>
+      {/* 2x2 grid — tight spacing */}
+      <div className="max-w-6xl w-full grid grid-cols-2 gap-2.5 flex-1">
+        {LEVELS.map((lv, i) => (
+          <div key={i}
+            className={`fp-cell-${i} rounded-xl border-2 p-2.5 flex flex-col opacity-0`}
+            style={{ borderColor: `${lv.color}50`, backgroundColor: `${lv.color}08` }}>
 
-              {/* Description */}
-              <p className="text-body-sm text-[var(--text-primary)] mb-3 pl-1 leading-relaxed">
-                {p.desc}
-              </p>
-
-              {/* Tag */}
-              <div>
-                <span className="inline-block rounded-full px-3 py-1 text-caption font-semibold"
-                  style={{
-                    backgroundColor: p.color === '#8B5CF6' ? '#8B5CF615' : `${p.color}15`,
-                    color: p.color,
-                  }}>
-                  {p.tag}
-                </span>
-              </div>
+            {/* Header: badge + title + desc in one line */}
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0"
+                style={{ backgroundColor: `${lv.color}15`, color: lv.color }}>
+                L{lv.level}
+              </span>
+              <span className="text-body-sm font-bold" style={{ color: lv.color }}>{lv.title}</span>
+              <span className="text-[10px] text-[var(--text-light)]">{lv.desc}</span>
             </div>
-          );
-        })}
-      </div>
 
-      {/* Bottom conclusion */}
-      <div className="fp-bottom rounded-xl border-2 p-4 max-w-4xl w-full text-center opacity-0"
-        style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
-        <p className="text-body-sm font-bold text-[var(--text-primary)]">
-          前三项为模型本质限制，安全风险可通过架构设计缓解
-        </p>
+            <p className="text-[10px] text-[var(--text-secondary)] mb-1.5 leading-tight">{lv.detail}</p>
+
+            {/* Image placeholder — very compact */}
+            <div className="mt-auto rounded-md border-2 border-dashed aspect-[2.5/1] flex items-center justify-center overflow-hidden relative"
+              style={{ borderColor: `${lv.color}25`, backgroundColor: `${lv.color}05` }}>
+              <img src={`/images/levels/${lv.img}`} alt={`L${lv.level} demo`}
+                className="w-full h-full object-contain relative z-10"
+                onLoad={(e) => { ((e.target as HTMLImageElement).nextElementSibling as HTMLElement)?.remove(); }}
+                onError={(e) => { (e.target as HTMLImageElement).remove(); }} />
+              <span className="text-[9px] text-[var(--text-secondary)] opacity-40 absolute">
+                L{lv.level} 演示截图
+              </span>
+            </div>
+
+            <span className="text-[9px] font-semibold mt-1" style={{ color: lv.color }}>{lv.tag}</span>
+          </div>
+        ))}
       </div>
     </section>
   );

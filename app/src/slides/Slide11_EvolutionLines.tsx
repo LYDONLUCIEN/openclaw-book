@@ -1,13 +1,14 @@
 import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
 const EVOLUTION_LINES = [
   {
     id: 'input',
-    label: '输入/便利性',
+    label: '输入 / 便利性',
     color: 'var(--primary)',
     rawColor: '#3B82F6',
     nodes: ['提示词', 'RAG', 'Skills'],
@@ -15,7 +16,7 @@ const EVOLUTION_LINES = [
   },
   {
     id: 'process',
-    label: '处理/完备性',
+    label: '处理 / 完备性',
     color: 'var(--accent)',
     rawColor: '#F59E0B',
     nodes: ['Function Call', 'MCP', 'Skills'],
@@ -23,7 +24,7 @@ const EVOLUTION_LINES = [
   },
   {
     id: 'output',
-    label: '输出/确定性',
+    label: '输出 / 确定性',
     color: 'var(--success)',
     rawColor: '#10B981',
     nodes: ['Prompt Eng', 'Workflow', 'ReAct', 'Harness'],
@@ -53,15 +54,14 @@ const Slide11_EvolutionLines: React.FC<SlideProps> = ({ isActive }) => {
             opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.5)',
           }, delay + 0.15 + nodeIndex * 0.12);
         });
+
+        // Animate the trailing dots
+        tl.fromTo(`.el-dots-${line.id}`, { opacity: 0 }, { opacity: 1, duration: 0.5 }, delay + 0.15 + line.nodes.length * 0.12 + 0.1);
       });
 
-      // Convergence box
-      tl.fromTo('.el-converge', { opacity: 0, scale: 0.8 }, {
-        opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.5)',
-      }, 1.8);
-
-      // Bottom note
-      tl.fromTo('.el-note', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, 2.1);
+      // Bottom insight cards
+      tl.fromTo('.el-insight-1', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5 }, 2.0);
+      tl.fromTo('.el-insight-2', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5 }, 2.2);
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
@@ -72,7 +72,8 @@ const Slide11_EvolutionLines: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       {/* Title */}
-      <h2 className="el-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-8 opacity-0">
+      <h2 className="el-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-8 opacity-0 flex items-center gap-2">
+        <ChapterBadge chapter={1} />
         装备演进三条线
       </h2>
 
@@ -110,30 +111,36 @@ const Slide11_EvolutionLines: React.FC<SlideProps> = ({ isActive }) => {
                 </React.Fragment>
               ))}
 
-              {/* Arrow pointing to convergence */}
+              {/* Arrow + trailing dots */}
               <svg width="50" height="20" className="flex-shrink-0">
-                <line x1="0" y1="10" x2="40" y2="10" stroke={line.rawColor} strokeWidth="2" />
-                <polygon points="35,6 40,10 35,14" fill={line.rawColor} />
+                <line x1="0" y1="10" x2="30" y2="10" stroke={line.rawColor} strokeWidth="2" />
+                <polygon points="25,6 30,10 25,14" fill={line.rawColor} />
               </svg>
+              <span className={`el-dots-${line.id} text-h2 font-bold tracking-widest opacity-0`}
+                style={{ color: line.rawColor }}>
+                ···
+              </span>
             </div>
           </div>
         ))}
 
-        {/* Convergence box */}
-        <div className="el-converge flex justify-center opacity-0">
-          <div className="rounded-xl border-2 px-10 py-5 text-center"
-            style={{ borderColor: '#F97316', backgroundColor: '#F9731615', boxShadow: '0 0 25px #F9731620' }}>
-            <p className="text-h2 font-bold" style={{ color: '#F97316' }}>Skills + Harness</p>
-            <p className="text-body-sm text-[var(--text-secondary)] mt-2">龙虾两大核心技术</p>
+        {/* Core insight: two cards side by side */}
+        <div className="flex justify-center gap-6 mt-8">
+          <div className="el-insight-1 rounded-xl border-2 px-6 py-4 max-w-md text-center opacity-0"
+            style={{ borderColor: '#F97316', backgroundColor: '#F9731615' }}>
+            <p className="text-h3 font-bold" style={{ color: '#F97316' }}>Skills — 沉淀</p>
+            <p className="text-body-sm text-[var(--text-secondary)] mt-2">
+              用更多沉淀的业务知识与流程，降低模型的<span className="font-bold text-[var(--text-primary)]">确认成本</span>与<span className="font-bold text-[var(--text-primary)]">操作成本</span>
+            </p>
+          </div>
+          <div className="el-insight-2 rounded-xl border-2 px-6 py-4 max-w-md text-center opacity-0"
+            style={{ borderColor: '#F97316', backgroundColor: '#F9731615' }}>
+            <p className="text-h3 font-bold" style={{ color: '#F97316' }}>Harness — 众包</p>
+            <p className="text-body-sm text-[var(--text-secondary)] mt-2">
+              用更多众包的经验，降低这些沉淀流程的<span className="font-bold text-[var(--text-primary)]">开发成本</span>
+            </p>
           </div>
         </div>
-      </div>
-
-      {/* Bottom note */}
-      <div className="el-note mt-8 text-center opacity-0">
-        <p className="text-body font-semibold" style={{ color: '#F97316' }}>
-          所有演进路径的终点 = 龙虾两大核心技术
-        </p>
       </div>
     </section>
   );
