@@ -4,7 +4,7 @@ import { List, X } from 'lucide-react';
 
 const SLIDE_TITLES = [
   'OpenClaw 入门指南',
-  'OpenClaw 现象全景',
+  'OpenClaw 横空出世',
   '目录',
   '系统三特性的不可能三角',
   '四种技术路线特性对比',

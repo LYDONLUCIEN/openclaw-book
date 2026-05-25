@@ -7,6 +7,7 @@ interface UseKeyboardNavOptions {
   onNext: () => void;
   onGoTo: (index: number) => void;
   isTransitioning: boolean;
+  disabled?: boolean;
 }
 
 const THROTTLE_MS = 600;
@@ -18,6 +19,7 @@ export function useKeyboardNav({
   onNext,
   onGoTo,
   isTransitioning,
+  disabled,
 }: UseKeyboardNavOptions) {
   const lastActionTime = useRef<number>(0);
   const isTransitioningRef = useRef(isTransitioning);
@@ -29,6 +31,8 @@ export function useKeyboardNav({
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
+      if (disabled) return;
+
       // Prevent default for presentation keys to avoid page scroll
       const presentationKeys = [
         'ArrowRight',

@@ -9,6 +9,7 @@ import TopBar from './TopBar';
 import BottomNav from './BottomNav';
 import ProgressBar from './ProgressBar';
 import TOC from './TOC';
+import { useZoomOnAlt } from '@/hooks/useZoomOnAlt';
 interface LayoutProps {
   totalSlides: number;
   slides: React.ComponentType<{ isActive: boolean }>[];
@@ -38,6 +39,7 @@ const LayoutInner: React.FC<{ slides: React.ComponentType<{ isActive: boolean }>
   const containerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prevSlideRef = useRef(currentSlide);
+  const { registerContainer } = useZoomOnAlt();
 
   useKeyboardNav({
     currentSlide,
@@ -131,7 +133,11 @@ const LayoutInner: React.FC<{ slides: React.ComponentType<{ isActive: boolean }>
       <TopBar currentSlide={currentSlide} totalSlides={totalSlides} theme={theme} onThemeChange={setTheme} />
 
       {/* Slide Container */}
-      <div className="relative w-full min-h-[100dvh] overflow-hidden" data-slide-container>
+      <div
+        ref={registerContainer}
+        className="relative w-full min-h-[100dvh] overflow-hidden"
+        data-slide-container
+      >
         {slides.map((SlideComponent, index) => (
           <div
             key={index}

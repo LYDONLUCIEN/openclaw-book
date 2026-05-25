@@ -75,7 +75,7 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
 
       {/* Title */}
       <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
-        OpenClaw 现象全景
+        OpenClaw 横空出世
       </h2>
 
       {/* Phase 0: Three columns */}
