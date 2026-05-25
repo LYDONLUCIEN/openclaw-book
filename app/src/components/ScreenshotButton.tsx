@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { Camera } from 'lucide-react';
-import html2canvas from 'html2canvas-pro';
 import { useSlideContext } from '@/context/SlideContext';
+import { captureSlide } from '@/lib/captureSlide';
 
 const ScreenshotButton: React.FC<{ className?: string }> = ({ className }) => {
   const [capturing, setCapturing] = useState(false);
@@ -11,21 +11,9 @@ const ScreenshotButton: React.FC<{ className?: string }> = ({ className }) => {
   const handleScreenshot = useCallback(async () => {
     setCapturing(true);
 
-    const slideEl = document.querySelector(`[data-slide-index="${currentSlide}"]`) as HTMLElement;
-    if (!slideEl) { setCapturing(false); return; }
-
-    const bg = getComputedStyle(document.documentElement)
-      .getPropertyValue('--bg-primary').trim() || '#0f172a';
-
     try {
-      const canvas = await html2canvas(slideEl, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: bg,
-        logging: false,
-        width: slideEl.clientWidth,
-        height: slideEl.clientHeight,
-      });
+      const canvas = await captureSlide(currentSlide);
+      if (!canvas) return;
 
       const link = document.createElement('a');
       link.download = `slide_${String(currentSlide).padStart(2, '0')}.png`;

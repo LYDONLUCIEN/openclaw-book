@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { FileDown } from 'lucide-react';
-import html2canvas from 'html2canvas-pro';
 import jsPDF from 'jspdf';
 import { useSlideContext } from '@/context/SlideContext';
+import { captureSlide } from '@/lib/captureSlide';
 
 const ANIMATION_WAIT = 2000;
 
@@ -32,8 +32,6 @@ const PDFExportButton: React.FC<{ className?: string }> = ({ className }) => {
 
     const containerW = slideContainer.clientWidth;
     const containerH = slideContainer.clientHeight;
-    const bg = getComputedStyle(document.documentElement)
-      .getPropertyValue('--bg-primary').trim() || '#0f172a';
 
     const pdf = new jsPDF({
       orientation: containerW > containerH ? 'landscape' : 'portrait',
@@ -52,18 +50,8 @@ const PDFExportButton: React.FC<{ className?: string }> = ({ className }) => {
       // Wait for GSAP transition (~0.6s) + slide entrance animations
       await new Promise(r => setTimeout(r, ANIMATION_WAIT));
 
-      // Capture only the active slide, not the whole container with 25 stacked slides
-      const activeSlideEl = slideEls[i];
-      if (!activeSlideEl) continue;
-
-      const canvas = await html2canvas(activeSlideEl, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: bg,
-        logging: false,
-        width: containerW,
-        height: containerH,
-      });
+      const canvas = await captureSlide(i);
+      if (!canvas) continue;
 
       const imgData = canvas.toDataURL('image/jpeg', 0.95);
       if (first) { first = false; } else { pdf.addPage(); }
