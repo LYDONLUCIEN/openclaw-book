@@ -3,8 +3,9 @@ import { cn } from '@/lib/utils';
 import { List, X } from 'lucide-react';
 
 const SLIDE_TITLES = [
-  '封面',
+  'OpenClaw 入门指南',
   'OpenClaw 现象全景',
+  '目录',
   '系统三特性的不可能三角',
   '四种技术路线特性对比',
   'OpenClaw 核心架构',
@@ -23,6 +24,7 @@ const SLIDE_TITLES = [
   '实战示例：L2 任务助理 & L3 定时调度',
   '实战案例：本课件的诞生过程',
   '汇聚众人力量，突破成本天花板',
+  '移动公司发展计划',
   '场景决策树',
   '在使用中体验边界',
   '总结',

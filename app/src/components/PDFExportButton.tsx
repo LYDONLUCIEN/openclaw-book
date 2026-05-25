@@ -1,78 +1,80 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { FileDown } from 'lucide-react';
 import html2canvas from 'html2canvas-pro';
 import jsPDF from 'jspdf';
+import { useSlideContext } from '@/context/SlideContext';
 
-interface PDFExportButtonProps {
-  className?: string;
-}
+const ANIMATION_WAIT = 2000;
 
-const PDFExportButton: React.FC<PDFExportButtonProps> = ({ className }) => {
+const PDFExportButton: React.FC<{ className?: string }> = ({ className }) => {
   const [exporting, setExporting] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { goToSlide, currentSlide } = useSlideContext();
+
+  // Refs to always get latest values in async loop (avoid stale closures)
+  const goToSlideRef = useRef(goToSlide);
+  const currentSlideRef = useRef(currentSlide);
+  goToSlideRef.current = goToSlide;
+  currentSlideRef.current = currentSlide;
 
   const handleExport = useCallback(async () => {
     setExporting(true);
     setProgress(0);
 
+    const startSlide = currentSlideRef.current;
+
     const slideContainer = document.querySelector('[data-slide-container]') as HTMLElement;
-    if (!slideContainer) return;
+    if (!slideContainer) { setExporting(false); return; }
 
     const slideEls = slideContainer.querySelectorAll<HTMLElement>(':scope > div[data-slide-index]');
     const total = slideEls.length;
 
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1920, 1080] });
+    const containerW = slideContainer.clientWidth;
+    const containerH = slideContainer.clientHeight;
+    const bg = getComputedStyle(document.documentElement)
+      .getPropertyValue('--bg-primary').trim() || '#0f172a';
+
+    const pdf = new jsPDF({
+      orientation: containerW > containerH ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: [containerW, containerH],
+    });
+
     let first = true;
 
     for (let i = 0; i < total; i++) {
       setProgress(Math.round(((i + 1) / total) * 100));
 
-      const el = slideEls[i];
-      const origOpacity = el.style.opacity;
-      const origPointerEvents = el.style.pointerEvents;
-      const origPosition = el.style.position;
-      const origTop = el.style.top;
-      const origLeft = el.style.left;
+      // Navigate to trigger isActive + entrance animations
+      goToSlideRef.current(i);
 
-      el.style.opacity = '1';
-      el.style.pointerEvents = 'auto';
-      el.style.position = 'relative';
-      el.style.top = '0';
-      el.style.left = '0';
+      // Wait for GSAP transition (~0.6s) + slide entrance animations
+      await new Promise(r => setTimeout(r, ANIMATION_WAIT));
 
-      try {
-        const canvas = await html2canvas(el, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-primary').trim() || '#0f172a',
-          logging: false,
-          width: el.scrollWidth,
-          height: el.scrollHeight,
-        });
+      // Capture only the active slide, not the whole container with 25 stacked slides
+      const activeSlideEl = slideEls[i];
+      if (!activeSlideEl) continue;
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.92);
-        const imgW = pdf.internal.pageSize.getWidth();
-        const imgH = pdf.internal.pageSize.getHeight();
+      const canvas = await html2canvas(activeSlideEl, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: bg,
+        logging: false,
+        width: containerW,
+        height: containerH,
+      });
 
-        if (first) {
-          first = false;
-        } else {
-          pdf.addPage();
-        }
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
-      } finally {
-        el.style.opacity = origOpacity;
-        el.style.pointerEvents = origPointerEvents;
-        el.style.position = origPosition;
-        el.style.top = origTop;
-        el.style.left = origLeft;
-      }
-
-      await new Promise(r => setTimeout(r, 50));
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      if (first) { first = false; } else { pdf.addPage(); }
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
     }
 
-    pdf.save('OpenClaw讲座.pdf');
+    // Restore original slide
+    goToSlideRef.current(startSlide);
+    await new Promise(r => setTimeout(r, 500));
+
+    pdf.save('AI智能体讲座.pdf');
     setExporting(false);
     setProgress(0);
   }, []);

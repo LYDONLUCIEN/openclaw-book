@@ -74,8 +74,7 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
       onClick={() => setPhase(phase === 0 ? 1 : 0)}>
 
       {/* Title */}
-      <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0 flex items-center gap-2">
-        <ChapterBadge chapter={1} />
+      <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
         OpenClaw 现象全景
       </h2>
 

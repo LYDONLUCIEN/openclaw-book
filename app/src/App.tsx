@@ -3,6 +3,7 @@ import Layout from '@/components/Layout';
 // 引导章
 import Slide00_Cover from '@/slides/Slide00_Cover';
 import Slide01_Cover from '@/slides/Slide01_Cover';
+import Slide02_TOC from '@/slides/Slide02_TOC';
 import Slide02_Chaos from '@/slides/Slide02_Chaos';
 import Slide03_Ecosystem from '@/slides/Slide03_Ecosystem';
 
@@ -28,16 +29,18 @@ import Slide18_PresentationItself from '@/slides/Slide18_PresentationItself';
 // 第三章：未来
 import Slide20_Future from '@/slides/Slide20_Future';
 import Slide21_SelfCheck from '@/slides/Slide21_SelfCheck';
+import Slide21b_Roadmap from '@/slides/Slide21b_Roadmap';
 import Slide22_FinalWords from '@/slides/Slide22_FinalWords';
 import Slide23_Thanks from '@/slides/Slide23_Thanks';
 import Slide24_Thanks from '@/slides/Slide24_Thanks';
 
-const TOTAL_SLIDES = 24;
+const TOTAL_SLIDES = 26;
 
 const slides = [
   // 引导章
   Slide00_Cover,
   Slide01_Cover,
+  Slide02_TOC,
   Slide02_Chaos,
   Slide03_Ecosystem,
   // 第一章：龙虾是什么
@@ -59,6 +62,7 @@ const slides = [
   Slide18_PresentationItself,
   // 第三章：未来
   Slide20_Future,
+  Slide21b_Roadmap,
   Slide21_SelfCheck,
   Slide22_FinalWords,
   Slide23_Thanks,
