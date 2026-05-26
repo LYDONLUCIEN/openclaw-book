@@ -104,7 +104,7 @@ const Slide20_Future: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="pw-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={2} />
-        汇聚众人力量，突破成本天花板
+        汇聚众人力量，突破AI能力天花板
       </h2>
 
       {/* Section 1: Three cost transfer strategies */}

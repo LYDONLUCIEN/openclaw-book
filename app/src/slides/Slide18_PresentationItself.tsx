@@ -42,7 +42,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="pi-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-3 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={2} />
-        实战案例：本课件的诞生过程
+        实战案例：L4 本课件的诞生——用"龙虾"讲"龙虾"
       </h2>
 
       {/* Timeline */}
