@@ -31,16 +31,16 @@ const Slide12_SkillsHarness: React.FC<SlideProps> = ({ isActive }) => {
 
       tl.fromTo('.sh-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 });
 
-      // Left column
+      // Left column (Harness)
       tl.fromTo('.sh-left', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5 }, 0.3);
-      tl.fromTo('.sh-repo-row', { opacity: 0, x: -15 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.08 }, 0.5);
+      tl.fromTo('.sh-harness-item', { opacity: 0, x: -15 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.1 }, 0.5);
+
+      // Right column (Skills)
+      tl.fromTo('.sh-right', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 0.4);
+      tl.fromTo('.sh-repo-row', { opacity: 0, x: 15 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.08 }, 0.6);
       tl.fromTo('.sh-token-section', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, 1.0);
       tl.fromTo('.sh-bar-no', { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, 1.2);
       tl.fromTo('.sh-bar-yes', { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, 1.4);
-
-      // Right column
-      tl.fromTo('.sh-right', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 0.4);
-      tl.fromTo('.sh-harness-item', { opacity: 0, x: 15 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.1 }, 0.6);
 
       // Quote
       tl.fromTo('.sh-quote', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, 1.6);
@@ -58,12 +58,35 @@ const Slide12_SkillsHarness: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="sh-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-5 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={1} />
-        Skills 生态与 Harness 工程体系
+        Harness:众人智慧 共驭模型
       </h2>
 
       <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left: Skills */}
+        {/* Left: Harness */}
         <div className="sh-left rounded-2xl border-2 p-5 opacity-0"
+          style={{ borderColor: '#F9731650', backgroundColor: '#F9731608' }}>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xl">🛠</span>
+            <h3 className="text-h3 font-bold" style={{ color: '#F97316' }}>Harness 工程体系</h3>
+          </div>
+
+          <div className="space-y-2.5">
+            {HARNESS_ITEMS.map((item) => (
+              <div key={item.title}
+                className="sh-harness-item rounded-lg border-2 px-3 py-2.5 flex items-start gap-3 opacity-0"
+                style={{ borderColor: '#F9731630', backgroundColor: '#F9731608' }}>
+                <span className="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
+                <div>
+                  <p className="text-body-sm font-bold" style={{ color: '#F97316' }}>{item.title}</p>
+                  <p className="text-caption text-[var(--text-secondary)]">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right: Skills */}
+        <div className="sh-right rounded-2xl border-2 p-5 opacity-0"
           style={{ borderColor: '#F9731650', backgroundColor: '#F9731608' }}>
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">📦</span>
@@ -120,36 +143,13 @@ const Slide12_SkillsHarness: React.FC<SlideProps> = ({ isActive }) => {
             </p>
           </div>
         </div>
-
-        {/* Right: Harness */}
-        <div className="sh-right rounded-2xl border-2 p-5 opacity-0"
-          style={{ borderColor: '#F9731650', backgroundColor: '#F9731608' }}>
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xl">🛠</span>
-            <h3 className="text-h3 font-bold" style={{ color: '#F97316' }}>Harness 工程体系</h3>
-          </div>
-
-          <div className="space-y-2.5">
-            {HARNESS_ITEMS.map((item) => (
-              <div key={item.title}
-                className="sh-harness-item rounded-lg border-2 px-3 py-2.5 flex items-start gap-3 opacity-0"
-                style={{ borderColor: '#F9731630', backgroundColor: '#F9731608' }}>
-                <span className="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
-                <div>
-                  <p className="text-body-sm font-bold" style={{ color: '#F97316' }}>{item.title}</p>
-                  <p className="text-caption text-[var(--text-secondary)]">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* OpenClaw golden quote */}
       <div className="sh-quote mt-5 rounded-xl border-2 px-6 py-3 text-center max-w-4xl w-full opacity-0"
         style={{ borderColor: '#F9731640', backgroundColor: '#F973160A' }}>
         <p className="text-body font-bold" style={{ color: '#F97316' }}>
-          OpenClaw 用工程手段众包开发成本——让每个使用者以极低门槛参与，在社区中深度沉淀与持续迭代
+          Openclaw: 用工程手段<span style={{ color: '#EF4444', textShadow: '0 0 8px #EF444466' }}>众包开发成本</span>——让每个使用者以极低门槛参与，在社区中深度沉淀与持续迭代
         </p>
       </div>
 
@@ -157,7 +157,7 @@ const Slide12_SkillsHarness: React.FC<SlideProps> = ({ isActive }) => {
       <div className="sh-bottom mt-auto pt-4 rounded-xl border-2 px-6 py-3 text-center opacity-0"
         style={{ borderColor: '#F97316', backgroundColor: '#F9731610' }}>
         <p className="text-body font-bold" style={{ color: '#F97316' }}>
-          Skills解决"知道什么"，Harness解决"怎么稳定地执行"
+          Skills解决"AI知道什么"，Harness解决"如何稳定执行"
         </p>
       </div>
     </section>

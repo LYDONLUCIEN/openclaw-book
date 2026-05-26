@@ -10,12 +10,12 @@ const ROWS = [
     color: '#F97316',
     tag: '01',
     left: {
-      title: '三特性与成本的不可能三角',
+      title: '三特性与智能成本的不可能三角',
       points: ['便利性 ↔ 操作成本', '完备性 ↔ 开发成本', '确定性 ↔ 确认成本'],
     },
     right: {
-      line1: '成本不会消失',
-      line2: '只会转移',
+      line1: '三种智能成本',
+      line2: '相互转移',
     },
   },
   {
@@ -30,16 +30,16 @@ const ROWS = [
       ],
     },
     right: {
-      line1: '保证对知识的准确理解',
-      line2: '对工具的准确使用',
+      line1: '智能体的发展史：',
+      line2: '知识准确理解 + 过程确定可控',
     },
   },
   {
     color: '#10B981',
     tag: '03',
     left: {
-      title: '成本叠加时间维度',
-      points: ['时间、精力、金钱的投入', '让转移后的成本变得可接受', '学习到的东西是未来的机会'],
+      title: '众人之力托举',
+      points: ['时间、精力、金钱的投入', '让准入门槛变得可以接受', '学习到的东西是未来的机会'],
     },
     right: {
       line1: '成本加上时间的可能性',
@@ -111,7 +111,7 @@ const Slide23_Thanks: React.FC<SlideProps> = ({ isActive }) => {
       <div className="sm-content flex flex-col items-center w-full h-full">
         <h2 className="sm-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0 flex items-center gap-2">
           <ChapterBadge chapter={3} />
-          总结
+          最后总结
         </h2>
 
         {/* 3×3 Grid */}

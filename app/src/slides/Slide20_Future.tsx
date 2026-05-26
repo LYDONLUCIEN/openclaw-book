@@ -32,8 +32,8 @@ const COST_PATHS = [
 const FORCES = [
   {
     icon: '🧠',
-    title: '更好的模型',
-    source: '来自全世界研发人员和数据的力量',
+    title: '更强大的基座模型',
+    source: '来自全世界研发人员与数据力量',
     details: [
       '更优模型 → 更高 Token 投入 → 更好推理与生成质量',
       '模型能力持续进化，降低所有人的使用门槛',
@@ -42,8 +42,8 @@ const FORCES = [
   },
   {
     icon: '🔗',
-    title: '更多的工具协同',
-    source: '来自不同厂商开发的工具力量',
+    title: '更完善的工具协同',
+    source: '来自不同开发技术人员的工程化力量',
     details: [
       'Vibe Coding + Workflow + Agent 框架组合部署',
       '工具生态日益丰富，不断扩展能力边界',
@@ -52,8 +52,8 @@ const FORCES = [
   },
   {
     icon: '👥',
-    title: '更多人的力量',
-    source: '让所有人的经验都能沉淀下来',
+    title: '更精华的经验沉淀',
+    source: '让所有人的经验都共同沉淀下来',
     details: [
       '从个人工具升级为团队基础设施，应对更复杂场景',
       '每个人完善场景丰富度，而非一人开发众人使用',
@@ -63,9 +63,9 @@ const FORCES = [
 ];
 
 const GROUPS = [
-  { icon: '🎮', label: 'VibeCoding\n小伙伴', color: '#8B5CF6' },
-  { icon: '⚙️', label: 'Workflow\n小伙伴', color: '#0891B2' },
-  { icon: '👨‍💼', label: '同事经验', color: '#F97316' },
+  { icon: '🎮', label: 'VibeCoding\n大模型', color: '#8B5CF6' },
+  { icon: '⚙️', label: 'Workflow\n智能体', color: '#0891B2' },
+  { icon: '👨‍💼', label: 'Skills\n人类智慧', color: '#F97316' },
 ];
 
 const Slide20_Future: React.FC<SlideProps> = ({ isActive }) => {
@@ -194,7 +194,7 @@ const Slide20_Future: React.FC<SlideProps> = ({ isActive }) => {
       <div className="pw-quote rounded-xl border-2 px-5 py-3 max-w-5xl w-full text-center mt-auto opacity-0"
         style={{ borderColor: '#F97316', backgroundColor: '#F973160A' }}>
         <p className="text-body-sm font-bold" style={{ color: '#F97316' }}>
-          成本叠加时间的可能性，即从消耗转化为投资
+          众人拾柴火焰高，汇聚所有人的力量方可突破智能预算的天花板
         </p>
         <p className="text-caption text-[var(--text-secondary)] mt-0.5">
           每个人都去完善场景的丰富度，而不是一个程序员独自开发其他人用

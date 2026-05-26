@@ -58,7 +58,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
 
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 flex-1">
 
-        {/* ═══ Card 1: 各司其职 ═══ */}
+        {/* ═══ Card 1: 扬长避短 ═══ */}
         <div className="sol-card rounded-xl border-2 p-5 opacity-0 flex flex-col"
           style={{ borderColor: '#8B5CF640', backgroundColor: '#8B5CF605' }}>
 
@@ -70,18 +70,18 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
                 <span className="text-body font-bold">1</span>
               </div>
               <div>
-                <h3 className="text-body-lg font-bold" style={{ color: '#8B5CF6' }}>各司其职</h3>
+                <h3 className="text-body-lg font-bold" style={{ color: '#8B5CF6' }}>扬长避短</h3>
                 <span className="text-caption font-semibold" style={{ color: '#8B5CF6CC' }}>
-                  找到对某类成本不敏感的场景
+                  时间成本 → 操作成本
                 </span>
               </div>
             </div>
             <div className="space-y-1.5 mb-1">
               <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 算力不敏感：报表慢慢算，反正明天才看
+                · 时间不敏感：报表慢慢算，反正明天我才看
               </p>
               <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 不确定性不敏感：文字比数据更容易检查，让模型输出后人工审阅
+                · 准确不敏感：计算不能错，文字创作有容错
               </p>
             </div>
           </div>
@@ -115,10 +115,10 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
           <div className="shrink-0 rounded-lg border px-3 py-2.5"
             style={{ borderColor: '#8B5CF620', backgroundColor: '#8B5CF608' }}>
             <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
-              💡 自动处理文章计算报表——不用开发报表程序，慢就慢点
+              💡 自动计算报表——重要不紧急的事，比如生成报表，我可以交给龙虾慢慢完成，
             </p>
             <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
-              💡 文字输出场景——检查文字比检查数据容易，确定性要求天然低
+              💡 文字输出场景——检查文字比检查数据容易，确定性要求天然低。可以放心使用
             </p>
           </div>
         </div>
@@ -137,7 +137,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
               <div>
                 <h3 className="text-body-lg font-bold" style={{ color: '#3B82F6' }}>继续氪金</h3>
                 <span className="text-caption font-semibold" style={{ color: '#3B82F6CC' }}>
-                  学习成本 → 算力成本
+                  经济成本 → 开发成本
                 </span>
               </div>
             </div>
@@ -146,7 +146,10 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
                 · 使用更强的模型来解决更复杂的问题
               </p>
               <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 用代码智能体开发框架与程序，大幅增加确定性
+                · 用代码开发框架与程序，大幅增加确定性
+              </p>
+              <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
+                · 高频场景边际成本会被无限降低，值得投入
               </p>
             </div>
           </div>
@@ -179,7 +182,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
               💡 Hermes 自己装自己，装得越多经验越顺
             </p>
             <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
-              💡 Claude Code 辅助开发，复杂框架也能高质量交付
+              💡 ClaudeCode 辅助开发，高代码也能高质量交付
             </p>
           </div>
         </div>
@@ -204,10 +207,10 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
             </div>
             <div className="space-y-1.5 mb-1">
               <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 让自己成为理解和决策者，人来操作简单部分
+                · 让自己成为理解和决策者，把握全局方向
               </p>
               <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 先验证 Skills 中间步骤，确认过程正确再让模型继续
+                · 每一步验证中间结果，确认正确再继续
               </p>
             </div>
           </div>
@@ -271,7 +274,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
         <div className="rounded-xl border-2 px-6 py-3"
           style={{ borderColor: '#F97316', backgroundColor: '#F973160A' }}>
           <p className="text-body font-bold" style={{ color: '#F97316' }}>
-            成本只是在互相转移——找到对某类成本不敏感的场景，就是最优解
+            成本互相转移——选择对某个成本最不敏感的场景，门槛就会降低
           </p>
         </div>
       </div>

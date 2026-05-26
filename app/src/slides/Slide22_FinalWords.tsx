@@ -58,7 +58,7 @@ const Slide22_FinalWords: React.FC<SlideProps> = ({ isActive }) => {
       </h2>
 
       <p className="bd-subtitle text-body text-[var(--text-secondary)] text-center max-w-3xl mb-6 opacity-0">
-        边界是模糊的——可能是你的能力限制了效果，也可能是模型或框架的局限
+        边界是模糊的——可能是人的能力限制了效果，也可能是模型或框架的局限
       </p>
 
       {/* Three boundary cards */}

@@ -18,20 +18,20 @@ const PROBLEMS = [
     color: '#EF4444',
   },
   {
-    icon: Eye,
+    icon: Brain,
     stage: '处理端',
-    title: '模型幻觉',
-    desc: '概率性生成缺乏事实依据',
-    detail: '大语言模型基于概率分布生成内容，本质上是"最可能的下一个Token"而非"正确的下一个Token"。不善计算。在知识边界之外，模型会生成看似合理但缺乏事实依据的内容。',
+    title: '注意力稀释',
+    desc: '长上下文处理导致准确度降低',
+    detail: '随着对话轮次增加与上下文累积，模型的有效注意力被分散，关键指令与约束条件被淹没在冗余信息中，导致上下文窗口压力增大、核心信息遗漏。',
     cost: '开发成本↑',
-    color: '#F59E0B',
+    color: '#EF4444',
   },
   {
-    icon: Brain,
+    icon: Eye,
     stage: '输出端',
-    title: '注意力稀释',
-    desc: '上下文过长导致准确度降低',
-    detail: '随着对话轮次增加与上下文累积，模型的有效注意力被分散，关键指令与约束条件被淹没在冗余信息中，导致上下文窗口压力增大、核心信息遗漏。',
+    title: '模型幻觉',
+    desc: '概率性生成缺乏事实依据',
+    detail: '大语言模型基于概率分布生成内容，本质上输出的是"最可能"，而不是清楚的"知道"；在知识边界之外，模型会生成看似合理但缺乏事实依据的内容。',
     cost: '确认成本↑',
     color: '#EF4444',
   },
@@ -118,9 +118,12 @@ const Slide06_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
         <div className="rounded-xl border p-5"
           style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
           <p className="text-body-lg font-bold text-[var(--text-primary)]">
-            三种不确定性对应三种成本，通过工程手段逐个击破
+            三种不确定性 → 三种智能成本
           </p>
         </div>
+        <p className="text-body-lg font-bold text-[#F97316] mt-2">
+          通过工程手段逐个击破
+        </p>
       </div>
     </section>
   );

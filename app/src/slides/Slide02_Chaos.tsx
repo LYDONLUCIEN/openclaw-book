@@ -12,9 +12,9 @@ const PROPERTIES = [
     icon: '⚡',
     color: 'var(--primary)',
     shortDesc: '操作便捷高效',
-    costLabel: '操作成本',
+    costLabel: '操作智能成本',
     costDetail: '输入环节 — 人力调度与执行消耗',
-    detail: '用户使用系统的便捷程度与自动化水平。便利性越低，人需要越多手动操作与反复配置。',
+    detail: '用户与系统交互的便捷程度。便利性越低，人需要越多手动操作与反复配置。',
   },
   {
     label: '完备性',
@@ -22,9 +22,9 @@ const PROPERTIES = [
     icon: '🧩',
     color: 'var(--accent)',
     shortDesc: '处理事务边界',
-    costLabel: '开发成本',
+    costLabel: '开发智能成本',
     costDetail: '处理环节 — 系统开发与能力建设消耗',
-    detail: '系统能覆盖的场景范围与解决问题的广度。完备性越低，人需要逐个场景开发与设计流程。',
+    detail: '系统覆盖场景范围与解决问题的广度。完备性越低，人需要花费越多精力开发场景与设计流程。',
   },
   {
     label: '确定性',
@@ -32,16 +32,16 @@ const PROPERTIES = [
     icon: '🎯',
     color: 'var(--success)',
     shortDesc: '输出可靠可预测',
-    costLabel: '确认成本',
+    costLabel: '确认智能成本',
     costDetail: '输出环节 — 结果校验与纠错兜底消耗',
     detail: '系统输出结果的可靠性与可预测程度。确定性越低，人需要越多反复检查、纠错与兜底。',
   },
 ];
 
 const EDGE_LABELS = [
-  { from: 0, to: 1, text: '开发投入', color: 'var(--accent)' },
-  { from: 1, to: 2, text: '验证投入', color: 'var(--success)' },
-  { from: 2, to: 0, text: '操作投入', color: 'var(--primary)' },
+  { from: 0, to: 1, text: '开发智能投入', color: 'var(--accent)' },
+  { from: 1, to: 2, text: '验证智能投入', color: 'var(--success)' },
+  { from: 2, to: 0, text: '操作智能投入', color: 'var(--primary)' },
 ];
 
 const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
@@ -90,7 +90,7 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
       {/* Title */}
       <h2 className="tri-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={1} />
-        系统三特性的不可能三角
+       系统三特性与不可能三角
       </h2>
       <p className="tri-intro text-body text-[var(--text-secondary)] max-w-2xl text-center mb-6 opacity-0">
         输入 → 处理 → 输出：每项特性对应一类环节成本，三者不可兼得

@@ -10,17 +10,17 @@ const BUDGET = 190;
 
 const CHARACTERS = [
   {
-    name: '传统代码开发',
+    name: '传统IT应用',
     icon: Shield,
     color: '#3B82F6',
     stats: { certainty: 95, completeness: 10, convenience: 85 },
-    special: '确定性高，完备性低，开发成本显著',
+    special: '高确定，低完备，开发成本显著',
     costLabel: '开发成本↑↑',
     pro: '逻辑完全可控，输出零偏差',
     con: '覆盖场景窄，灵活度最低',
   },
   {
-    name: '工作流/低代码',
+    name: '低零代码应用',
     icon: ClipboardList,
     color: '#F97316',
     stats: { certainty: 90, completeness: 20, convenience: 80 },
@@ -30,17 +30,17 @@ const CHARACTERS = [
     con: '灵活性有限，使用者也是开发者',
   },
   {
-    name: '传统机器学习',
+    name: '机器学习驱动应用',
     icon: BarChart3,
     color: '#10B981',
-    stats: { certainty: 65, completeness: 35, convenience: 90 },
+    stats: { certainty: 65, completeness: 60, convenience: 65 },
     special: '经验可封装，数据标注成本高',
     costLabel: '数据成本↑',
     pro: '可处理非结构化数据，方法论通用',
     con: '标注成本高，场景迁移难',
   },
   {
-    name: '大模型',
+    name: '大模型应用',
     icon: Sparkles,
     color: '#8B5CF6',
     stats: { certainty: 20, completeness: 90, convenience: 80 },
@@ -132,7 +132,7 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
         四类角色：属性分配
       </h2>
       <p className="g3-subtitle text-body text-[var(--text-secondary)] mb-4 opacity-0">
-        同样的预算，不同的加点策略
+        同样的智能预算，不同的加点策略
       </p>
 
       {/* 4 columns, full width, equal height */}

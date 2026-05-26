@@ -132,7 +132,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
       <div className="pi-quote rounded-2xl border-2 px-8 py-4 max-w-5xl w-full text-center mb-3 opacity-0"
         style={{ borderColor: '#F97316', backgroundColor: '#F973160A' }}>
         <p className="text-h3 font-bold" style={{ color: '#F97316' }}>
-          &ldquo;可以外包思考过程，但不能外包理解本身&rdquo;
+          &ldquo;你可以外包思考过程，但永远不能外包理解本身——karpathy&rdquo;
         </p>
       </div>
 
@@ -140,7 +140,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
       <div className="pi-footer rounded-xl border p-2 max-w-5xl w-full text-center opacity-0"
         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
         <p className="text-caption text-[var(--text-secondary)]">
-          本课件 = 开发成本弥补确定性的工程实践
+          本课件：确认成本换开发成本的工程实践
         </p>
       </div>
     </section>

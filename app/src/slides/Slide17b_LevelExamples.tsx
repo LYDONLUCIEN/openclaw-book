@@ -7,16 +7,16 @@ import ClickableImage from '@/components/ImageOverlay';
 interface SlideProps { isActive: boolean; }
 
 const L2_STEPS = [
-  { role: '人', label: '定义目标', content: '「提取网页表格数据存为 Excel」', color: '#3B82F6' },
+  { role: '人', label: '定义目标', content: '帮我整理模型参数信息，预估算力需求', color: '#3B82F6' },
   { role: 'AI', label: '理解需求', content: '识别为浏览器自动化任务，加载 Playwright', color: '#8B5CF6' },
-  { role: 'AI', label: '截屏分析', content: '截取页面 → 识别表格结构 → 确定列名行数', color: '#10B981' },
-  { role: 'AI', label: '执行脚本', content: '编写脚本 → 定位元素 → 逐行提取 → 写入', color: '#F97316' },
+  { role: 'AI', label: '截屏分析', content: '截取页面 → 识别页面内容 → 确定列名行数', color: '#10B981' },
+  { role: 'AI', label: '执行脚本', content: '逐页抓取→ 编写代码 → 计算结果 → 生成报告', color: '#F97316' },
   { role: '人', label: '审核结果', content: '检查数据完整性，遗漏则反馈修正', color: '#3B82F6' },
 ];
 
 const L3_FLOW = [
   { time: '08:00', event: '调度引擎触发日报任务', color: '#8B5CF6' },
-  { time: '08:01', event: 'Agent 调用数据源 Skill 拉取指标', color: '#10B981' },
+  { time: '08:01', event: 'Agent 调用数据源 Skill 计算指标', color: '#10B981' },
   { time: '08:03', event: 'Agent 生成分析报告初稿', color: '#F97316' },
   { time: '08:05', event: '自动校验数据一致性', color: '#3B82F6' },
   { time: '08:06', event: '推送至审阅频道，等待人工确认', color: '#8B5CF6' },
@@ -60,10 +60,10 @@ const Slide17b_LevelExamples: React.FC<SlideProps> = ({ isActive }) => {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-caption font-bold px-1.5 py-0.5 rounded text-white"
               style={{ backgroundColor: '#3B82F6' }}>L2</span>
-            <h3 className="text-body-sm font-bold" style={{ color: '#3B82F6' }}>任务助理：浏览器脚本自动化</h3>
+            <h3 className="text-body-sm font-bold" style={{ color: '#3B82F6' }}>任务助理：模型部署分析报告</h3>
           </div>
 
-          <p className="text-[10px] text-[var(--text-light)] mb-2">人机协作五步闭环，多轮对话完成复杂任务</p>
+          <p className="text-[10px] text-[var(--text-light)] mb-2">以时间换操作，30分钟释放双手</p>
 
           <div className="space-y-1">
             {L2_STEPS.map((step, i) => (
@@ -98,7 +98,7 @@ const Slide17b_LevelExamples: React.FC<SlideProps> = ({ isActive }) => {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-caption font-bold px-1.5 py-0.5 rounded text-white"
               style={{ backgroundColor: '#8B5CF6' }}>L3</span>
-            <h3 className="text-body-sm font-bold" style={{ color: '#8B5CF6' }}>定时调度：自动日报生成</h3>
+            <h3 className="text-body-sm font-bold" style={{ color: '#8B5CF6' }}>定时调度：运营日报自动生成</h3>
           </div>
 
           <p className="text-[10px] text-[var(--text-light)] mb-2">Harness 调度引擎定时触发，无人值守完成周期任务</p>

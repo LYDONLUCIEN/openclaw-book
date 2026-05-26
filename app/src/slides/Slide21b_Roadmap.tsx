@@ -7,9 +7,9 @@ import ClickableImage from '@/components/ImageOverlay';
 interface SlideProps { isActive: boolean; }
 
 const PRODUCTS = [
-  { label: '聚智平台', tag: '智能体', image: '/images/slide22-juzhi.png' },
+  { label: '聚智平台', tag: '智能体平台', image: '/images/slide22-juzhi.png' },
   { label: '灵畿平台', tag: '代码开发', image: '/images/slide22-lingji.png' },
-  { label: 'MobileClaw', tag: '移动智能体', image: '/images/slide22-mobileclaw.png' },
+  { label: 'MobileClaw', tag: '移动生态虾', image: '/images/slide22-mobileclaw.png' },
 ];
 
 const SECTIONS = [
@@ -75,7 +75,7 @@ const Slide21b_Roadmap: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="rm-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-1 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={3} />
-        移动公司发展计划
+        公司发展计划
       </h2>
 
       <p className="rm-subtitle text-body-sm text-[var(--text-secondary)] text-center mb-4 opacity-0">

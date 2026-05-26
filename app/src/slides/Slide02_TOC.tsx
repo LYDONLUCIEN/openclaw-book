@@ -5,9 +5,9 @@ import { useGSAP } from '@gsap/react';
 interface SlideProps { isActive: boolean; }
 
 const CHAPTERS = [
-  { num: 1, title: 'OpenClaw 的核心拆解', subtitle: '技术原理 · 成本框架 · 能力演进', color: '#3B82F6' },
-  { num: 2, title: '龙虾的应用场景', subtitle: '部署模式 · 典型案例 · 实战示范', color: '#10B981' },
-  { num: 3, title: '未来展望与计划', subtitle: '边界认知 · 趋势判断 · 行动建议', color: '#F97316' },
+  { num: 1, title: 'OpenClaw 的核心拆解', subtitle: '系统本质 · 龙虾原理 · 能力演进', color: '#3B82F6' },
+  { num: 2, title: '龙虾的应用场景', subtitle: '部署模式 · 使用技巧 · 实战示范', color: '#10B981' },
+  { num: 3, title: '未来展望与计划', subtitle: '趋势判断 · 认知边界 · 行动建议', color: '#F97316' },
 ];
 
 const Slide02_TOC: React.FC<SlideProps> = ({ isActive }) => {

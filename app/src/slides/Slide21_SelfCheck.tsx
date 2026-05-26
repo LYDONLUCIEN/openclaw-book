@@ -68,19 +68,18 @@ type RecKey = 'continue' | 'collab' | 'loop' | '';
 
 const REC_META: Record<string, { tag: string; color: string; bg: string; border: string; dot: string }> = {
   continue: { tag: '继续氪金', color: '#F59E0B', bg: '#FEF3C7', border: '#FDE68A', dot: '#F59E0B' },
-  collab:   { tag: '分工合作', color: '#10B981', bg: '#D1FAE5', border: '#A7F3D0', dot: '#10B981' },
+  collab:   { tag: '扬长避短', color: '#10B981', bg: '#D1FAE5', border: '#A7F3D0', dot: '#10B981' },
   loop:     { tag: '人在回路', color: '#EF4444', bg: '#FEE2E2', border: '#FECACA', dot: '#EF4444' },
   '':       { tag: '待确认',   color: '#94A3B8', bg: '#F1F5F9', border: '#E2E8F0', dot: '#94A3B8' },
 };
 
 // ── 决策矩阵（右侧表格） ──
 const MATRIX_ROWS = [
-  { condition: '<b>内网敏感</b> 或 <b>高准确性</b>', plan: '人在回路', reason: '安全/正确性优先，人工校验兜底' },
-  { condition: '<b>未闭环</b>（人也不知道怎么做）', plan: '继续氪金', reason: '龙虾当老师，增加开发成本学习验证' },
-  { condition: '<b>频繁</b> + <b>值得开发</b>', plan: '分工合作', reason: '持续沉淀知识/文档，越用越稳' },
-  { condition: '<b>有定时需求</b>', plan: '分工合作', reason: '适合自动化调度与稳定运行' },
-  { condition: '<b>不值得开发</b> 或 <b>低频</b>', plan: '继续氪金', reason: '用更强模型快速降低不确定性' },
-  { condition: '其他组合', plan: '分工合作', reason: '默认沉淀过程，长期提效' },
+  { condition: '<b>未闭环</b>', plan: '继续氪金', reason: '流程不清楚，先让龙虾当老师学' },
+  { condition: '已闭环 + <b>频繁</b> + <b>值得开发</b>', plan: '扬长避短', reason: '成熟高频场景，主推知识沉淀' },
+  { condition: '已闭环 + <b>低频</b> + <b>有定时</b> + <b>值得开发</b>', plan: '扬长避短', reason: '适合自动化调度与稳定运行' },
+  { condition: '已闭环 + <b>低频</b> 或 <b>不值得开发</b>', plan: '继续氪金', reason: '暂无沉淀条件，用强模型兜底' },
+  { condition: '任意组合 + <b>内网敏感</b> 或 <b>高准确性</b>', plan: '+ 人在回路', reason: '叠加人工校验/签发作为辅方案' },
 ];
 
 interface Answers {
@@ -103,6 +102,7 @@ const Slide21_SelfCheck: React.FC<SlideProps> = ({ isActive }) => {
     timed: null,
   });
   const [result, setResult] = useState<RecKey>('');
+  const [resultSecondary, setResultSecondary] = useState<RecKey>('');
   const [resultWhy, setResultWhy] = useState('');
 
   // 入场动画
@@ -119,14 +119,15 @@ const Slide21_SelfCheck: React.FC<SlideProps> = ({ isActive }) => {
 
   const handleSelect = useCallback((key: keyof Answers, value: string) => {
     setAnswers(prev => ({ ...prev, [key]: value }));
-    // 选择后清空旧结果
     setResult('');
+    setResultSecondary('');
     setResultWhy('');
   }, []);
 
   const handleReset = useCallback(() => {
     setAnswers({ dataScope: null, frequency: null, accuracy: null, devWorth: null, closedLoop: null, timed: null });
     setResult('');
+    setResultSecondary('');
     setResultWhy('');
   }, []);
 
@@ -139,48 +140,59 @@ const Slide21_SelfCheck: React.FC<SlideProps> = ({ isActive }) => {
       return;
     }
 
-    // 优先级 1：安全/正确性
-    if (dataScope === 'internal' || accuracy === 'high') {
-      setResult('loop');
-      setResultWhy(`你选择了 <b>${dataScope === 'internal' ? '内网/敏感数据' : '高准确性'}</b>，数据风险或准确性要求更高。<br/>推荐 <b>人在回路</b>：让人对关键结果持续校验、拦截错误与兜底。`);
-      return;
+    // ── 组合决策逻辑 ──
+    // 主方案：基于"是否闭环"和"高频+值得开发+有定时"判断
+    // 辅方案：基于"内网/高准确"叠加"人在回路"检查
+
+    const needCheck = dataScope === 'internal' || accuracy === 'high'; // 辅方案：人在回路
+    const isUnclosed = closedLoop === 'no'; // 未闭环 → 必须氪金学流程
+    const isMature = frequency === 'often' && devWorth === 'yes'; // 闭环 + 高频 + 值得 → 扬长避短
+    const hasSchedule = timed === 'yes'; // 有定时 → 适合沉淀/自动化
+
+    let primary: RecKey;
+    let secondary: RecKey = '';
+    let reason = '';
+
+    // ── 未闭环：主方案一定是"继续氪金" ──
+    if (isUnclosed) {
+      primary = 'continue';
+      if (needCheck) secondary = 'loop';
+      const conditions: string[] = [];
+      if (needCheck) conditions.push(dataScope === 'internal' ? '内网数据需校验' : '高准确性需人工签发');
+      if (frequency === 'often' && devWorth === 'yes') conditions.push('高频+值得开发，闭环后可转为扬长避短');
+      if (hasSchedule) conditions.push('有定时需求，闭环后可转为扬长避短');
+      reason = `流程本身不清晰，<b>先让龙虾当老师</b>，用强模型摸索和学习。${conditions.length ? '<br/><br/>提示：' + conditions.join('；') + '。' : ''}`;
+    }
+    // ── 已闭环：按场景成熟度分化 ──
+    else {
+      if (isMature) {
+        primary = 'collab';
+        if (needCheck) secondary = 'loop';
+        reason = `流程已成熟，<b>高频 + 值得开发</b>，适合持续沉淀知识与文档，让模型越用越稳。${needCheck ? '<br/><br/>注意：' + (dataScope === 'internal' ? '内网数据' : '高准确性要求') + '，关键节点需保留人工校验。' : ''}`;
+      } else if (!isMature && hasSchedule && devWorth === 'yes') {
+        // 低频但有定时 + 值得开发 → 扬长避短
+        primary = 'collab';
+        if (needCheck) secondary = 'loop';
+        reason = `流程已闭环，虽然频率不高，但有定时需求且值得开发，<b>适合自动化调度与稳定运行</b>。${needCheck ? '<br/><br/>注意：' + (dataScope === 'internal' ? '内网数据' : '高准确性要求') + '，关键节点需保留人工校验。' : ''}`;
+      } else {
+        // 低频 / 不值得开发 → 继续氪金
+        primary = 'continue';
+        if (needCheck) secondary = 'loop';
+        const whyParts: string[] = [];
+        if (frequency === 'rare') whyParts.push('使用频率低，暂无沉淀价值');
+        if (devWorth === 'no') whyParts.push('不值得投入开发');
+        reason = `${whyParts.join('，')}。<b>用强模型快速降低不确定性</b>，等场景成熟后再考虑沉淀。${needCheck ? '<br/><br/>注意：' + (dataScope === 'internal' ? '内网数据' : '高准确性要求') + '，仍需人工校验兜底。' : ''}`;
+      }
     }
 
-    // 优先级 2：未闭环
-    if (closedLoop === 'no') {
-      setResult('continue');
-      setResultWhy('你选择了 <b>未闭环</b>——人自己也不完全知道该怎么做。<br/>推荐 <b>继续氪金</b>：让龙虾当老师，增加开发成本来学习和验证。');
-      return;
-    }
-
-    // 优先级 3：频繁 + 值得开发
-    if (frequency === 'often' && devWorth === 'yes') {
-      setResult('collab');
-      setResultWhy('你选择了 <b>频繁使用</b> 且 <b>值得投入开发</b>。<br/>推荐 <b>分工合作</b>：持续沉淀知识/文档，让模型越用越稳。');
-      return;
-    }
-
-    // 优先级 4：有定时需求
-    if (timed === 'yes') {
-      setResult('collab');
-      setResultWhy('你选择了 <b>有定时需求</b>。<br/>推荐 <b>分工合作</b>：适合自动化调度与稳定运行，沉淀流程。');
-      return;
-    }
-
-    // 优先级 5：不值得开发 或 低频
-    if (devWorth === 'no' || frequency === 'rare') {
-      setResult('continue');
-      setResultWhy('你选择了 <b>不值得开发</b> 或 <b>低频</b>。<br/>推荐 <b>继续氪金</b>：用更强模型快速降低不确定性并上线。');
-      return;
-    }
-
-    // 兜底
-    setResult('collab');
-    setResultWhy('综合判断未触发强约束，默认 <b>分工合作</b>：把过程沉淀下来，长期提效。');
+    setResult(primary);
+    setResultSecondary(secondary);
+    setResultWhy(reason);
   }, [answers]);
 
   const allAnswered = Object.values(answers).every(v => v !== null);
   const meta = REC_META[result];
+  const secondaryMeta = resultSecondary ? REC_META[resultSecondary] : null;
   const answeredCount = Object.values(answers).filter(v => v !== null).length;
 
   return (
@@ -191,7 +203,7 @@ const Slide21_SelfCheck: React.FC<SlideProps> = ({ isActive }) => {
       {/* ── 标题 ── */}
       <h2 className="sc-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-0.5 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={3} />
-        方案自评
+        场景筛选与方案自评
       </h2>
       <p className="sc-subtitle text-body-sm text-[var(--text-secondary)] text-center mb-3 opacity-0">
         按 6 个问题依次选择，系统给出推荐方案
@@ -278,12 +290,20 @@ const Slide21_SelfCheck: React.FC<SlideProps> = ({ isActive }) => {
               <span className="text-body-sm font-bold text-[var(--text-primary)]">推荐与解释</span>
             </div>
 
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-body-sm font-bold text-[var(--text-primary)]">推荐主方案</span>
-              <span className="px-3 py-1 rounded-full text-caption font-bold"
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold"
                 style={{ backgroundColor: meta.bg, color: meta.color, border: `1px solid ${meta.border}` }}>
                 {meta.tag}
               </span>
+              {secondaryMeta && (
+                <>
+                  <span className="text-caption text-[var(--text-light)]">+</span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold"
+                    style={{ backgroundColor: secondaryMeta.bg, color: secondaryMeta.color, border: `1px solid ${secondaryMeta.border}` }}>
+                    {secondaryMeta.tag}
+                  </span>
+                </>
+              )}
             </div>
             <p className="text-body-sm text-[var(--text-secondary)] leading-relaxed"
               dangerouslySetInnerHTML={{ __html: resultWhy || '请先在左侧完成 1~6 的选择。' }} />
@@ -292,7 +312,7 @@ const Slide21_SelfCheck: React.FC<SlideProps> = ({ isActive }) => {
               style={{ backgroundColor: 'var(--bg-primary)' }}>
               <b className="text-[var(--text-secondary)]">三类方案含义</b><br />
               <span style={{ color: REC_META.continue.color }}>继续氪金</span>：换更强模型/更确定性实现，提升开发成本来降低不确定性<br />
-              <span style={{ color: REC_META.collab.color }}>分工合作</span>：多人协作调度与知识沉淀，让模型越做越好<br />
+              <span style={{ color: REC_META.collab.color }}>扬长避短</span>：多人协作调度与知识沉淀，让模型越做越好<br />
               <span style={{ color: REC_META.loop.color }}>人在回路</span>：对结果持续校验、兜底与签发
             </div>
           </div>

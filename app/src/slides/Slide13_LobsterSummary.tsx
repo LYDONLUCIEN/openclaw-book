@@ -23,7 +23,7 @@ const PRODUCTS = [
   },
   {
     name: 'Claude Code',
-    desc: '能自我改造的Agent，具备干细胞级自适应能力',
+    desc: '能自我改造的Agent，干细胞级的适应力',
     tag: 'Harness思路实现',
     color: '#8B5CF6',
     imgSrc: '/images/claude-code.png',
@@ -61,10 +61,18 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
       style={{ backgroundColor: 'var(--bg-primary)' }}>
 
       {/* Title */}
-      <h2 className="ls-title text-h1 md:text-display-xl font-bold text-[var(--text-primary)] mb-5 opacity-0 flex items-center gap-2">
+      <h2 className="ls-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={1} />
         其它类龙虾产品定位
       </h2>
+
+      {/* Positioning summary */}
+      <div className="ls-summary-title max-w-4xl w-full rounded-2xl border-2 p-4 text-center mb-4 opacity-0"
+        style={{ borderColor: '#F97316', backgroundColor: '#F9731608', boxShadow: '0 0 25px #F9731615' }}>
+        <p className="text-h3 font-bold" style={{ color: '#F97316' }}>
+          龙虾本质: 具备自我迭代机制的智能体框架
+        </p>
+      </div>
 
       {/* Section label */}
       <div className="ls-section-label mb-4 opacity-0">
@@ -105,13 +113,6 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
 
       {/* Positioning summary */}
       <div className="max-w-4xl w-full">
-        <div className="ls-summary-title rounded-2xl border-2 p-5 text-center mb-4 opacity-0"
-          style={{ borderColor: '#F97316', backgroundColor: '#F9731608', boxShadow: '0 0 25px #F9731615' }}>
-          <p className="text-h3 font-bold" style={{ color: '#F97316' }}>
-            龙虾 = 具备自我迭代机制的智能体框架
-          </p>
-        </div>
-
         {/* Quote */}
         <div className="ls-quote rounded-xl border px-5 py-3 text-center mb-3 opacity-0"
           style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>

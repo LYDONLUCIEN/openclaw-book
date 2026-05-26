@@ -12,7 +12,7 @@ const CLAW_COLS = [
     subtitle: '云端虾',
     icon: Cloud,
     color: '#3B82F6',
-    desc: '托管服务，开箱即用',
+    desc: '托管服务，开箱即用，7*24小时在线',
     claws: [
       { name: 'ArkClaw', img: 'ArkClaw.png' },
       { name: 'KimiClaw', img: 'kimiclaw.png' },
@@ -25,7 +25,7 @@ const CLAW_COLS = [
     subtitle: '本地虾',
     icon: Server,
     color: '#F97316',
-    desc: '自有服务器，完全可控',
+    desc: '自有服务器，完全可控，操作范围最广',
     claws: [
       { name: 'AutoClaw', img: 'autoClaw.png' },
       { name: 'WorkClaw', img: 'workbuddy.png' },
@@ -38,7 +38,7 @@ const CLAW_COLS = [
     subtitle: '生态虾',
     icon: Layers,
     color: '#8B5CF6',
-    desc: '社区方案，快速上手',
+    desc: '社区方案，快速上手，产品生态内无敌',
     claws: [
       { name: 'QClaw', img: 'QClaw.png' },
       { name: '360Claw', img: '360claw.png' },
@@ -54,14 +54,14 @@ const RECOMMENDS = [
     img: 'QClaw.png',
     color: '#8B5CF6',
     tag: '首推 · 免费',
-    desc: '最便宜，免费白嫖，微信生态友好',
+    desc: '最便宜，最简单，免费白嫖，微信友好',
   },
   {
     name: 'ArkClaw',
     img: 'ArkClaw.png',
     color: '#3B82F6',
     tag: '打工人 · 友好',
-    desc: '24小时在线，飞书工具生态完整',
+    desc: '24小时在线，飞书工具生态完整，',
   },
   {
     name: 'AutoClaw',
@@ -75,7 +75,7 @@ const RECOMMENDS = [
     img: 'openClaw.png',
     color: '#10B981',
     tag: '折腾 · 上限高',
-    desc: '迭代快，能力上限最高',
+    desc: '迭代快，门槛高，能力上限也最高',
   },
 ];
 

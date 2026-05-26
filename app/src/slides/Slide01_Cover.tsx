@@ -14,21 +14,22 @@ const COL1_NEWS = [
 ];
 
 const COL2_VENDORS = [
-  { name: 'OpenClaw', color: '#F97316' },
-  { name: 'ArClaw', color: '#8B5CF6' },
-  { name: 'Autoclaw', color: '#3B82F6' },
-  { name: 'Qclaw', color: '#10B981' },
-  { name: 'Maxclaw', color: '#EC4899' },
-  { name: 'Workbudy', color: '#F59E0B' },
-  { name: 'Hermes', color: '#06B6D4' },
+  { name: '中国移动', color: '#F97316' },
+  { name: '字节跳动', color: '#8B5CF6' },
+  { name: '智普言清', color: '#3B82F6' },
+  { name: '腾讯科技', color: '#10B981' },
+  { name: '阿里巴巴', color: '#da402c' },
+  { name: '小红书', color: '#EC4899' },
+  { name: '小米科技', color: '#F59E0B' },
+  { name: '网易科技', color: '#06B6D4' },
 ];
 
 const MOBILE_STRATEGY = { label: '各大厂商纷纷下场', desc: '免费部署龙虾，token运营关键抓手' };
 
-const COL3_TERMS = ['Prompt', 'RAG', 'ReAct', 'MCP', 'Function Call', 'Workflow', 'Skills', 'Harness', 'Fine-tuning', 'Embedding', 'Vector DB', 'Vibe Coding'];
+const COL3_TERMS = ['AI贾维斯', '爆款视频运营','自动交易', '个人助理', '赛博伴侣', '龙虾游泳池', '一人公司', '全能生活管家', 'Skills仓库', 'AI办公团队', "智能体蜂巢",'资产归零'];
 
 const COL3_HIGHLIGHTS = [
-  { icon: '🔥', text: '催生现象级 AI 应用 Motlbook 诞生' },
+  { icon: '🔥', text: '催生现象级 AI 应用 Moltbook 诞生' },
   { icon: '🤖', text: '全 AI Agent 自主讨论的论坛，人类旁观' },
   { icon: '👥', text: '已有 170 万+ Agent 进入社群自主讨论' },
   { icon: '💬', text: '出现「天网」「末世」「赛博永生」等帖子' },
@@ -230,26 +231,30 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
       {phase === 1 && (
         <div className="s1-problem w-full max-w-5xl flex flex-col items-center justify-center flex-1">
           <h2 className="s1-problem-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
-            遇到使用问题
+            实际使用，困难重重
           </h2>
           <div className="s1-problem-img grid grid-cols-2 gap-6 w-full max-w-4xl opacity-0">
-            <ClickableImage
-              src="/images/slide-from-hot-to-cold.png"
-              alt="从夯到拉"
-              className="w-full h-auto rounded-xl shadow-lg"
-            />
-            <ClickableImage
-              src="/images/claw-info-explosion.png"
-              alt="信息爆炸"
-              className="w-full h-auto rounded-xl shadow-lg"
-            />
+            <div className="rounded-xl shadow-lg overflow-hidden aspect-[4/3]">
+              <ClickableImage
+                src="/images/slide-from-hot-to-cold.png"
+                alt="从夯到拉"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="rounded-xl shadow-lg overflow-hidden aspect-[4/3]">
+              <ClickableImage
+                src="/images/claw-info-explosion.png"
+                alt="信息爆炸"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
           <div className="s1-problem-desc mt-6 text-center max-w-2xl opacity-0">
             <p className="text-body-lg text-[var(--text-secondary)] leading-relaxed mb-2">
-              看了很多测评，依然不会下手。
+              看过很多测评，依然无从下手。
             </p>
             <p className="text-body-lg text-[var(--text-secondary)] leading-relaxed">
-              使用过程不顺，效果不好，甚至产生焦虑。
+              安装过程不顺，使用效果不好。
             </p>
           </div>
         </div>
@@ -275,8 +280,8 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
           </div>
 
           <div className="s1-conclusion text-center mt-8">
-            <h2 className="text-h1 md:text-display font-bold text-[var(--text-primary)]">
-              以智力成本视角解构龙虾，直击本质
+            <h2 className="text-h3 md:text-h2 font-bold text-[var(--text-primary)]">
+              以<span className="text-[var(--primary)] font-extrabold">智力成本</span>视角解构龙虾，直击本质
             </h2>
           </div>
         </div>

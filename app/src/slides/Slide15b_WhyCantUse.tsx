@@ -8,29 +8,29 @@ interface SlideProps { isActive: boolean; }
 const CHALLENGES = [
   {
     level: 1,
-    title: '环境问题',
-    desc: '为安全保障，本地不让养虾；云虾需要服务器，门槛高且存在安全漏洞',
+    title: '第一课:环境部署',
+    desc: '本地虾安全隐患高，得折腾；云虾需要服务器，门槛高',
     cost: '学习成本 · 操作成本',
     color: '#10B981',
   },
   {
     level: 2,
-    title: 'Token 问题',
-    desc: 'Token 成本很高，模型智能不足时再多的工具也解决不了',
-    cost: '算力成本',
+    title: '第二课:Token质量',
+    desc: 'Token成本高，模型智能不足，再多的工具也解决不了',
+    cost: '智能成本 · 算力成本',
     color: '#3B82F6',
   },
   {
     level: 3,
-    title: '模型幻觉',
-    desc: '输出总是可能出错，必须用确定性方式约束——代码执行、Skills 介入',
+    title: '第三课:模型幻觉',
+    desc: '输出总是可能出错，必须用确定性方式约束——代码执行、Skills介入',
     cost: '开发成本 · 学习成本',
     color: '#8B5CF6',
   },
   {
     level: 4,
-    title: '自主决策偏差',
-    desc: '理想完美但结果偏差大，人需要不断反馈决策，找到模型能力边界与 Skills 组合',
+    title: '第四课:自主决策',
+    desc: '理想完美但结果偏差大，需要不断反馈决策，自己能闭环，才懂指导AI',
     cost: '时间成本 · 确认成本',
     color: '#F97316',
   },
@@ -68,7 +68,7 @@ const Slide15b_WhyCantUse: React.FC<SlideProps> = ({ isActive }) => {
       </h2>
 
       <p className="wu-subtitle text-body text-[var(--text-secondary)] text-center max-w-3xl mb-6 opacity-0">
-        龙虾本质上没有脱离大模型的幻觉问题，而且每个层级都带来了更大的挑战
+        龙虾本质上没有脱离大模型的幻觉问题，逃过的课终究是要补回来
       </p>
 
       {/* 4 challenge cards */}

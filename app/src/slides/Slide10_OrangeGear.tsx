@@ -11,7 +11,7 @@ const OC = '#F97316';
 const REPOS = [
   { name: 'anthropics/skills', desc: '官方仓库 · 17 个核心 Skill', source: 'Anthropic 官方' },
   { name: 'mattpocock/skills', desc: '工程师实战派 · grill-me / tdd / caveman', source: '社区热门' },
-  { name: 'VoltAgent/awesome-agent-skills', desc: '1000+ Skills · 跨平台兼容', source: '社区精选' },
+  { name: 'VoltAgent/awesome-agent-skills', desc: '67.3K Skills · 跨平台兼容', source: '社区精选' },
   { name: 'Jeffallan/claude-skills', desc: '66 Skills · 12 类别 · 9.3k stars', source: '社区精选' },
   { name: 'ComposioHQ/awesome-claude-skills', desc: '1000+ 生产级 Skills 合集', source: '社区精选' },
 ];
@@ -97,9 +97,9 @@ tools: [read_file, web_search]
 
 // ── 业务场景示例（后台可编辑） ──
 const BUSINESS_SCENARIOS = [
-  { icon: '📊', title: '报告生成', desc: '从数据源提取关键指标，生成结构化业务周报与月报' },
-  { icon: '📋', title: '表格处理', desc: '读取、清洗、汇总 Excel/CSV 数据，输出可视化图表' },
-  { icon: '🖥', title: '演示文稿', desc: '根据大纲或文档内容，自动排版生成专业 PPT 幻灯片' },
+  { icon: '📋', title: 'reference', desc: '参考资料，相关业务知识，业务数据，业务流程的详细描述' },
+  { icon: '🖥', title: 'scripts', desc: '工具脚本，具体功能的执行与实现代码，结果更精准' },
+  { icon: '📊', title: 'examples', desc: '使用样例，举例说明不同情况与场景使用方法，使用更可控' },
 ];
 
 const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
@@ -152,7 +152,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
             style={{ borderColor: `${OC}50`, backgroundColor: `${OC}08` }}>
             <div className="flex items-center justify-center gap-5">
               <div>
-                <p className="text-h2 font-bold" style={{ color: OC }}>1000+</p>
+                <p className="text-h2 font-bold" style={{ color: OC }}>67.3K</p>
                 <p className="text-caption text-[var(--text-secondary)]">社区 Skills</p>
               </div>
               <div className="w-px h-8" style={{ backgroundColor: `${OC}30` }} />
@@ -173,7 +173,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
             style={{ borderColor: `${OC}40`, backgroundColor: `${OC}04` }}>
             <div className="flex items-center gap-2 px-3 py-1.5 border-b" style={{ borderColor: `${OC}20` }}>
               <span className="text-caption font-bold" style={{ color: OC }}>ClawHub 技能市场</span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded" style={{ backgroundColor: `${OC}15`, color: OC }}>13,729+ skills</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded" style={{ backgroundColor: `${OC}15`, color: OC }}>67.3K skills</span>
             </div>
             <div className="p-2">
               <img
@@ -249,7 +249,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
             {/* 业务场景 */}
             <div className="rounded-xl border-2 p-2.5"
               style={{ borderColor: `${OC}30`, backgroundColor: `${OC}05` }}>
-              <p className="text-body-sm font-bold mb-1.5" style={{ color: OC }}>典型业务场景</p>
+              <p className="text-body-sm font-bold mb-1.5" style={{ color: OC }}>skills包含内容</p>
               <div className="space-y-1.5">
                 {BUSINESS_SCENARIOS.map((s) => (
                   <div key={s.title} className="flex items-start gap-2">
@@ -270,7 +270,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
       <div className="og-bottom mt-3 rounded-xl border-2 px-6 py-2.5 text-center opacity-0"
         style={{ borderColor: OC, backgroundColor: `${OC}10`, boxShadow: `0 0 30px ${OC}15` }}>
         <p className="text-body font-bold" style={{ color: OC }}>
-          官方 17 + 社区 1000+ — Skills 正在成为 AI Agent 的应用商店
+          官方 17 + 社区 67.3K — Skills 正在成为 AI Agent 的应用商店
         </p>
       </div>
     </section>

@@ -124,7 +124,7 @@ const MODS: Mod[] = [
     insight: '纯 Markdown + SQLite——人可读、可编辑、可版本控制',
   },
   {
-    id: 'heartbeat', name: 'Heartbeat', sub: '定时触发 · 主动行为', icon: Heart, cat: 'harness',
+    id: 'heartbeat', name: 'Heartbeat', sub: '变动检测 · 主动行为', icon: Heart, cat: 'harness',
     analogy: '定时巡更 — 从被动响应到主动执行',
     bullets: [
       '定时触发：默认 30 分钟唤醒一次',
@@ -247,6 +247,16 @@ const MAIN_FLOW = [
 ];
 
 // ── Slide 组件 ──
+// 需要在 Phase 1 归组视图中标记的 harness 模块
+const HARNESS_STAR_IDS = new Set(['channel', 'context', 'heartbeat']);
+
+// 小五角星 SVG 组件
+const Star: React.FC<{ color: string }> = ({ color }) => (
+  <svg width="10" height="10" viewBox="0 0 24 24" fill={color} className="shrink-0" style={{ filter: `drop-shadow(0 0 2px ${color}60)` }}>
+    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+  </svg>
+);
+
 const Slide05_CoreTech: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState(0);
@@ -441,9 +451,14 @@ const Slide05_CoreTech: React.FC<SlideProps> = ({ isActive }) => {
                     const Icon = mod.icon;
                     return (
                       <div key={mod.id}
-                        className="flex items-center gap-2.5 rounded-lg border p-2.5 cursor-pointer transition-all duration-200 hover:shadow-md"
+                        className="flex items-center gap-2.5 rounded-lg border p-2.5 cursor-pointer transition-all duration-200 hover:shadow-md relative"
                         style={{ borderColor: `${cat.color}40`, backgroundColor: `${cat.color}06` }}
                         onClick={() => handleModuleClick(mod.id)}>
+                        {catKey === 'harness' && HARNESS_STAR_IDS.has(mod.id) && (
+                          <span className="absolute -top-1.5 -left-1.5">
+                            <Star color={cat.color} />
+                          </span>
+                        )}
                         <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                           style={{ backgroundColor: `${cat.color}12` }}>
                           <Icon size={14} style={{ color: cat.color }} />

@@ -11,7 +11,7 @@ const EVOLUTION_LINES = [
     label: '输入 / 便利性',
     color: 'var(--primary)',
     rawColor: '#3B82F6',
-    nodes: ['提示词', 'RAG', 'Skills'],
+    nodes: ['提示词(Propmpt)', '知识库检索(RAG)', 'Skills'],
     subtitle: '逐步解决输入不确定性',
   },
   {
@@ -19,7 +19,7 @@ const EVOLUTION_LINES = [
     label: '处理 / 完备性',
     color: 'var(--accent)',
     rawColor: '#F59E0B',
-    nodes: ['Function Call', 'MCP', 'Skills'],
+    nodes: ['函数调用(Function Call)', '工具协议(MCP)', 'Skills'],
     subtitle: '逐步解决处理不确定性',
   },
   {
@@ -27,7 +27,7 @@ const EVOLUTION_LINES = [
     label: '输出 / 确定性',
     color: 'var(--success)',
     rawColor: '#10B981',
-    nodes: ['Prompt Eng', 'Workflow', 'ReAct', 'Harness'],
+    nodes: ['提示词工程(Prompt Engineering)', '工作流(Workflow)', '智能体(ReAct)', 'Harness Engineering'],
     subtitle: '逐步解决输出不确定性',
   },
 ];
@@ -130,14 +130,14 @@ const Slide11_EvolutionLines: React.FC<SlideProps> = ({ isActive }) => {
             style={{ borderColor: '#F97316', backgroundColor: '#F9731615' }}>
             <p className="text-h3 font-bold" style={{ color: '#F97316' }}>Skills — 沉淀</p>
             <p className="text-body-sm text-[var(--text-secondary)] mt-2">
-              用更多沉淀的业务知识与流程，降低模型的<span className="font-bold text-[var(--text-primary)]">确认成本</span>与<span className="font-bold text-[var(--text-primary)]">操作成本</span>
+              用更多沉淀的业务知识与流程，降低模型的<br /><span className="font-bold text-[var(--text-primary)]">操作成本</span>与<span className="font-bold text-[var(--text-primary)]">开发成本</span>
             </p>
           </div>
           <div className="el-insight-2 rounded-xl border-2 px-6 py-4 max-w-md text-center opacity-0"
             style={{ borderColor: '#F97316', backgroundColor: '#F9731615' }}>
-            <p className="text-h3 font-bold" style={{ color: '#F97316' }}>Harness — 众包</p>
+            <p className="text-h3 font-bold" style={{ color: '#F97316' }}>Harness — 积累</p>
             <p className="text-body-sm text-[var(--text-secondary)] mt-2">
-              用更多众包的经验，降低这些沉淀流程的<span className="font-bold text-[var(--text-primary)]">开发成本</span>
+              用更多行业积累的踩坑经验，降低工程化的<br /><span className="font-bold text-[var(--text-primary)]">开发成本</span>与<span className="font-bold text-[var(--text-primary)]">确认成本</span>
             </p>
           </div>
         </div>
