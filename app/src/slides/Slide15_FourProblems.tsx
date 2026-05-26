@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
+import ClickableImage from '@/components/ImageOverlay';
 
 interface SlideProps { isActive: boolean; }
 
@@ -76,7 +77,7 @@ const Slide15_FourProblems: React.FC<SlideProps> = ({ isActive }) => {
             {/* Image placeholder — very compact */}
             <div className="mt-auto rounded-md border-2 border-dashed aspect-[2.5/1] flex items-center justify-center overflow-hidden relative"
               style={{ borderColor: `${lv.color}25`, backgroundColor: `${lv.color}05` }}>
-              <img src={`/images/levels/${lv.img}`} alt={`L${lv.level} demo`}
+              <ClickableImage src={`/images/levels/${lv.img}`} alt={`L${lv.level} demo`}
                 className="w-full h-full object-contain relative z-10"
                 onLoad={(e) => { ((e.target as HTMLImageElement).nextElementSibling as HTMLElement)?.remove(); }}
                 onError={(e) => { (e.target as HTMLImageElement).remove(); }} />

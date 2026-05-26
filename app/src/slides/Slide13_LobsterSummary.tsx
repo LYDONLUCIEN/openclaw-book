@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
+import ClickableImage from '@/components/ImageOverlay';
 
 interface SlideProps { isActive: boolean; }
 
@@ -81,7 +82,7 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
             {/* Image placeholder */}
             <div className="ls-card-img w-full aspect-video rounded-lg border-2 border-dashed flex items-center justify-center mb-3 overflow-hidden relative"
               style={{ borderColor: `${product.color}30`, backgroundColor: `${product.color}06` }}>
-              <img src={product.imgSrc} alt={product.name}
+              <ClickableImage src={product.imgSrc} alt={product.name}
                 className="w-full h-full object-contain relative z-10"
                 onLoad={(e) => { ((e.target as HTMLImageElement).nextElementSibling as HTMLElement)?.remove(); }}
                 onError={(e) => { (e.target as HTMLImageElement).remove(); }} />

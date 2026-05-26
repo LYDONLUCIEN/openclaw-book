@@ -2,6 +2,7 @@ import React, { useRef, memo, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TrendingUp, Star, ShoppingBag, ChevronRight, Image } from 'lucide-react';
+import ClickableImage from '@/components/ImageOverlay';
 
 interface SlideProps { isActive: boolean; }
 
@@ -154,7 +155,7 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
               </div>
               <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--primary)30' }}>
-                <img src="/images/github-trend.png" alt="GitHub 趋势图" className="w-full h-auto object-contain" />
+                <ClickableImage src="/images/github-trend.png" alt="GitHub 趋势图" className="w-full h-auto object-contain" />
               </div>
             </HoverCard>
 
@@ -185,7 +186,7 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
               </div>
               <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--secondary)30' }}>
-                <img src="/images/huanpi.png" alt="现象级应用截图" className="w-full h-auto object-contain" />
+                <ClickableImage src="/images/huanpi.png" alt="现象级应用截图" className="w-full h-auto object-contain" />
               </div>
             </HoverCard>
 
@@ -211,7 +212,7 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
               </div>
               <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--accent)30' }}>
-                <img src="/images/lobster-news.png" alt="龙虾热门新闻" className="w-full h-auto object-contain" />
+                <ClickableImage src="/images/lobster-news.png" alt="龙虾热门新闻" className="w-full h-auto object-contain" />
               </div>
             </HoverCard>
 
@@ -232,12 +233,12 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
             遇到使用问题
           </h2>
           <div className="s1-problem-img grid grid-cols-2 gap-6 w-full max-w-4xl opacity-0">
-            <img
+            <ClickableImage
               src="/images/slide-from-hot-to-cold.png"
               alt="从夯到拉"
               className="w-full h-auto rounded-xl shadow-lg"
             />
-            <img
+            <ClickableImage
               src="/images/claw-info-explosion.png"
               alt="信息爆炸"
               className="w-full h-auto rounded-xl shadow-lg"

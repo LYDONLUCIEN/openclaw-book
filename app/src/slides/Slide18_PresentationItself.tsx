@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { User, Bot } from 'lucide-react';
 import ChapterBadge from '@/components/ChapterBadge';
+import ClickableImage from '@/components/ImageOverlay';
 
 interface SlideProps { isActive: boolean; }
 
@@ -97,7 +98,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
               </span>
             ))}
           </div>
-          <img src="./images/slide19-human-work.png" alt="人类工作示例"
+          <ClickableImage src="./images/slide19-human-work.png" alt="人类工作示例"
             className="w-full rounded-lg object-cover" style={{ maxHeight: '180px' }} />
         </div>
 
@@ -122,7 +123,7 @@ const Slide18_PresentationItself: React.FC<SlideProps> = ({ isActive }) => {
               </span>
             ))}
           </div>
-          <img src="./images/slide19-ai-work.png" alt="AI工作示例"
+          <ClickableImage src="./images/slide19-ai-work.png" alt="AI工作示例"
             className="w-full rounded-lg object-cover" style={{ maxHeight: '180px' }} />
         </div>
       </div>

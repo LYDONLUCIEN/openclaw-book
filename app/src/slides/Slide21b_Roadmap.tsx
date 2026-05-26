@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
+import ClickableImage from '@/components/ImageOverlay';
 
 interface SlideProps { isActive: boolean; }
 
@@ -124,7 +125,7 @@ const Slide21b_Roadmap: React.FC<SlideProps> = ({ isActive }) => {
             <div className="rm-img rounded-lg border-2 aspect-[16/10] overflow-hidden"
               style={{ borderColor: '#10B98140', backgroundColor: '#10B98105' }}>
               {p.image && (
-                <img src={p.image} alt={p.label} className="w-full h-full object-contain" />
+                <ClickableImage src={p.image} alt={p.label} className="w-full h-full object-contain" />
               )}
             </div>
           </div>
@@ -135,7 +136,7 @@ const Slide21b_Roadmap: React.FC<SlideProps> = ({ isActive }) => {
         <div className="rounded-xl border-2 px-6 py-3"
           style={{ borderColor: '#F97316', backgroundColor: '#F973160A' }}>
           <p className="text-body font-bold" style={{ color: '#F97316' }}>
-            中国移动oken运营战略方向！
+            中国移动token运营战略方向！
           </p>
           <p className="text-body-sm text-[var(--text-secondary)] mt-0.5">
             集团AI开发工具，省内办公AI助理，移动云服务龙虾携手打造数智化转型

@@ -10,6 +10,7 @@ import BottomNav from './BottomNav';
 import ProgressBar from './ProgressBar';
 import TOC from './TOC';
 import { useZoomOnAlt } from '@/hooks/useZoomOnAlt';
+import { ImageZoomProvider } from '@/components/ImageOverlay';
 interface LayoutProps {
   totalSlides: number;
   slides: React.ComponentType<{ isActive: boolean }>[];
@@ -178,9 +179,11 @@ const Layout: React.FC<LayoutProps> = ({ totalSlides, slides, className }) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <SlideProvider totalSlides={totalSlides} theme={theme} setTheme={setTheme}>
-      <LayoutInner slides={slides} className={className} />
-    </SlideProvider>
+    <ImageZoomProvider>
+      <SlideProvider totalSlides={totalSlides} theme={theme} setTheme={setTheme}>
+        <LayoutInner slides={slides} className={className} />
+      </SlideProvider>
+    </ImageZoomProvider>
   );
 };
 

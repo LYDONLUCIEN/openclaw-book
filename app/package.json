@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/check-node.mjs",
+    "predev": "node scripts/kill-ports.mjs && node scripts/check-node.mjs",
     "dev": "vite",
     "prebuild": "node scripts/check-node.mjs",
     "build": "tsc -b && vite build",

@@ -2,6 +2,7 @@ import React, { useRef, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
+import ClickableImage from '@/components/ImageOverlay';
 
 interface SlideProps { isActive: boolean; }
 
@@ -78,7 +79,7 @@ const Slide17b_LevelExamples: React.FC<SlideProps> = ({ isActive }) => {
           </div>
 
           <div className="le-l2-img mt-2 flex items-center justify-center">
-            <img src="./images/slide18-level2.png" alt="L2 实战截图"
+            <ClickableImage src="./images/slide18-level2.png" alt="L2 实战截图"
               style={{ width: '75%', transform: 'scale(0.8)', transformOrigin: 'center' }} />
           </div>
 
@@ -115,7 +116,7 @@ const Slide17b_LevelExamples: React.FC<SlideProps> = ({ isActive }) => {
           </div>
 
           <div className="le-l3-img mt-2 flex items-center justify-center">
-            <img src="./images/slide18-level3.png" alt="L3 实战截图"
+            <ClickableImage src="./images/slide18-level3.png" alt="L3 实战截图"
               style={{ width: '75%', transform: 'scale(0.8)', transformOrigin: 'center' }} />
           </div>
 
