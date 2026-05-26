@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenClaw 三类方案评估表（16:9）</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1b33;
+      --panel2:#0c1730;
+      --text:#e8eefc;
+      --muted:#a9b6da;
+      --line:rgba(255,255,255,.10);
+      --accent:#4f8cff;
+      --good:#2dd4bf;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 700px at 20% 10%, rgba(79,140,255,.20), transparent 55%),
+                 radial-gradient(1000px 650px at 85% 70%, rgba(45,212,191,.12), transparent 60%),
+                 var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      min-height:100vh;
+    }
+
+    .slide{
+      width: min(100vw, calc(100vh * 16 / 9));
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      box-shadow: var(--shadow);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    header{
+      padding:14px 18px 10px 18px;
+      border-bottom:1px solid var(--line);
+      background: linear-gradient(90deg, rgba(79,140,255,.18), rgba(45,212,191,.10));
+    }
+    .title{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+      line-height:1.2;
+    }
+    .subtitle{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .badge{
+      flex:0 0 auto;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:6px;
+    }
+    .badge span{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .pill{
+      background: rgba(79,140,255,.18);
+      border:1px solid rgba(79,140,255,.35);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    .content{
+      height: calc(100% - 64px);
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:12px;
+      padding:12px;
+    }
+
+    .panel{
+      background: rgba(15,27,51,.65);
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:14px;
+      padding:12px;
+      overflow:hidden;
+    }
+
+    .panel h2{
+      margin:0 0 10px 0;
+      font-size:14px;
+      color: #dbe6ff;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(79,140,255,.18);
+    }
+
+    .steps{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .step{
+      background: rgba(12,23,48,.75);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:10px;
+    }
+    .step .k{
+      font-weight:800;
+      font-size:12px;
+      color:#cfe0ff;
+      margin-bottom:6px;
+      display:flex; gap:8px; align-items:center;
+    }
+    .step .k i{
+      width:22px; height:22px; border-radius:8px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(79,140,255,.18);
+      border:1px solid rgba(79,140,255,.35);
+      font-style:normal;
+      color:#e8f0ff;
+    }
+
+    .opts{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:8px;
+    }
+    .opt{
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding:8px 10px;
+      cursor:pointer;
+      user-select:none;
+      transition: .15s;
+      min-height:44px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:3px;
+    }
+    .opt:hover{ border-color: rgba(79,140,255,.40); }
+    .opt input{ margin-right:8px; }
+    .opt .label{ font-size:12px; font-weight:800; }
+    .opt .hint{ font-size:11px; color:var(--muted); line-height:1.2; }
+
+    .opt input{ accent-color: var(--accent); }
+
+    .matrixWrap{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      height:100%;
+    }
+
+    .recommend{
+      background: rgba(12,23,48,.75);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height: 168px;
+    }
+
+    .recRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .recLabel{
+      font-weight:900;
+      font-size:13px;
+      color:#dbe6ff;
+    }
+
+    .tag{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .tag.continue{ border-color: rgba(79,140,255,.40); background: rgba(79,140,255,.14); }
+    .tag.collab{ border-color: rgba(45,212,191,.45); background: rgba(45,212,191,.14); }
+    .tag.loop{ border-color: rgba(251,191,36,.45); background: rgba(251,191,36,.14); }
+
+    .recText{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .smallNote{
+      margin-top:auto;
+      color: rgba(233,242,255,.78);
+      font-size:11px;
+      line-height:1.35;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      font-size:12px;
+      overflow:hidden;
+      border-radius:14px;
+    }
+    th, td{
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      padding:9px 8px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      color:#dbe6ff;
+      font-size:12px;
+      font-weight:900;
+      background: rgba(255,255,255,.03);
+    }
+    td{
+      color:#e8eefc;
+    }
+    .colMut{ color:var(--muted); font-size:11px; line-height:1.2; }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,.09);
+    }
+
+    button{
+      border:none;
+      border-radius:10px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:12px;
+      color: #071126;
+      background: linear-gradient(90deg, rgba(79,140,255,1), rgba(45,212,191,.95));
+      box-shadow: 0 10px 28px rgba(79,140,255,.22);
+    }
+    button.secondary{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:none;
+    }
+
+    .kbd{
+      font-size:11px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    /* responsive: keep legibility */
+    @media (max-width: 980px){
+      .content{ grid-template-columns: 1fr; overflow:auto; }
+      .slide{ border-radius:14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" role="application" aria-label="OpenClaw 三类方案评估表">
+    <header>
+      <div class="title">
+        <div>
+          <h1>OpenClaw 三类解决方案评估（16:9版）</h1>
+          <div class="subtitle">按 4 个问题依次选择，系统会给出推荐主方案：<b>继续氪金</b> / <b>分工合作</b> / <b>人在回路</b>。</div>
+        </div>
+        <div class="badge">
+          <span>小白对照表</span>
+          <div class="pill">表格化判定路线</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- Left: selection route -->
+      <section class="panel">
+        <h2><span class="dot"></span>判定路线（依次选）</h2>
+        <div class="steps" aria-live="polite">
+
+          <!-- Step 1 -->
+          <div class="step">
+            <div class="k"><i>1</i>数据范围</div>
+            <div class="opts">
+              <label class="opt">
+                <input type="radio" name="dataScope" value="internal" />
+                <div class="label">内网/敏感数据</div>
+                <div class="hint">需要更强隔离、可控与校验</div>
+              </label>
+              <label class="opt">
+                <input type="radio" name="dataScope" value="public" />
+                <div class="label">公网可开放数据</div>
+                <div class="hint">限制相对少，可更高效迭代</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step">
+            <div class="k"><i>2</i>使用频率</div>
+            <div class="opts">
+              <label class="opt">
+                <input type="radio" name="frequency" value="often" />
+                <div class="label">频繁使用</div>
+                <div class="hint">值得沉淀流程与自动化</div>
+              </label>
+              <label class="opt">
+                <input type="radio" name="frequency" value="rare" />
+                <div class="label">偶尔/低频</div>
+                <div class="hint">可先用轻量方案兜底</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step">
+            <div class="k"><i>3</i>是否值得开发</div>
+            <div class="opts">
+              <label class="opt">
+                <input type="radio" name="devWorth" value="yes" />
+                <div class="label">值得投入开发</div>
+                <div class="hint">能做流程/工具/知识沉淀</div>
+              </label>
+              <label class="opt">
+                <input type="radio" name="devWorth" value="no" />
+                <div class="label">不值得/赶时间</div>
+                <div class="hint">优先降低不确定性成本</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step">
+            <div class="k"><i>4</i>准确性要求</div>
+            <div class="opts">
+              <label class="opt">
+                <input type="radio" name="accuracy" value="high" />
+                <div class="label">高准确性</div>
+                <div class="hint">结果需要被严格校验/签发</div>
+              </label>
+              <label class="opt">
+                <input type="radio" name="accuracy" value="low" />
+                <div class="label">中低准确性</div>
+                <div class="hint">允许一定误差与迭代纠正</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="kbd">提示：未选择完 4 项前可能给出“待确认”。</div>
+            <div style="display:flex; gap:10px;">
+              <button type="button" class="secondary" onclick="resetAll()">清空</button>
+              <button type="button" onclick="compute()">给出推荐</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: recommendation + compact matrix -->
+      <aside class="panel">
+        <div class="matrixWrap">
+          <h2><span class="dot" style="background:var(--good); box-shadow:0 0 0 4px rgba(45,212,191,.18)"></span>推荐与解释</h2>
+
+          <div class="recommend">
+            <div class="recRow">
+              <div class="recLabel">推荐主方案</div>
+              <div id="recTag" class="tag" aria-live="polite">待确认</div>
+            </div>
+            <div id="recWhy" class="recText">请先在左侧完成 1~4 的选择。</div>
+            <div class="smallNote">
+              <b>三类方案含义（快速对照）</b><br/>
+              继续氪金：换更强模型/更确定性的实现，提升开发成本来降低不确定性。<br/>
+              分工合作：人多协作、频繁调度与文档/知识沉淀，让模型更会做。<br/>
+              人在回路：对结果持续校验、兜底与签发。
+            </div>
+          </div>
+
+          <div>
+            <div class="recLabel" style="margin:0 0 8px 0;">压缩版决策表（用于复核）</div>
+            <div style="max-height: 310px; overflow:auto; padding-right:2px;">
+              <table aria-label="压缩决策表">
+                <thead>
+                  <tr>
+                    <th style="width:36%">你选到的关键条件</th>
+                    <th style="width:34%">更倾向的方案</th>
+                    <th style="width:30%">原因（非技术小白版）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>内网敏感数据</b> 或 <b>高准确性</b></td>
+                    <td>人在回路</td>
+                    <td class="colMut">结果必须有人反复看、及时拦截错误。</td>
+                  </tr>
+                  <tr>
+                    <td><b>频繁使用</b> 且 <b>值得开发</b> 且 <b>准确性要求中低</b>（允许迭代）</td>
+                    <td>分工合作</td>
+                    <td class="colMut">用人来持续沉淀规则/知识，越用越稳。</td>
+                  </tr>
+                  <tr>
+                    <td><b>不值得开发</b> 或 <b>低频</b>，且你能接受用更强模型/更确定实现</td>
+                    <td>继续氪金</td>
+                    <td class="colMut">先把不确定性“买回来”，快速上线。</td>
+                  </tr>
+                  <tr>
+                    <td><b>公网可开放数据</b> 且 <b>低频</b> 且 <b>中低准确性</b></td>
+                    <td>继续氪金 / 分工合作（按是否值得开发）</td>
+                    <td class="colMut">从快试到迭代沉淀，路径更灵活。</td>
+                  </tr>
+                  <tr>
+                    <td>其他组合（冲突条件较多）</td>
+                    <td>优先级：人在回路 → 分工合作 → 继续氪金</td>
+                    <td class="colMut">先保证不翻车，再提升效率与长期收益。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script>
+  function getVal(name){
+    const el = document.querySelector('input[name="'+name+'"]:checked');
+    return el ? el.value : null;
+  }
+
+  function resetAll(){
+    document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+    const tag = document.getElementById('recTag');
+    tag.className = 'tag';
+    tag.textContent = '待确认';
+    document.getElementById('recWhy').textContent = '请先在左侧完成 1~4 的选择。';
+  }
+
+  function setRec(tagKey, why){
+    const tag = document.getElementById('recTag');
+    tag.className = 'tag ' + tagKey;
+    tag.textContent = {
+      'continue':'继续氪金',
+      'collab':'分工合作',
+      'loop':'人在回路'
+    }[tagKey] || '待确认';
+    document.getElementById('recWhy').innerHTML = why;
+  }
+
+  function compute(){
+    const dataScope = getVal('dataScope');
+    const frequency = getVal('frequency');
+    const devWorth = getVal('devWorth');
+    const accuracy = getVal('accuracy');
+
+    if(!dataScope || !frequency || !devWorth || !accuracy){
+      setRec('', '未完成选择。请至少完成 1~4 的条件后再点击“给出推荐”。');
+      return;
+    }
+
+    // 规则（把小白路线表变成可算的判定）
+    // 最高优先级：安全/正确性优先
+    if(dataScope === 'internal' || accuracy === 'high'){
+      setRec('loop',
+        '你选择了：<b>' + (dataScope==='internal'?'内网/敏感数据':'（高准确性）') + '</b>，且准确性要求/数据风险更高。<br/>' +
+        '因此推荐 <b>人在回路</b>：让人对关键结果持续校验、拦截错误与兜底。'
+      );
+      return;
+    }
+
+    // 其次：长期效率与可沉淀
+    if(frequency === 'often' && devWorth === 'yes'){
+      setRec('collab',
+        '你选择了 <b>频繁使用</b> 且 <b>值得投入开发</b>，同时没有“高准确性/敏感数据”这一强约束。<br/>' +
+        '因此推荐 <b>分工合作</b>：用人做调度与知识/文档沉淀，让模型越来越会做。'
+      );
+      return;
+    }
+
+    // 低开发/低频：用“买更强能力”快速降低不确定性
+    if(devWorth === 'no' || frequency === 'rare'){
+      setRec('continue',
+        '你选择了 <b>不值得开发</b> 或 <b>低频</b>。<br/>' +
+        '因此推荐 <b>继续氪金</b>：通过更强模型与更确定的实现方式，快速降低不确定性并尽快上线。'
+      );
+      return;
+    }
+
+    // 兜底：如果没有命中，按优先级在三者间选一个
+    setRec('collab',
+      '综合判断没有触发强约束分支。默认优先选择 <b>分工合作</b>，以便把过程沉淀下来、长期提效。'
+    );
+  }
+</script>
+</body>
+</html>

@@ -14,18 +14,18 @@ const BOUNDARIES = [
     action: '更多实践、更多复盘、积累方法论',
   },
   {
-    title: 'AI 的能力边界',
-    icon: '🤖',
-    color: '#8B5CF6',
-    desc: '模型智能有上限，场景覆盖有限',
-    action: '氪金用更好模型，Coding Plan 省很多，等待技术演进',
-  },
-  {
     title: '框架的能力边界',
     icon: '🛠',
     color: '#10B981',
     desc: '工具链不完善，定制空间受限制',
     action: '开发工具，甚至自己去迭代 AI 框架',
+  },
+  {
+    title: 'AI 的能力边界',
+    icon: '🤖',
+    color: '#8B5CF6',
+    desc: '模型智能有上限，场景覆盖有限',
+    action: '氪金用更好模型，Coding Plan 省很多，等待技术演进',
   },
 ];
 

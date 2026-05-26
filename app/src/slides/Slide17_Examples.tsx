@@ -58,7 +58,72 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
 
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 flex-1">
 
-        {/* ═══ Card 1: 继续氪金 ═══ */}
+        {/* ═══ Card 1: 各司其职 ═══ */}
+        <div className="sol-card rounded-xl border-2 p-5 opacity-0 flex flex-col"
+          style={{ borderColor: '#8B5CF640', backgroundColor: '#8B5CF605' }}>
+
+          {/* Top: Header + Points */}
+          <div className="shrink-0">
+            <div className="flex items-center gap-2.5 mb-2.5">
+              <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                style={{ backgroundColor: '#8B5CF615', color: '#8B5CF6' }}>
+                <span className="text-body font-bold">1</span>
+              </div>
+              <div>
+                <h3 className="text-body-lg font-bold" style={{ color: '#8B5CF6' }}>各司其职</h3>
+                <span className="text-caption font-semibold" style={{ color: '#8B5CF6CC' }}>
+                  找到对某类成本不敏感的场景
+                </span>
+              </div>
+            </div>
+            <div className="space-y-1.5 mb-1">
+              <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
+                · 算力不敏感：报表慢慢算，反正明天才看
+              </p>
+              <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
+                · 不确定性不敏感：文字比数据更容易检查，让模型输出后人工审阅
+              </p>
+            </div>
+          </div>
+
+          {/* Middle: Data Comparison — vertically centered */}
+          <div className="flex-1 flex items-center justify-center py-2">
+            <div className="w-full rounded-lg border overflow-hidden"
+              style={{ borderColor: '#8B5CF625' }}>
+              <div className="grid grid-cols-3"
+                style={{ backgroundColor: '#8B5CF610' }}>
+                <span className="text-[12px] font-bold py-2 px-3" style={{ color: '#8B5CF6' }}>方式</span>
+                <span className="text-[12px] font-bold py-2 px-3 text-center" style={{ color: '#8B5CF6' }}>首次耗时</span>
+                <span className="text-[12px] font-bold py-2 px-3 text-center" style={{ color: '#8B5CF6' }}>重复使用</span>
+              </div>
+              <div className="grid grid-cols-3 border-t"
+                style={{ borderColor: '#8B5CF612' }}>
+                <span className="text-[12px] py-2 px-3 font-semibold" style={{ color: 'var(--text-primary)' }}>Excel 表</span>
+                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#F59E0B' }}>2 小时</span>
+                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#10B981' }}>5 秒</span>
+              </div>
+              <div className="grid grid-cols-3 border-t"
+                style={{ borderColor: '#8B5CF612', backgroundColor: '#8B5CF605' }}>
+                <span className="text-[12px] py-2 px-3 font-semibold" style={{ color: 'var(--text-primary)' }}>大模型</span>
+                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#F59E0B' }}>25 分钟</span>
+                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#EF4444' }}>25 分钟</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom: Examples */}
+          <div className="shrink-0 rounded-lg border px-3 py-2.5"
+            style={{ borderColor: '#8B5CF620', backgroundColor: '#8B5CF608' }}>
+            <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
+              💡 自动处理文章计算报表——不用开发报表程序，慢就慢点
+            </p>
+            <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
+              💡 文字输出场景——检查文字比检查数据容易，确定性要求天然低
+            </p>
+          </div>
+        </div>
+
+        {/* ═══ Card 2: 继续氪金 ═══ */}
         <div className="sol-card rounded-xl border-2 p-5 opacity-0 flex flex-col"
           style={{ borderColor: '#3B82F640', backgroundColor: '#3B82F605' }}>
 
@@ -67,7 +132,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
             <div className="flex items-center gap-2.5 mb-2.5">
               <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                 style={{ backgroundColor: '#3B82F615', color: '#3B82F6' }}>
-                <span className="text-body font-bold">1</span>
+                <span className="text-body font-bold">2</span>
               </div>
               <div>
                 <h3 className="text-body-lg font-bold" style={{ color: '#3B82F6' }}>继续氪金</h3>
@@ -119,7 +184,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
           </div>
         </div>
 
-        {/* ═══ Card 2: 人在回路 ═══ */}
+        {/* ═══ Card 3: 人在回路 ═══ */}
         <div className="sol-card rounded-xl border-2 p-5 opacity-0 flex flex-col"
           style={{ borderColor: '#10B98140', backgroundColor: '#10B98105' }}>
 
@@ -128,7 +193,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
             <div className="flex items-center gap-2.5 mb-2.5">
               <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                 style={{ backgroundColor: '#10B98115', color: '#10B981' }}>
-                <span className="text-body font-bold">2</span>
+                <span className="text-body font-bold">3</span>
               </div>
               <div>
                 <h3 className="text-body-lg font-bold" style={{ color: '#10B981' }}>人在回路</h3>
@@ -196,71 +261,6 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
             </p>
             <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
               💡 先手动跑一遍 Skill，保证中间过程对
-            </p>
-          </div>
-        </div>
-
-        {/* ═══ Card 3: 场景选择 ═══ */}
-        <div className="sol-card rounded-xl border-2 p-5 opacity-0 flex flex-col"
-          style={{ borderColor: '#8B5CF640', backgroundColor: '#8B5CF605' }}>
-
-          {/* Top: Header + Points */}
-          <div className="shrink-0">
-            <div className="flex items-center gap-2.5 mb-2.5">
-              <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ backgroundColor: '#8B5CF615', color: '#8B5CF6' }}>
-                <span className="text-body font-bold">3</span>
-              </div>
-              <div>
-                <h3 className="text-body-lg font-bold" style={{ color: '#8B5CF6' }}>场景选择</h3>
-                <span className="text-caption font-semibold" style={{ color: '#8B5CF6CC' }}>
-                  找到对某类成本不敏感的场景
-                </span>
-              </div>
-            </div>
-            <div className="space-y-1.5 mb-1">
-              <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 算力不敏感：报表慢慢算，反正明天才看
-              </p>
-              <p className="text-body-sm text-[var(--text-primary)] leading-relaxed">
-                · 不确定性不敏感：文字比数据更容易检查，让模型输出后人工审阅
-              </p>
-            </div>
-          </div>
-
-          {/* Middle: Data Comparison — vertically centered */}
-          <div className="flex-1 flex items-center justify-center py-2">
-            <div className="w-full rounded-lg border overflow-hidden"
-              style={{ borderColor: '#8B5CF625' }}>
-              <div className="grid grid-cols-3"
-                style={{ backgroundColor: '#8B5CF610' }}>
-                <span className="text-[12px] font-bold py-2 px-3" style={{ color: '#8B5CF6' }}>方式</span>
-                <span className="text-[12px] font-bold py-2 px-3 text-center" style={{ color: '#8B5CF6' }}>首次耗时</span>
-                <span className="text-[12px] font-bold py-2 px-3 text-center" style={{ color: '#8B5CF6' }}>重复使用</span>
-              </div>
-              <div className="grid grid-cols-3 border-t"
-                style={{ borderColor: '#8B5CF612' }}>
-                <span className="text-[12px] py-2 px-3 font-semibold" style={{ color: 'var(--text-primary)' }}>Excel 表</span>
-                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#F59E0B' }}>2 小时</span>
-                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#10B981' }}>5 秒</span>
-              </div>
-              <div className="grid grid-cols-3 border-t"
-                style={{ borderColor: '#8B5CF612', backgroundColor: '#8B5CF605' }}>
-                <span className="text-[12px] py-2 px-3 font-semibold" style={{ color: 'var(--text-primary)' }}>大模型</span>
-                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#F59E0B' }}>25 分钟</span>
-                <span className="text-[12px] py-2 px-3 text-center font-bold" style={{ color: '#EF4444' }}>25 分钟</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom: Examples */}
-          <div className="shrink-0 rounded-lg border px-3 py-2.5"
-            style={{ borderColor: '#8B5CF620', backgroundColor: '#8B5CF608' }}>
-            <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
-              💡 自动处理文章计算报表——不用开发报表程序，慢就慢点
-            </p>
-            <p className="text-caption text-[var(--text-secondary)] leading-relaxed">
-              💡 文字输出场景——检查文字比检查数据容易，确定性要求天然低
             </p>
           </div>
         </div>

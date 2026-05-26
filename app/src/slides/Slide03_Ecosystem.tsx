@@ -129,7 +129,7 @@ const Slide03_Ecosystem: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="g3-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-1 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={1} />
-        四种技术路线特性对比
+        四类角色：属性分配
       </h2>
       <p className="g3-subtitle text-body text-[var(--text-secondary)] mb-4 opacity-0">
         同样的预算，不同的加点策略

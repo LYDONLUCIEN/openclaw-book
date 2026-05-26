@@ -51,7 +51,7 @@ const Slide15_FourProblems: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="fp-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={2} />
-        四层使用模型
+        翻越三座山（2）：四类使用模式
       </h2>
 
       {/* 2x2 grid — tight spacing */}

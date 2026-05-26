@@ -7,6 +7,14 @@ export function useZoomOnAlt() {
   const middleDownRef = useRef(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isZoomedRef = useRef(false);
+  // Pan (drag) state
+  const isDraggingRef = useRef(false);
+  const dragStartClientX = useRef(0);
+  const dragStartClientY = useRef(0);
+  const panXRef = useRef(0);
+  const panYRef = useRef(0);
+  const panStartXRef = useRef(0);
+  const panStartYRef = useRef(0);
 
   const isActive = useCallback(() => altPressedRef.current || middleDownRef.current, []);
 
@@ -19,13 +27,26 @@ export function useZoomOnAlt() {
   }, []);
 
   useEffect(() => {
+    const applyTransform = () => {
+      const el = containerRef.current;
+      if (!el) return;
+      if (isZoomedRef.current) {
+        el.style.transform = `scale(${ZOOM_SCALE}) translate(${panXRef.current}px, ${panYRef.current}px)`;
+      } else {
+        el.style.transform = 'scale(1)';
+      }
+    };
+
     const enableZoom = (x: number, y: number) => {
       const el = containerRef.current;
       if (!el) return;
       isZoomedRef.current = true;
+      // Reset pan when first zooming in
+      panXRef.current = 0;
+      panYRef.current = 0;
       el.style.transition = 'transform 0.15s ease-out';
-      el.style.transform = `scale(${ZOOM_SCALE})`;
       el.style.transformOrigin = `${x}px ${y}px`;
+      applyTransform();
       el.style.overflow = 'visible';
       el.style.zIndex = '50';
     };
@@ -33,15 +54,21 @@ export function useZoomOnAlt() {
     const moveZoomTo = (x: number, y: number) => {
       const el = containerRef.current;
       if (!el) return;
+      // Reset pan when moving zoom point
+      panXRef.current = 0;
+      panYRef.current = 0;
       el.style.transition = 'transform-origin 0.15s ease-out';
       el.style.transformOrigin = `${x}px ${y}px`;
+      applyTransform();
     };
 
     const disableZoom = () => {
       const el = containerRef.current;
       if (!el) return;
       isZoomedRef.current = false;
-      // Keep current transformOrigin — zoom out from where we zoomed in
+      isDraggingRef.current = false;
+      panXRef.current = 0;
+      panYRef.current = 0;
       el.style.transition = 'transform 0.25s ease-in';
       el.style.transform = 'scale(1)';
       el.style.overflow = 'hidden';
@@ -58,6 +85,8 @@ export function useZoomOnAlt() {
     const handleKeyUp = (e: KeyboardEvent) => {
       if (e.key === 'Alt') {
         altPressedRef.current = false;
+        // Stop any active drag
+        isDraggingRef.current = false;
         if (!middleDownRef.current) disableZoom();
       }
     };
@@ -87,20 +116,57 @@ export function useZoomOnAlt() {
       if (isAltLeftClick) {
         e.preventDefault();
         e.stopPropagation();
-        const container = containerRef.current;
-        if (!container) return;
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        // Start drag if already zoomed
         if (isZoomedRef.current) {
-          moveZoomTo(x, y);
+          isDraggingRef.current = true;
+          dragStartClientX.current = e.clientX;
+          dragStartClientY.current = e.clientY;
+          panStartXRef.current = panXRef.current;
+          panStartYRef.current = panYRef.current;
         } else {
+          const container = containerRef.current;
+          if (!container) return;
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
           enableZoom(x, y);
+          // Immediately enable dragging after first zoom-in click
+          isDraggingRef.current = true;
+          dragStartClientX.current = e.clientX;
+          dragStartClientY.current = e.clientY;
+          panStartXRef.current = 0;
+          panStartYRef.current = 0;
         }
       }
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current || !isZoomedRef.current) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const el = containerRef.current;
+      if (!el) return;
+
+      const dx = e.clientX - dragStartClientX.current;
+      const dy = e.clientY - dragStartClientY.current;
+
+      // Translate is in scaled space, so raw pixel delta is correct
+      // (1px mouse = 1px in scaled coordinate system, but visually it's 2px,
+      //  which gives natural 1:1 hand tracking feel)
+      panXRef.current = panStartXRef.current + dx;
+      panYRef.current = panStartYRef.current + dy;
+
+      el.style.transition = 'none';
+      applyTransform();
+    };
+
     const handleMouseUp = (e: MouseEvent) => {
+      // Stop drag
+      if (isDraggingRef.current && e.button === 0) {
+        isDraggingRef.current = false;
+      }
+
       if (e.button === 1 && middleDownRef.current) {
         middleDownRef.current = false;
         if (!altPressedRef.current) disableZoom();
@@ -118,6 +184,7 @@ export function useZoomOnAlt() {
       const wasActive = isActive();
       altPressedRef.current = false;
       middleDownRef.current = false;
+      isDraggingRef.current = false;
       if (wasActive) disableZoom();
     };
 
@@ -125,6 +192,7 @@ export function useZoomOnAlt() {
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
     window.addEventListener('mousedown', handleMouseDown, true);
+    window.addEventListener('mousemove', handleMouseMove, true);
     window.addEventListener('mouseup', handleMouseUp, true);
     window.addEventListener('click', blockClick, true);
     window.addEventListener('blur', handleBlur);
@@ -135,6 +203,7 @@ export function useZoomOnAlt() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('mousedown', handleMouseDown, true);
+      window.removeEventListener('mousemove', handleMouseMove, true);
       window.removeEventListener('mouseup', handleMouseUp, true);
       window.removeEventListener('click', blockClick, true);
       window.removeEventListener('blur', handleBlur);

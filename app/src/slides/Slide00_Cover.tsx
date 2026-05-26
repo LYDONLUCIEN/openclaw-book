@@ -71,7 +71,7 @@ const Slide00_Cover: React.FC<SlideProps> = ({ isActive }) => {
         </div>
 
         <div ref={titleLine2Ref} className="text-h1 md:text-display text-[var(--primary-dark)] leading-[1.15] tracking-[-0.02em] font-bold mt-4">
-          <span className="inline-block">{renderChars('从理解到实战')}</span>
+          <span className="inline-block">{renderChars('带你剥开虾壳看本质')}</span>
         </div>
 
         <div className="cover-divider w-[160px] h-0.5 mt-10 origin-center" style={{ background: 'linear-gradient(90deg, transparent, var(--secondary), transparent)', transform: 'scaleX(0)' }} />

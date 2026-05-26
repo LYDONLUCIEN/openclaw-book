@@ -12,17 +12,17 @@ interface SlideProps { isActive: boolean }
 // ── 分类色 ──
 const CAT = {
   harness: { color: '#3B82F6', label: 'Harness 工程层', icon: Wrench },
-  llm:     { color: '#8B5CF6', label: '大模型原生', icon: Cpu },
+  agent:   { color: '#8B5CF6', label: 'Agent原生', icon: Cpu },
   skills:  { color: '#F97316', label: 'Skills 能力层', icon: Package },
 };
 
-// ── 9 个模块 ──
+// ── 10 个模块 ──
 interface Mod {
   id: string;
   name: string;
   sub: string;
   icon: typeof Network;
-  cat: 'harness' | 'llm' | 'skills';
+  cat: 'harness' | 'agent' | 'skills';
   analogy: string;
   bullets: string[];
   insight: string;
@@ -65,7 +65,7 @@ const MODS: Mod[] = [
     insight: '200 个 Skill 仅占 ~4.8k tokens——用摘要换空间',
   },
   {
-    id: 'react', name: 'ReAct Loop', sub: '推理 · 决策 · 规划', icon: Zap, cat: 'llm',
+    id: 'react', name: 'ReAct Loop', sub: '推理 · 决策 · 规划', icon: Zap, cat: 'agent',
     analogy: '动力引擎 — 持续 思考→行动→观察→再思考',
     bullets: [
       '思考（Thought）：理解当前状态，规划下一步',
@@ -75,6 +75,18 @@ const MODS: Mod[] = [
       '流式输出：边思考边响应',
     ],
     insight: '1.6% 是 AI 决策逻辑，98.4% 是工程基础设施',
+  },
+  {
+    id: 'llm', name: 'LLM', sub: '大模型 · 语言理解', icon: Cpu, cat: 'agent',
+    analogy: '认知核心 — 理解指令、生成回复、推理规划',
+    bullets: [
+      '多模态理解：文本、图片、代码',
+      '指令遵循：理解复杂任务指令',
+      '推理能力：逻辑分析与规划',
+      '上下文感知：理解会话历史',
+      '模型选择：按任务选用不同规模模型',
+    ],
+    insight: 'Agent 的智能底座——没有大模型，一切工程都是空壳',
   },
   {
     id: 'skills', name: 'Skills', sub: '技能库 · 定义集', icon: Package, cat: 'skills',
@@ -140,8 +152,9 @@ interface Box { x: number; y: number; w: number; h: number }
 const B: Record<string, Box> = {
   channel:   { x: 140, y: 15, w: 160, h: 36 },
   gateway:   { x: 380, y: 15, w: 160, h: 36 },
-  context:   { x: 140, y: 95, w: 160, h: 36 },
-  react:     { x: 380, y: 95, w: 160, h: 36 },
+  context:   { x: 40,  y: 95, w: 155, h: 36 },
+  llm:       { x: 230, y: 95, w: 155, h: 36 },
+  react:     { x: 420, y: 95, w: 160, h: 36 },
   skills:    { x: 140, y: 175, w: 160, h: 36 },
   node:      { x: 380, y: 175, w: 160, h: 36 },
   memory:    { x: 55,  y: 255, w: 135, h: 36 },
@@ -177,10 +190,15 @@ const EDGES: Edge[] = [
     d: `M${cx('gateway')},${bBottom('gateway')} L${cx('gateway')},78 L${cx('context')},78 L${cx('context')},${bTop('context')}`,
     label: '路由', lx: (cx('gateway') + cx('context')) / 2, ly: 74, color: '#3B82F6',
   },
-  // ── Layer 2: Context Assembly → ReAct Loop (horizontal) ──
+  // ── Layer 2: Context → LLM (horizontal) ──
   {
-    d: `M${bRight('context')},${cy('context')} L${bLeft('react')},${cy('react')}`,
-    label: '上下文', lx: 345, ly: cy('context') - 5, color: '#8B5CF6',
+    d: `M${bRight('context')},${cy('context')} L${bLeft('llm')},${cy('llm')}`,
+    label: '上下文', lx: (bRight('context') + bLeft('llm')) / 2, ly: cy('context') - 5, color: '#8B5CF6',
+  },
+  // ── Layer 2: LLM → ReAct Loop (horizontal) ──
+  {
+    d: `M${bRight('llm')},${cy('llm')} L${bLeft('react')},${cy('react')}`,
+    label: '推理', lx: (bRight('llm') + bLeft('react')) / 2, ly: cy('llm') - 5, color: '#8B5CF6',
   },
   // ── Layer 2→3: ReAct Loop → Node (vertical) ──
   {
@@ -337,7 +355,6 @@ const Slide05_CoreTech: React.FC<SlideProps> = ({ isActive }) => {
                 const b = B[mod.id];
                 if (!b) return null;
                 const c = CAT[mod.cat].color;
-                const Icon = mod.icon;
                 return (
                   <g key={mod.id}
                     onClick={() => handleModuleClick(mod.id)}
@@ -347,7 +364,7 @@ const Slide05_CoreTech: React.FC<SlideProps> = ({ isActive }) => {
                       fill={`${c}0A`} stroke={`${c}60`} strokeWidth={1.5} />
                     {/* icon placeholder — 用文字 emoji 代替 */}
                     <text x={b.x + 10} y={cy(mod.id) + 4} fontSize={12} dominantBaseline="middle">
-                      {mod.id === 'channel' ? '📡' : mod.id === 'gateway' ? '🌐' : mod.id === 'context' ? '🎒' : mod.id === 'react' ? '⚡' : mod.id === 'skills' ? '📦' : mod.id === 'node' ? '🖥️' : mod.id === 'memory' ? '📖' : mod.id === 'heartbeat' ? '💓' : '📅'}
+                      {mod.id === 'channel' ? '📡' : mod.id === 'gateway' ? '🌐' : mod.id === 'context' ? '🎒' : mod.id === 'react' ? '⚡' : mod.id === 'llm' ? '🧠' : mod.id === 'skills' ? '📦' : mod.id === 'node' ? '🖥️' : mod.id === 'memory' ? '📖' : mod.id === 'heartbeat' ? '💓' : '📅'}
                     </text>
                     <text x={b.x + 26} y={cy(mod.id) - 3} fontSize={10} fontWeight={700} fill={c} dominantBaseline="middle" fontFamily="system-ui, sans-serif">
                       {mod.name}
@@ -407,7 +424,7 @@ const Slide05_CoreTech: React.FC<SlideProps> = ({ isActive }) => {
       {/* ═══ Phase 1：分类归组 ═══ */}
       {phase === 1 && (
         <div className="s5-cat-group max-w-6xl w-full grid grid-cols-3 gap-5 opacity-0">
-          {(['harness', 'llm', 'skills'] as const).map((catKey) => {
+          {(['harness', 'agent', 'skills'] as const).map((catKey) => {
             const cat = CAT[catKey];
             const CatIcon = cat.icon;
             const mods = MODS.filter(m => m.cat === catKey);

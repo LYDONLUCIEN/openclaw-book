@@ -103,7 +103,7 @@ const Slide14_DeployLevels: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="dl-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={2} />
-        部署方式与使用层级
+        翻过三座山（1）:部署龙虾
       </h2>
 
       {/* Three claw columns */}
@@ -149,8 +149,13 @@ const Slide14_DeployLevels: React.FC<SlideProps> = ({ isActive }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {RECOMMENDS.map((rec) => (
             <div key={rec.name}
-              className="dl-recommend rounded-xl border-2 p-3 flex flex-col items-center text-center opacity-0"
+              className="dl-recommend rounded-xl border-2 p-3 flex flex-col items-center text-center opacity-0 relative"
               style={{ borderColor: `${rec.color}40`, backgroundColor: `${rec.color}08` }}>
+              {rec.name === 'QClaw' && (
+                <svg className="absolute -top-1.5 -right-1.5 w-5 h-5 text-amber-400 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              )}
               <img src={`/images/claws/${rec.img}`} alt={rec.name}
                 className="w-12 h-12 object-contain mb-2" />
               <span className="text-body-sm font-bold mb-0.5" style={{ color: rec.color }}>{rec.name}</span>

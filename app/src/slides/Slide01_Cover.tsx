@@ -2,12 +2,11 @@ import React, { useRef, memo, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TrendingUp, Star, ShoppingBag, ChevronRight, Image } from 'lucide-react';
-import ChapterBadge from '@/components/ChapterBadge';
 
 interface SlideProps { isActive: boolean; }
 
 const COL1_NEWS = [
-  { label: '278K+ Stars', source: 'GitHub 历史级增速' },
+  { label: '375K+ Stars', source: 'GitHub 历史级增速' },
   { label: '全球开源排名第1', source: 'OSRank 2026' },
   { label: '发布数周登顶热榜', source: 'GitHub Trending' },
   { label: '社区贡献者遍布全球', source: 'Contributors' },
@@ -15,16 +14,15 @@ const COL1_NEWS = [
 
 const COL2_VENDORS = [
   { name: 'OpenClaw', color: '#F97316' },
-  { name: 'Claude Code', color: '#8B5CF6' },
-  { name: 'Hermes Agent', color: '#3B82F6' },
-  { name: 'Cursor', color: '#10B981' },
-  { name: 'Windsurf', color: '#EC4899' },
-  { name: 'Coze', color: '#F59E0B' },
-  { name: 'Dify', color: '#06B6D4' },
-  { name: 'Manus', color: '#EF4444' },
+  { name: 'ArClaw', color: '#8B5CF6' },
+  { name: 'Autoclaw', color: '#3B82F6' },
+  { name: 'Qclaw', color: '#10B981' },
+  { name: 'Maxclaw', color: '#EC4899' },
+  { name: 'Workbudy', color: '#F59E0B' },
+  { name: 'Hermes', color: '#06B6D4' },
 ];
 
-const MOBILE_STRATEGY = { label: '移动 Token 战略', desc: '20+ 平台已接入，关键技术抓手' };
+const MOBILE_STRATEGY = { label: '各大厂商纷纷下场', desc: '免费部署龙虾，token运营关键抓手' };
 
 const COL3_TERMS = ['Prompt', 'RAG', 'ReAct', 'MCP', 'Function Call', 'Workflow', 'Skills', 'Harness', 'Fine-tuning', 'Embedding', 'Vector DB', 'Vibe Coding'];
 
@@ -36,14 +34,53 @@ const COL3_HIGHLIGHTS = [
 ];
 
 const QUESTIONS = [
-  { q: '龙虾爆火，其中技术原理是什么？', color: 'var(--primary)' },
-  { q: '框架选择混乱，如何判断适用场景？', color: 'var(--accent)' },
+  { q: '龙虾到底是什么？能用来做什么？', color: 'var(--primary)' },
+  { q: '龙虾种类繁多，我应如何选择？', color: 'var(--accent)' },
   { q: '面对实际业务场景，如何有效落地？', color: 'var(--secondary)' },
 ];
+
+function HoverCard({
+  colIndex, hoveredCol, onEnter, onLeave, borderColor, bgColor, children,
+}: {
+  colIndex: number;
+  hoveredCol: number | null;
+  onEnter: () => void;
+  onLeave: () => void;
+  borderColor: string;
+  bgColor: string;
+  children: React.ReactNode;
+}) {
+  const isHovered = hoveredCol === colIndex;
+  const isOther = hoveredCol !== null && hoveredCol !== colIndex;
+
+  return (
+    <div
+      className="s1-col h-full opacity-0"
+      onMouseEnter={(e) => { e.stopPropagation(); onEnter(); }}
+      onMouseLeave={onLeave}
+    >
+      <div
+        className="flex flex-col h-full rounded-xl border-2 p-5 md:p-6"
+        style={{
+          borderColor,
+          backgroundColor: bgColor,
+          transform: isHovered ? 'scale(1.04)' : isOther ? 'scale(0.96)' : 'scale(1)',
+          filter: isOther ? 'blur(2px)' : 'none',
+          opacity: isOther ? 0.5 : 1,
+          zIndex: isHovered ? 10 : 1,
+          transition: 'transform 0.3s ease-out, filter 0.3s ease-out, opacity 0.3s ease-out',
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
 const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState(0);
+  const [hoveredCol, setHoveredCol] = useState<number | null>(null);
 
   useGSAP(() => {
     if (!isActive || phase !== 0 || !containerRef.current) return;
@@ -59,33 +96,49 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
     if (!isActive || phase !== 1 || !containerRef.current) return;
     const ctx = gsap.context(() => {
       gsap.to('.s1-cols', { opacity: 0, y: -30, duration: 0.4, ease: 'power2.in' });
-      gsap.fromTo('.s1-summary', { opacity: 0, y: 40, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.5)', delay: 0.3 });
-      gsap.fromTo('.s1-q-card', { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.4, stagger: 0.1, ease: 'back.out(1.3)', delay: 0.5 });
+      gsap.fromTo('.s1-problem-title', { opacity: 0, y: -15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 0.3 });
+      gsap.fromTo('.s1-problem-img', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.2)', delay: 0.5 });
+      gsap.fromTo('.s1-problem-desc', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 0.9 });
+      gsap.fromTo('.s1-hint', { opacity: 0 }, { opacity: 0.6, duration: 0.4, delay: 1.2 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive, phase] });
+
+  useGSAP(() => {
+    if (!isActive || phase !== 2 || !containerRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.s1-q-card', { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.4, stagger: 0.1, ease: 'back.out(1.3)', delay: 0.3 });
+      gsap.fromTo('.s1-conclusion', { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.5)', delay: 0.8 });
+    }, containerRef);
+    return () => ctx.revert();
+  }, { scope: containerRef, dependencies: [isActive, phase] });
+
+  React.useEffect(() => {
+    if (!isActive) setHoveredCol(null);
+  }, [isActive]);
 
   return (
     <section ref={containerRef}
       className="w-full min-h-[100dvh] flex flex-col items-center pt-16 pb-20 px-6 relative overflow-hidden cursor-pointer select-none"
       style={{ backgroundColor: 'var(--bg-primary)' }}
-      onClick={() => setPhase(phase === 0 ? 1 : 0)}>
+      onClick={() => setPhase(phase < 2 ? phase + 1 : 0)}>
 
       {/* Title */}
-      <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
+      <h2 className="s1-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0">
         OpenClaw 横空出世
       </h2>
 
-      {/* Phase 0: Three columns */}
+      {/* Phase 0: Three columns — 龙虾爆火(左) · 现象级应用(中) · 各家争奇斗艳(右) */}
       {phase === 0 && (
-        <div className="s1-cols w-full max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="s1-cols w-full max-w-6xl flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full">
 
-            {/* Column 1: Hype + Data */}
-            <div className="s1-col flex flex-col rounded-xl border-2 p-4 md:p-5 opacity-0"
-              style={{ borderColor: 'var(--primary)60', backgroundColor: 'var(--primary)04' }}>
+            {/* Column 1: 龙虾爆火 */}
+            <HoverCard colIndex={0} hoveredCol={hoveredCol}
+              onEnter={() => setHoveredCol(0)} onLeave={() => setHoveredCol(null)}
+              borderColor="var(--primary)60" bgColor="var(--primary)04">
               <div className="flex items-center gap-2 mb-3">
                 <TrendingUp size={16} style={{ color: 'var(--primary)' }} />
                 <h3 className="text-body font-bold" style={{ color: 'var(--primary)' }}>龙虾爆火</h3>
@@ -99,43 +152,16 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
                   </div>
                 ))}
               </div>
-              {/* GitHub trend chart */}
               <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--primary)30' }}>
                 <img src="/images/github-trend.png" alt="GitHub 趋势图" className="w-full h-auto object-contain" />
               </div>
-            </div>
+            </HoverCard>
 
-            {/* Column 2: Vendors + Strategy */}
-            <div className="s1-col flex flex-col rounded-xl border-2 p-4 md:p-5 opacity-0"
-              style={{ borderColor: 'var(--accent)60', backgroundColor: 'var(--accent)04' }}>
-              <div className="flex items-center gap-2 mb-3">
-                <ShoppingBag size={16} style={{ color: 'var(--accent)' }} />
-                <h3 className="text-body font-bold" style={{ color: 'var(--accent)' }}>各家龙虾争奇斗艳</h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {COL2_VENDORS.map((v, i) => (
-                  <span key={i} className="inline-flex items-center gap-1 px-2 py-1 rounded-md border text-caption font-semibold"
-                    style={{ borderColor: v.color, color: v.color, backgroundColor: `${v.color}08` }}>
-                    {v.name}
-                  </span>
-                ))}
-              </div>
-              {/* Mobile strategy */}
-              <div className="rounded-lg px-3 py-2.5 border-2 mb-3" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--accent)08' }}>
-                <span className="text-body-sm font-bold block" style={{ color: 'var(--accent)' }}>{MOBILE_STRATEGY.label}</span>
-                <span className="text-caption text-[var(--text-secondary)]">{MOBILE_STRATEGY.desc}</span>
-              </div>
-              {/* 龙虾热门新闻截图 */}
-              <div className="mt-auto w-full rounded-lg overflow-hidden border"
-                style={{ borderColor: 'var(--accent)30' }}>
-                <img src="/images/lobster-news.png" alt="龙虾热门新闻" className="w-full h-auto object-contain" />
-              </div>
-            </div>
-
-            {/* Column 3: Terms + Phenomenon */}
-            <div className="s1-col flex flex-col rounded-xl border-2 p-4 md:p-5 opacity-0"
-              style={{ borderColor: 'var(--secondary)60', backgroundColor: 'var(--secondary)04' }}>
+            {/* Column 2: 现象级 AI 应用诞生 */}
+            <HoverCard colIndex={1} hoveredCol={hoveredCol}
+              onEnter={() => setHoveredCol(1)} onLeave={() => setHoveredCol(null)}
+              borderColor="var(--secondary)60" bgColor="var(--secondary)04">
               <div className="flex items-center gap-2 mb-3">
                 <Image size={16} style={{ color: 'var(--secondary)' }} />
                 <h3 className="text-body font-bold" style={{ color: 'var(--secondary)' }}>现象级 AI 应用诞生</h3>
@@ -157,12 +183,38 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
                   </div>
                 ))}
               </div>
-              {/* 换皮术截图 */}
               <div className="mt-auto w-full rounded-lg overflow-hidden border"
                 style={{ borderColor: 'var(--secondary)30' }}>
                 <img src="/images/huanpi.png" alt="现象级应用截图" className="w-full h-auto object-contain" />
               </div>
-            </div>
+            </HoverCard>
+
+            {/* Column 3: 各家龙虾争奇斗艳 */}
+            <HoverCard colIndex={2} hoveredCol={hoveredCol}
+              onEnter={() => setHoveredCol(2)} onLeave={() => setHoveredCol(null)}
+              borderColor="var(--accent)60" bgColor="var(--accent)04">
+              <div className="flex items-center gap-2 mb-3">
+                <ShoppingBag size={16} style={{ color: 'var(--accent)' }} />
+                <h3 className="text-body font-bold" style={{ color: 'var(--accent)' }}>各家龙虾争奇斗艳</h3>
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {COL2_VENDORS.map((v, i) => (
+                  <span key={i} className="inline-flex items-center gap-1 px-2 py-1 rounded-md border text-caption font-semibold"
+                    style={{ borderColor: v.color, color: v.color, backgroundColor: `${v.color}08` }}>
+                    {v.name}
+                  </span>
+                ))}
+              </div>
+              <div className="rounded-lg px-3 py-2.5 border-2 mb-3" style={{ borderColor: 'var(--accent)', backgroundColor: 'var(--accent)08' }}>
+                <span className="text-body-sm font-bold block" style={{ color: 'var(--accent)' }}>{MOBILE_STRATEGY.label}</span>
+                <span className="text-caption text-[var(--text-secondary)]">{MOBILE_STRATEGY.desc}</span>
+              </div>
+              <div className="mt-auto w-full rounded-lg overflow-hidden border"
+                style={{ borderColor: 'var(--accent)30' }}>
+                <img src="/images/lobster-news.png" alt="龙虾热门新闻" className="w-full h-auto object-contain" />
+              </div>
+            </HoverCard>
+
           </div>
 
           <div className="s1-hint text-center mt-6 opacity-0">
@@ -173,15 +225,38 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
         </div>
       )}
 
-      {/* Phase 1: Collapsed - three questions */}
+      {/* Phase 1: 遇到使用问题 */}
       {phase === 1 && (
-        <div className="s1-summary w-full max-w-4xl opacity-0">
-          <div className="text-center mb-8">
-            <h2 className="text-h1 md:text-display font-bold text-[var(--text-primary)]">
-              以成本视角解构 AI Agent 技术体系
-            </h2>
+        <div className="s1-problem w-full max-w-5xl flex flex-col items-center justify-center flex-1">
+          <h2 className="s1-problem-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-6 opacity-0">
+            遇到使用问题
+          </h2>
+          <div className="s1-problem-img grid grid-cols-2 gap-6 w-full max-w-4xl opacity-0">
+            <img
+              src="/images/slide-from-hot-to-cold.png"
+              alt="从夯到拉"
+              className="w-full h-auto rounded-xl shadow-lg"
+            />
+            <img
+              src="/images/claw-info-explosion.png"
+              alt="信息爆炸"
+              className="w-full h-auto rounded-xl shadow-lg"
+            />
           </div>
+          <div className="s1-problem-desc mt-6 text-center max-w-2xl opacity-0">
+            <p className="text-body-lg text-[var(--text-secondary)] leading-relaxed mb-2">
+              看了很多测评，依然不会下手。
+            </p>
+            <p className="text-body-lg text-[var(--text-secondary)] leading-relaxed">
+              使用过程不顺，效果不好，甚至产生焦虑。
+            </p>
+          </div>
+        </div>
+      )}
 
+      {/* Phase 2: Collapsed - three questions */}
+      {phase === 2 && (
+        <div className="s1-summary w-full max-w-4xl">
           <div className="space-y-5">
             {QUESTIONS.map((item, i) => (
               <div key={i} className="s1-q-card rounded-xl border-2 p-5 md:p-6 opacity-0"
@@ -197,11 +272,17 @@ const Slide01_Cover: React.FC<SlideProps> = ({ isActive }) => {
               </div>
             ))}
           </div>
+
+          <div className="s1-conclusion text-center mt-8">
+            <h2 className="text-h1 md:text-display font-bold text-[var(--text-primary)]">
+              以智力成本视角解构龙虾，直击本质
+            </h2>
+          </div>
         </div>
       )}
 
       <div className="absolute bottom-6 text-caption text-[var(--text-light)]">
-        {phase === 0 ? '点击收拢为问题框架' : '点击展开详细内容'}
+        {phase === 0 ? '点击继续' : phase === 1 ? '点击继续' : '点击重新开始'}
       </div>
     </section>
   );

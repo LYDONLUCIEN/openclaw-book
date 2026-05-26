@@ -10,9 +10,6 @@ import Slide03_Ecosystem from '@/slides/Slide03_Ecosystem';
 // 第一章：龙虾是什么
 import Slide05_CoreTech from '@/slides/Slide05_CoreTech';
 import Slide06_ThreeProblems from '@/slides/Slide06_ThreeProblems';
-import Slide07_GreenGear from '@/slides/Slide07_GreenGear';
-import Slide08_BlueGear from '@/slides/Slide08_BlueGear';
-import Slide09_PurpleGear from '@/slides/Slide09_PurpleGear';
 import Slide10_OrangeGear from '@/slides/Slide10_OrangeGear';
 import Slide11_EvolutionLines from '@/slides/Slide11_EvolutionLines';
 import Slide12_SkillsHarness from '@/slides/Slide12_SkillsHarness';
@@ -34,7 +31,7 @@ import Slide22_FinalWords from '@/slides/Slide22_FinalWords';
 import Slide23_Thanks from '@/slides/Slide23_Thanks';
 import Slide24_Thanks from '@/slides/Slide24_Thanks';
 
-const TOTAL_SLIDES = 26;
+const TOTAL_SLIDES = 23;
 
 const slides = [
   // 引导章
@@ -46,11 +43,8 @@ const slides = [
   // 第一章：龙虾是什么
   Slide05_CoreTech,
   Slide06_ThreeProblems,
-  Slide07_GreenGear,
-  Slide08_BlueGear,
-  Slide09_PurpleGear,
-  Slide10_OrangeGear,
   Slide11_EvolutionLines,
+  Slide10_OrangeGear,
   Slide12_SkillsHarness,
   Slide13_LobsterSummary,
   // 第二章：怎么用

@@ -62,7 +62,7 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
       {/* Title */}
       <h2 className="ls-title text-h1 md:text-display-xl font-bold text-[var(--text-primary)] mb-5 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={1} />
-        同类产品与龙虾定位
+        其它类龙虾产品定位
       </h2>
 
       {/* Section label */}
