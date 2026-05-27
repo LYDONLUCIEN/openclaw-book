@@ -6,7 +6,6 @@ import Slide01_Cover from '@/slides/Slide01_Cover';
 import Slide02_TOC from '@/slides/Slide02_TOC';
 import Slide02_Chaos from '@/slides/Slide02_Chaos';
 import Slide03_Ecosystem from '@/slides/Slide03_Ecosystem';
-
 // 第一章：龙虾是什么
 import Slide05_CoreTech from '@/slides/Slide05_CoreTech';
 import Slide06_ThreeProblems from '@/slides/Slide06_ThreeProblems';

@@ -11,26 +11,26 @@ const PROBLEMS = [
   {
     icon: Ear,
     stage: '输入端',
-    title: '意图模糊',
-    desc: '用户表达模糊导致模型理解偏差',
-    detail: '自然语言输入天然存在歧义性与不完整性，用户意图难以精确传达。缺乏结构化引导时，模型对上下文语境的解读容易产生偏差，导致输出偏离预期。',
+    title: '理解偏差 听不懂',
+    desc: '语言表达有偏差，默认智会难讲明',
+    detail: '自然语言天然存在歧义性，难以精确传达澄清。在缺乏结构化引导和人类默会知识时，模型对上下文语境的解读容易产生偏差。',
     cost: '操作成本↑',
     color: '#EF4444',
   },
   {
     icon: Brain,
     stage: '处理端',
-    title: '注意力稀释',
-    desc: '长上下文处理导致准确度降低',
-    detail: '随着对话轮次增加与上下文累积，模型的有效注意力被分散，关键指令与约束条件被淹没在冗余信息中，导致上下文窗口压力增大、核心信息遗漏。',
+    title: '信息遗漏 记不住',
+    desc: '长上下文记不住，复杂计算易出错',
+    detail: '随对话轮次增加与上下文累积，模型有效注意力被分散，导致关键信息遗漏，执行错误。需确定性程序代替执行，减少流程与计算工作。',
     cost: '开发成本↑',
     color: '#EF4444',
   },
   {
     icon: Eye,
     stage: '输出端',
-    title: '模型幻觉',
-    desc: '概率性生成缺乏事实依据',
+    title: '结果失控、靠不准',
+    desc: '模型幻觉易编撰，结果偏差不自知',
     detail: '大语言模型基于概率分布生成内容，本质上输出的是"最可能"，而不是清楚的"知道"；在知识边界之外，模型会生成看似合理但缺乏事实依据的内容。',
     cost: '确认成本↑',
     color: '#EF4444',
@@ -47,7 +47,7 @@ const Slide06_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
       gsap.fromTo('.tp-analogy', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 0.25 });
       gsap.fromTo('.tp-card', { opacity: 0, y: 30, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(1.3)', delay: 0.5 });
-      gsap.fromTo('.tp-bottom', { opacity: 0, y: 15 },
+      gsap.fromTo('.t概p-bottom', { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 1.0 });
     }, containerRef);
     return () => ctx.revert();
@@ -70,7 +70,7 @@ const Slide06_ThreeProblems: React.FC<SlideProps> = ({ isActive }) => {
           style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-secondary)' }}>
           <AlertTriangle size={18} style={{ color: '#F59E0B' }} />
           <span className="text-body-sm text-[var(--text-secondary)]">
-            清北应届生：理解偏差（输入）、信息遗漏（处理）、执行出错（输出）
+            清北应届生：业务知识（输入）、业务系统（处理）、业务流程（输出）
           </span>
         </div>
       </div>

@@ -270,7 +270,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
       <div className="og-bottom mt-3 rounded-xl border-2 px-6 py-2.5 text-center opacity-0"
         style={{ borderColor: OC, backgroundColor: `${OC}10`, boxShadow: `0 0 30px ${OC}15` }}>
         <p className="text-body font-bold" style={{ color: OC }}>
-          官方 17 + 社区 67.3K — Skills 正在成为 AI Agent 的应用商店
+          无需自己开发，复用他人经验 — Skills 正在成为 AI Agent 的应用商店
         </p>
       </div>
     </section>

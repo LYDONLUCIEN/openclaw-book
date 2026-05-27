@@ -11,6 +11,7 @@ const PRODUCTS = [
     name: 'Hermes Agent',
     desc: '自动沉淀流程为Skill，自我优化闭环',
     tag: 'Skills思路实现',
+    formula: 'openclaw + skill自动沉淀 = hermes',
     color: '#3B82F6',
     imgSrc: '/images/hermes-agent.png',
   },
@@ -18,6 +19,7 @@ const PRODUCTS = [
     name: 'EvoMap',
     desc: '社区投票筛选优质Skill，群体智慧择优',
     tag: 'Skills思路实现',
+    formula: 'openclaw + 群体择优 = evomap',
     color: '#10B981',
     imgSrc: '/images/evomap.png',
   },
@@ -25,6 +27,7 @@ const PRODUCTS = [
     name: 'Claude Code',
     desc: '能自我改造的Agent，干细胞级的适应力',
     tag: 'Harness思路实现',
+    formula: 'claude code(pi) + 便捷应用 = openclaw',
     color: '#8B5CF6',
     imgSrc: '/images/claude-code.png',
   },
@@ -67,22 +70,22 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
       </h2>
 
       {/* Positioning summary */}
-      <div className="ls-summary-title max-w-4xl w-full rounded-2xl border-2 p-4 text-center mb-4 opacity-0"
+      <div className="ls-summary-title max-w-4xl w-full rounded-2xl border-2 p-4 text-center mb-2 opacity-0"
         style={{ borderColor: '#F97316', backgroundColor: '#F9731608', boxShadow: '0 0 25px #F9731615' }}>
         <p className="text-h3 font-bold" style={{ color: '#F97316' }}>
-          龙虾本质: 具备自我迭代机制的智能体框架
+          龙虾本质: 一个面向个人的，具备自我迭代机制的智能体框架
         </p>
       </div>
 
       {/* Section label */}
-      <div className="ls-section-label mb-4 opacity-0">
+      <div className="ls-section-label mb-3 opacity-0">
         <span className="text-body-sm font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#F9731615', color: '#F97316' }}>
           同类产品对比
         </span>
       </div>
 
       {/* Product cards */}
-      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-6">
+      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-4">
         {PRODUCTS.map((product) => (
           <div key={product.name}
             className="ls-card rounded-xl border-2 p-4 md:p-5 opacity-0"
@@ -107,6 +110,10 @@ const Slide13_LobsterSummary: React.FC<SlideProps> = ({ isActive }) => {
               style={{ backgroundColor: `${product.color}12`, color: product.color }}>
               {product.tag}
             </span>
+            <p className="text-caption font-semibold mt-2 pt-2 border-t text-center"
+              style={{ color: product.color, borderColor: `${product.color}20` }}>
+              {product.formula}
+            </p>
           </div>
         ))}
       </div>

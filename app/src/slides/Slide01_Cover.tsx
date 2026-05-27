@@ -39,6 +39,7 @@ const QUESTIONS = [
   { q: '龙虾到底是什么？能用来做什么？', color: 'var(--primary)' },
   { q: '龙虾种类繁多，我应如何选择？', color: 'var(--accent)' },
   { q: '面对实际业务场景，如何有效落地？', color: 'var(--secondary)' },
+  { q: '自学难度太大，技术名词看不懂？', color: 'var(--danger, #EF4444)' },
 ];
 
 function HoverCard({

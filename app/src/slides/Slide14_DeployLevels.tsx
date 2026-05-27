@@ -103,7 +103,7 @@ const Slide14_DeployLevels: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="dl-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={2} />
-        翻过三座山（1）:部署龙虾
+        养虾三境界1 —— 部署龙虾
       </h2>
 
       {/* Three claw columns */}

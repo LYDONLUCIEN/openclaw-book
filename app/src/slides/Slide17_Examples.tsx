@@ -49,7 +49,7 @@ const Slide17_Examples: React.FC<SlideProps> = ({ isActive }) => {
 
       <h2 className="sol-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={2} />
-        养虾三境界（3）:成本转移大法
+        养虾三步走3 —— 成本转移大法
       </h2>
 
       <p className="sol-subtitle text-body-sm text-[var(--text-secondary)] mb-4 opacity-0">

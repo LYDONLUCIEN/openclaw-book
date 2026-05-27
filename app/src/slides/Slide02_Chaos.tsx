@@ -1,4 +1,4 @@
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useCallback, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
@@ -46,51 +46,72 @@ const EDGE_LABELS = [
 
 const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const stepRef = useRef(0);
 
+  // Reset on slide leave
+  useEffect(() => {
+    if (!isActive) {
+      stepRef.current = 0;
+      if (containerRef.current) {
+        const ctx = gsap.context(() => {
+          gsap.set('.tri-intro', { opacity: 0, y: 10 });
+          gsap.set('.tri-card', { opacity: 0, y: 20, scale: 0.95 });
+          gsap.set('.tri-arrow', { opacity: 0, scaleX: 0 });
+          gsap.set('.tri-triangle-section', { opacity: 0, scale: 0.9 });
+          gsap.set('.tri-edge-anim', { strokeDashoffset: 300 });
+          gsap.set('.tri-vertex', { opacity: 0, scale: 0 });
+          gsap.set('.tri-conclusion', { opacity: 0, y: 10 });
+        }, containerRef);
+        ctx.revert();
+      }
+    }
+  }, [isActive]);
+
+  // Entrance — title + intro only
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.1 });
-
-      tl.fromTo('.tri-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5 });
-      tl.fromTo('.tri-intro', { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 0.2 }, 0.3);
-
-      // Cards stagger in
-      tl.fromTo('.tri-card', { opacity: 0, y: 20, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(1.5)' }, 0.5);
-
-      // Arrows between cards
-      tl.fromTo('.tri-arrow', { opacity: 0, scaleX: 0 },
-        { opacity: 1, scaleX: 1, duration: 0.3, stagger: 0.1 }, 0.9);
-
-      // Triangle section
-      tl.fromTo('.tri-triangle-section', { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out' }, 1.1);
-
-      // Triangle edges draw in
-      tl.fromTo('.tri-edge-anim', { strokeDashoffset: 300 },
-        { strokeDashoffset: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out' }, 1.3);
-
-      // Triangle vertices pop in
-      tl.fromTo('.tri-vertex', { opacity: 0, scale: 0 },
-        { opacity: 1, scale: 1, duration: 0.3, stagger: 0.08, ease: 'back.out(2)' }, 1.6);
-
-      // Conclusion
-      tl.fromTo('.tri-conclusion', { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4 }, 1.9);
+      gsap.fromTo('.tri-title', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5 });
+      gsap.fromTo('.tri-intro', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, delay: 0.3 });
+      gsap.fromTo('.tri-hint', { opacity: 0 }, { opacity: 1, duration: 0.3, delay: 0.6 });
     }, containerRef);
     return () => ctx.revert();
   }, { scope: containerRef, dependencies: [isActive] });
 
+  const handleClick = useCallback(() => {
+    if (!isActive || !containerRef.current) return;
+    const step = stepRef.current;
+    if (step >= 3) return;
+    stepRef.current = step + 1;
+
+    if (step === 0) {
+      // Cards + arrows
+      gsap.to('.tri-card', { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(1.5)' });
+      gsap.to('.tri-arrow', { opacity: 1, scaleX: 1, duration: 0.3, stagger: 0.1, delay: 0.4 });
+    } else if (step === 1) {
+      // Triangle
+      const tl = gsap.timeline();
+      tl.to('.tri-triangle-section', { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out' });
+      tl.to('.tri-edge-anim', { strokeDashoffset: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out' }, 0.2);
+      tl.to('.tri-vertex', { opacity: 1, scale: 1, duration: 0.3, stagger: 0.08, ease: 'back.out(2)' }, 0.5);
+    } else if (step === 2) {
+      // Conclusion
+      gsap.to('.tri-conclusion', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+    }
+  }, [isActive]);
+
+  const allDone = stepRef.current >= 3;
+
   return (
     <section ref={containerRef}
-      className="w-full min-h-[100dvh] flex flex-col items-center pt-16 pb-20 px-6 relative"
-      style={{ backgroundColor: 'var(--bg-primary)' }}>
+      className="w-full min-h-[100dvh] flex flex-col items-center pt-16 pb-20 px-6 relative cursor-pointer select-none"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+      onClick={handleClick}>
 
       {/* Title */}
       <h2 className="tri-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-2 opacity-0 flex items-center gap-2">
         <ChapterBadge chapter={1} />
-       系统三特性与不可能三角
+       系统三特性与智能成本
       </h2>
       <p className="tri-intro text-body text-[var(--text-secondary)] max-w-2xl text-center mb-6 opacity-0">
         输入 → 处理 → 输出：每项特性对应一类环节成本，三者不可兼得
@@ -128,13 +149,10 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
       <div className="tri-triangle-section flex flex-col items-center opacity-0">
         <svg width="340" height="200" viewBox="0 0 340 200" className="mb-2">
           {/* Edges */}
-          {/* 便利性(0) → 完备性(1): top-left to bottom */}
           <line className="tri-edge-anim" x1="170" y1="22" x2="40" y2="170"
             stroke={EDGE_LABELS[0].color} strokeWidth="2.5" strokeDasharray="300" />
-          {/* 完备性(1) → 确定性(2): bottom to top-right */}
           <line className="tri-edge-anim" x1="40" y1="170" x2="300" y2="170"
             stroke={EDGE_LABELS[1].color} strokeWidth="2.5" strokeDasharray="300" />
-          {/* 确定性(2) → 便利性(0): top-right to top-left */}
           <line className="tri-edge-anim" x1="300" y1="170" x2="170" y2="22"
             stroke={EDGE_LABELS[2].color} strokeWidth="2.5" strokeDasharray="300" />
 
@@ -173,14 +191,23 @@ const Slide02_Chaos: React.FC<SlideProps> = ({ isActive }) => {
       {/* Bottom conclusion */}
       <div className="tri-conclusion text-center opacity-0">
         <p className="text-body font-bold text-[var(--text-primary)]">
-          三项特性不可兼得，成本不会消失只会转移
+          OpenClaw也是一个系统，一样逃脱不了这个规律
         </p>
         <div className="flex items-center justify-center gap-6 mt-3 text-body-sm">
-          <span style={{ color: PROPERTIES[0].color }}>低便利性 → 操作成本</span>
-          <span style={{ color: PROPERTIES[1].color }}>低完备性 → 开发成本</span>
-          <span style={{ color: PROPERTIES[2].color }}>低确定性 → 确认成本</span>
+          <span style={{ color: PROPERTIES[0].color }}>低便利性 → 操作智能成本</span>
+          <span style={{ color: PROPERTIES[1].color }}>低完备性 → 开发智能成本</span>
+          <span style={{ color: PROPERTIES[2].color }}>低确定性 → 确认智能成本</span>
         </div>
       </div>
+
+      {/* Click hint */}
+      {!allDone && (
+        <div className="tri-hint fixed bottom-[72px] left-1/2 -translate-x-1/2 z-10">
+          <span className="text-caption text-[var(--text-light)] px-3 py-1 rounded-full bg-[var(--bg-secondary)] border border-[var(--border)]">
+            点击继续 →
+          </span>
+        </div>
+      )}
     </section>
   );
 };
