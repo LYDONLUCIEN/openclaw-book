@@ -31,14 +31,14 @@ const COST_PATHS = [
 
 const FORCES = [
   {
-    icon: '🧠',
-    title: '更强大的基座模型',
-    source: '来自全世界研发人员与数据力量',
+    icon: '👥',
+    title: '更精华的经验沉淀',
+    source: '让所有人的经验都共同沉淀下来',
     details: [
-      '更优模型 → 更高 Token 投入 → 更好推理与生成质量',
-      '模型能力持续进化，降低所有人的使用门槛',
+      '从个人工具升级为团队基础设施，应对更复杂场景',
+      '每个人完善场景丰富度，而非一人开发众人使用',
     ],
-    color: '#8B5CF6',
+    color: '#F97316',
   },
   {
     icon: '🔗',
@@ -51,21 +51,21 @@ const FORCES = [
     color: '#0891B2',
   },
   {
-    icon: '👥',
-    title: '更精华的经验沉淀',
-    source: '让所有人的经验都共同沉淀下来',
+    icon: '🧠',
+    title: '更强大的基座模型',
+    source: '来自全世界研发人员与数据力量',
     details: [
-      '从个人工具升级为团队基础设施，应对更复杂场景',
-      '每个人完善场景丰富度，而非一人开发众人使用',
+      '更优模型 → 更高 Token 投入 → 更好推理与生成质量',
+      '模型能力持续进化，降低所有人的使用门槛',
     ],
-    color: '#F97316',
+    color: '#8B5CF6',
   },
 ];
 
 const GROUPS = [
-  { icon: '🎮', label: 'VibeCoding\n大模型', color: '#8B5CF6' },
-  { icon: '⚙️', label: 'Workflow\n智能体', color: '#0891B2' },
   { icon: '👨‍💼', label: 'Skills\n人类智慧', color: '#F97316' },
+  { icon: '⚙️', label: 'Workflow\n工作流', color: '#0891B2' },
+  { icon: '🎮', label: 'VibeCoding\n大模型', color: '#8B5CF6' },
 ];
 
 const Slide20_Future: React.FC<SlideProps> = ({ isActive }) => {

@@ -1,4 +1,4 @@
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
@@ -102,8 +102,220 @@ const BUSINESS_SCENARIOS = [
   { icon: '📊', title: 'examples', desc: '使用样例，举例说明不同情况与场景使用方法，使用更可控' },
 ];
 
+// ── Modal: Skill 元数据完整文档 ──
+const MetadataModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const overlay = overlayRef.current;
+    const content = contentRef.current;
+    if (!overlay || !content) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+      gsap.fromTo(content, { opacity: 0, scale: 0.92, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: 'back.out(1.4)' });
+    });
+    return () => ctx.revert();
+  }, []);
+
+  const handleClose = useCallback(() => {
+    const overlay = overlayRef.current;
+    const content = contentRef.current;
+    if (!overlay || !content) { onClose(); return; }
+    const tl = gsap.timeline({ onComplete: onClose });
+    tl.to(content, { opacity: 0, scale: 0.95, y: 10, duration: 0.2, ease: 'power2.in' }, 0);
+    tl.to(overlay, { opacity: 0, duration: 0.2, ease: 'power2.in' }, 0.05);
+  }, [onClose]);
+
+  return (
+    <div ref={overlayRef} className="fixed inset-0 z-[100] flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.55)' }} onClick={handleClose}>
+      <div ref={contentRef} className="w-[90vw] max-w-3xl max-h-[85vh] rounded-2xl border-2 overflow-hidden flex flex-col"
+        style={{ borderColor: `${OC}50`, backgroundColor: '#0D1117' }} onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-2.5 border-b shrink-0" style={{ borderColor: `${OC}20`, backgroundColor: `${OC}10` }}>
+          <div className="flex items-center gap-2">
+            <span className="text-base">📄</span>
+            <span className="text-body-sm font-bold" style={{ color: OC }}>Skill 完整文件结构</span>
+          </div>
+          <button onClick={handleClose} className="w-6 h-6 rounded-full flex items-center justify-center text-[var(--text-secondary)] hover:text-white hover:bg-white/10 transition-colors" style={{ fontSize: 14 }}>✕</button>
+        </div>
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {/* 元信息色块 */}
+          <div className="rounded-xl p-4 border" style={{ backgroundColor: `${OC}12`, borderColor: `${OC}30` }}>
+            <p className="text-body-sm font-bold mb-2" style={{ color: OC }}>元信息 (Metadata)</p>
+            <pre className="text-[11px] leading-relaxed whitespace-pre-wrap" style={{ color: '#C9D1D9', fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace' }}>{`---
+name: report-gen
+description: 根据数据自动生成业务报告
+version: 1.0.0
+trigger:
+  - "写一份.*报告"
+  - "生成.*周报"
+  - "总结.*数据"
+tools: [read_file, web_search]
+tags: [报告, 自动化, 业务]
+---`}</pre>
+          </div>
+
+          {/* 提示词工程色块 */}
+          <div className="rounded-xl p-4 border" style={{ backgroundColor: '#1C2333', borderColor: '#30363D' }}>
+            <p className="text-body-sm font-bold mb-3" style={{ color: '#58A6FF' }}>提示词工程 (Prompt Engineering)</p>
+
+            {/* 文字描述 */}
+            <div className="rounded-lg p-3 mb-2.5 border" style={{ backgroundColor: `${OC}08`, borderColor: `${OC}20` }}>
+              <p className="text-[11px] font-bold mb-1" style={{ color: OC }}>文字描述</p>
+              <p className="text-[11px] leading-relaxed" style={{ color: '#C9D1D9' }}>{`你是一个专业的业务报告生成助手。根据用户提供的数据和需求，自动生成结构清晰、数据准确、格式规范的业务报告。支持周报、月报、季报等多种报告类型。`}</p>
+            </div>
+
+            {/* 业务知识 */}
+            <div className="rounded-lg p-3 mb-2.5 border" style={{ backgroundColor: '#0D442920', borderColor: '#23863640' }}>
+              <p className="text-[11px] font-bold mb-1" style={{ color: '#3FB950' }}>业务知识</p>
+              <pre className="text-[10px] leading-relaxed whitespace-pre-wrap" style={{ color: '#C9D1D9' }}>{`报告结构标准：
+├── 摘要 (Executive Summary)  — 核心结论，控制在3行内
+├── 关键指标 (KPI)           — 同比/环比变化，标注↑↓
+├── 趋势分析 (Trend)          — 折线/柱状图数据描述
+├── 异常说明 (Anomaly)        — 偏离阈值>15% 的项
+└── 行动建议 (Action Items)    — 优先级排序，责任到人`}</pre>
+            </div>
+
+            {/* 业务流程 */}
+            <div className="rounded-lg p-3 mb-2.5 border" style={{ backgroundColor: '#1F1B4B20', borderColor: '#6366F140' }}>
+              <p className="text-[11px] font-bold mb-1" style={{ color: '#818CF8' }}>业务流程</p>
+              <pre className="text-[10px] leading-relaxed whitespace-pre-wrap" style={{ color: '#C9D1D9' }}>{`1. 接收用户指令 → 解析报告类型与时间范围
+2. 读取数据源 → 调用 read_file 获取原始数据
+3. 数据清洗 → 去重、补缺、格式统一
+4. 指标计算 → 同比/环比/累计/均值
+5. 结构化输出 → 按模板填充各章节
+6. 质量校验 → 数据一致性、逻辑完整性检查`}</pre>
+            </div>
+
+            {/* 脚本 */}
+            <div className="rounded-lg p-3 mb-2.5 border" style={{ backgroundColor: '#42200620', borderColor: '#D9770640' }}>
+              <p className="text-[11px] font-bold mb-1" style={{ color: '#FBBF24' }}>脚本</p>
+              <pre className="text-[10px] leading-relaxed whitespace-pre-wrap" style={{ color: '#C9D1D9', fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace' }}>{`# 计算环比增长率
+def calc_qoq(current, previous):
+    if previous == 0: return None
+    return round((current - previous) / previous * 100, 2)
+
+# 生成趋势摘要
+def trend_summary(metrics: dict) -> str:
+    lines = []
+    for k, v in metrics.items():
+        change = calc_qoq(v['current'], v['previous'])
+        arrow = "↑" if change > 0 else "↓"
+        lines.append(f"{k}: {v['current']} ({arrow}{abs(change)}%)")
+    return "\\n".join(lines)`}</pre>
+            </div>
+
+            {/* 使用案例 */}
+            <div className="rounded-lg p-3 border" style={{ backgroundColor: '#4C1D9520', borderColor: '#A78BFA40' }}>
+              <p className="text-[11px] font-bold mb-1" style={{ color: '#A78BFA' }}>使用案例</p>
+              <div className="space-y-1.5 text-[10px]" style={{ color: '#C9D1D9' }}>
+                <p><span className="font-bold" style={{ color: OC }}>案例 1：</span>用户说"帮我写一份本周销售周报" → 系统自动读取销售数据，生成包含KPI趋势、异常说明和行动建议的周报。</p>
+                <p><span className="font-bold" style={{ color: OC }}>案例 2：</span>用户说"生成Q3季度运营报告" → 系统汇总三个月数据，输出含同比环比分析的季度报告。</p>
+                <p><span className="font-bold" style={{ color: OC }}>案例 3：</span>用户说"总结昨天的客服数据" → 系统提取昨日工单、响应时间、满意度指标，生成日度简报。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Modal: Skills 文件目录结构 ──
+const DirectoryModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const overlay = overlayRef.current;
+    const content = contentRef.current;
+    if (!overlay || !content) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+      gsap.fromTo(content, { opacity: 0, scale: 0.92, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: 'back.out(1.4)' });
+    });
+    return () => ctx.revert();
+  }, []);
+
+  const handleClose = useCallback(() => {
+    const overlay = overlayRef.current;
+    const content = contentRef.current;
+    if (!overlay || !content) { onClose(); return; }
+    const tl = gsap.timeline({ onComplete: onClose });
+    tl.to(content, { opacity: 0, scale: 0.95, y: 10, duration: 0.2, ease: 'power2.in' }, 0);
+    tl.to(overlay, { opacity: 0, duration: 0.2, ease: 'power2.in' }, 0.05);
+  }, [onClose]);
+
+  return (
+    <div ref={overlayRef} className="fixed inset-0 z-[100] flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.55)' }} onClick={handleClose}>
+      <div ref={contentRef} className="w-[90vw] max-w-2xl max-h-[85vh] rounded-2xl border-2 overflow-hidden flex flex-col"
+        style={{ borderColor: `${OC}50`, backgroundColor: '#0D1117' }} onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-2.5 border-b shrink-0" style={{ borderColor: `${OC}20`, backgroundColor: `${OC}10` }}>
+          <div className="flex items-center gap-2">
+            <span className="text-base">📂</span>
+            <span className="text-body-sm font-bold" style={{ color: OC }}>report-gen / Skill 目录结构</span>
+          </div>
+          <button onClick={handleClose} className="w-6 h-6 rounded-full flex items-center justify-center text-[var(--text-secondary)] hover:text-white hover:bg-white/10 transition-colors" style={{ fontSize: 14 }}>✕</button>
+        </div>
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
+          {/* 文件树 */}
+          <pre className="text-[11px] leading-relaxed p-3 rounded-xl border" style={{ color: '#C9D1D9', backgroundColor: '#161B22', borderColor: '#30363D', fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace' }}>{`report-gen/
+├── SKILL.md                 # Skill 主入口文件（元信息+提示词）
+├── reference/
+│   ├── report-structure.md  # 报告结构标准与规范
+│   ├── kpi-definitions.md   # KPI 指标定义与计算公式
+│   ├── industry-templates/  # 行业报告模板集
+│   │   ├── tech-weekly.md
+│   │   ├── sales-monthly.md
+│   │   └── finance-quarterly.md
+│   └── glossary.md          # 业务术语对照表
+├── scripts/
+│   ├── calc-metrics.py      # 指标计算脚本
+│   ├── data-cleaner.py      # 数据清洗工具
+│   ├── chart-generator.py   # 图表生成辅助
+│   └── validators.py        # 数据校验规则
+└── examples/
+    ├── weekly-report.json   # 周报输入输出示例
+    ├── monthly-report.json  # 月报输入输出示例
+    └── edge-cases.json      # 边界场景处理示例`}</pre>
+
+          {/* 各目录说明 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            <div className="rounded-lg p-3 border" style={{ backgroundColor: '#0D442920', borderColor: '#23863640' }}>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="text-sm">📋</span>
+                <p className="text-[11px] font-bold" style={{ color: '#3FB950' }}>reference/</p>
+              </div>
+              <p className="text-[10px] leading-relaxed" style={{ color: '#8B949E' }}>参考资料：报告结构标准、KPI定义、行业模板、术语表。为 Agent 提供领域知识支撑。</p>
+            </div>
+            <div className="rounded-lg p-3 border" style={{ backgroundColor: '#42200620', borderColor: '#D9770640' }}>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="text-sm">🖥</span>
+                <p className="text-[11px] font-bold" style={{ color: '#FBBF24' }}>scripts/</p>
+              </div>
+              <p className="text-[10px] leading-relaxed" style={{ color: '#8B949E' }}>工具脚本：指标计算、数据清洗、图表生成、校验规则。提升 Agent 执行精度。</p>
+            </div>
+            <div className="rounded-lg p-3 border" style={{ backgroundColor: '#4C1D9520', borderColor: '#A78BFA40' }}>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="text-sm">📊</span>
+                <p className="text-[11px] font-bold" style={{ color: '#A78BFA' }}>examples/</p>
+              </div>
+              <p className="text-[10px] leading-relaxed" style={{ color: '#8B949E' }}>使用样例：周报/月报的输入输出示例、边界场景。让 Agent 输出更可控。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [modal, setModal] = useState<'metadata' | 'directory' | null>(null);
 
   useGSAP(() => {
     if (!isActive || !containerRef.current) return;
@@ -128,6 +340,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
   }, { scope: containerRef, dependencies: [isActive] });
 
   return (
+    <>
     <section ref={containerRef}
       className="w-full min-h-[100dvh] flex flex-col items-center pt-14 pb-16 px-4 md:px-6 relative"
       style={{ backgroundColor: 'var(--bg-primary)' }}>
@@ -136,7 +349,7 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
       <div className="flex items-center gap-3 mb-3">
         <h2 className="og-title text-h1 md:text-display font-bold text-[var(--text-primary)] opacity-0 flex items-center gap-2">
           <ChapterBadge chapter={1} />
-          Skills 生态全景
+          Skills生态——所有人都能参与其中的开源社区
         </h2>
         <span className="og-badge text-caption px-2.5 py-1 rounded-full font-bold text-white opacity-0"
           style={{ backgroundColor: OC }}>橙装</span>
@@ -235,21 +448,29 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
           {/* Skill 元数据格式 + 业务示例 */}
           <div className="og-meta grid grid-cols-1 md:grid-cols-2 gap-2.5 opacity-0">
             {/* 元数据格式 */}
-            <div className="rounded-xl border-2 overflow-hidden"
-              style={{ borderColor: `${OC}30`, backgroundColor: '#0D1117' }}>
-              <div className="flex items-center gap-2 px-3 py-1 border-b"
+            <div className="rounded-xl border-2 overflow-hidden cursor-pointer hover:border-[var(--color)] transition-colors"
+              style={{ borderColor: `${OC}30`, backgroundColor: '#0D1117', '--color': `${OC}70` } as React.CSSProperties}
+              onClick={() => setModal('metadata')}>
+              <div className="flex items-center justify-between px-3 py-1 border-b"
                 style={{ borderColor: `${OC}20`, backgroundColor: `${OC}10` }}>
-                <span className="text-sm">📄</span>
-                <span className="text-body-sm font-bold" style={{ color: OC }}>Skill 元数据格式</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">📄</span>
+                  <span className="text-body-sm font-bold" style={{ color: OC }}>Skill 元数据格式</span>
+                </div>
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${OC}25`, color: OC }}>点击展开</span>
               </div>
               <pre className="px-3 py-1.5 text-[11px] leading-relaxed overflow-x-auto"
                 style={{ color: '#C9D1D9', fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace' }}>{SKILL_METADATA}</pre>
             </div>
 
             {/* 业务场景 */}
-            <div className="rounded-xl border-2 p-2.5"
-              style={{ borderColor: `${OC}30`, backgroundColor: `${OC}05` }}>
-              <p className="text-body-sm font-bold mb-1.5" style={{ color: OC }}>skills包含内容</p>
+            <div className="rounded-xl border-2 p-2.5 cursor-pointer hover:border-[var(--color)] transition-colors"
+              style={{ borderColor: `${OC}30`, backgroundColor: `${OC}05`, '--color': `${OC}70` } as React.CSSProperties}
+              onClick={() => setModal('directory')}>
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-body-sm font-bold" style={{ color: OC }}>skills包含内容</p>
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${OC}25`, color: OC }}>点击展开</span>
+              </div>
               <div className="space-y-1.5">
                 {BUSINESS_SCENARIOS.map((s) => (
                   <div key={s.title} className="flex items-start gap-2">
@@ -274,6 +495,11 @@ const Slide10_OrangeGear: React.FC<SlideProps> = ({ isActive }) => {
         </p>
       </div>
     </section>
+
+      {/* Modals */}
+      {modal === 'metadata' && <MetadataModal onClose={() => setModal(null)} />}
+      {modal === 'directory' && <DirectoryModal onClose={() => setModal(null)} />}
+    </>
   );
 };
 

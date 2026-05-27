@@ -38,7 +38,7 @@ const ROWS = [
     color: '#10B981',
     tag: '03',
     left: {
-      title: '众人之力托举',
+      title: '众人之力的托举会降低入手门槛',
       points: ['时间、精力、金钱的投入', '让准入门槛变得可以接受', '学习到的东西是未来的机会'],
     },
     right: {
@@ -111,7 +111,7 @@ const Slide23_Thanks: React.FC<SlideProps> = ({ isActive }) => {
       <div className="sm-content flex flex-col items-center w-full h-full">
         <h2 className="sm-title text-h1 md:text-display font-bold text-[var(--text-primary)] mb-4 opacity-0 flex items-center gap-2">
           <ChapterBadge chapter={3} />
-          最后总结
+          关于龙虾的最后总结
         </h2>
 
         {/* 3×3 Grid */}
