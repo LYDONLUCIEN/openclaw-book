@@ -106,9 +106,21 @@ export function useZoomOnAlt() {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         if (isZoomedRef.current) {
+          // Move zoom point and enable dragging
           moveZoomTo(x, y);
+          isDraggingRef.current = true;
+          dragStartClientX.current = e.clientX;
+          dragStartClientY.current = e.clientY;
+          panStartXRef.current = panXRef.current;
+          panStartYRef.current = panYRef.current;
         } else {
           enableZoom(x, y);
+          // Enable dragging immediately after zoom-in
+          isDraggingRef.current = true;
+          dragStartClientX.current = e.clientX;
+          dragStartClientY.current = e.clientY;
+          panStartXRef.current = 0;
+          panStartYRef.current = 0;
         }
         return;
       }
