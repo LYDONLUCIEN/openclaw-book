@@ -2,6 +2,7 @@ import React, { useRef, useState, useCallback, memo } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ChapterBadge from '@/components/ChapterBadge';
+import qrcodeImg from '@/assets/二维码.png';
 
 interface SlideProps { isActive: boolean; }
 
@@ -75,6 +76,11 @@ const Slide23_Thanks: React.FC<SlideProps> = ({ isActive }) => {
         { opacity: 0, y: 40 },
         { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' },
       );
+      tl.fromTo('.sm-qrcode',
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power3.out' },
+        '-=0.2',
+      );
     }, containerRef);
   }, [revealed]);
 
@@ -87,6 +93,7 @@ const Slide23_Thanks: React.FC<SlideProps> = ({ isActive }) => {
         gsap.set('.sm-content', { display: '', opacity: 1 });
         gsap.set('.sm-reveal', { display: 'none', opacity: 0 });
         gsap.set('.sm-big-word', { opacity: 0, y: 40 });
+        gsap.set('.sm-qrcode', { opacity: 0, y: 20, scale: 0.9 });
       }, containerRef);
       return;
     }
@@ -275,16 +282,20 @@ const Slide23_Thanks: React.FC<SlideProps> = ({ isActive }) => {
       </div>
 
       {/* Big words reveal */}
-      <div className="sm-reveal hidden absolute inset-0 flex-col items-center justify-center z-20"
+      <div className="sm-reveal hidden absolute inset-0 flex-col items-center justify-center gap-8 z-20"
         style={{ backgroundColor: 'var(--bg-primary)' }}>
-        <div className="flex items-center gap-8 md:gap-16">
+        <div className="flex items-center gap-6 md:gap-12">
           {BIG_WORDS.map((w) => (
             <span key={w.text}
-              className="sm-big-word text-[22vw] md:text-[18vw] font-extrabold leading-none select-none"
+              className="sm-big-word text-[18vw] md:text-[14vw] font-extrabold leading-none select-none"
               style={{ color: w.color }}>
               {w.text}
             </span>
           ))}
+        </div>
+        <div className="sm-qrcode flex flex-col items-center gap-2">
+          <img src={qrcodeImg} alt="本次课程课件" className="w-28 h-28 md:w-32 md:h-32 rounded-lg" />
+          <span className="text-caption text-[var(--text-secondary)]">本次课程课件</span>
         </div>
       </div>
 

@@ -1,0 +1,1694 @@
+- generic [ref=e3]:
+  - banner [ref=e66]:
+    - generic [ref=e67]:
+      - img [ref=e68]
+      - generic [ref=e73]: AI Agent技术讲座
+    - generic [ref=e74]:
+      - button "截图当前页" [ref=e75] [cursor=pointer]:
+        - img [ref=e76]
+        - generic [ref=e79]: 截图
+      - button "导出PDF" [ref=e80] [cursor=pointer]:
+        - img [ref=e81]
+        - generic [ref=e85]: PDF
+      - button "Enter fullscreen" [ref=e86] [cursor=pointer]:
+        - img [ref=e87]
+      - button "Change theme" [ref=e93] [cursor=pointer]:
+        - img [ref=e94]
+  - generic [ref=e17]:
+    - region:
+      - generic:
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - generic: 北京移动专家讲座
+          - generic:
+            - generic:
+              - generic: O
+              - generic: p
+              - generic: e
+              - generic: "n"
+              - generic: C
+              - generic: l
+              - generic: a
+              - generic: w
+              - generic: 入
+              - generic: 门
+              - generic: 指
+              - generic: 南
+          - generic:
+            - generic:
+              - generic: 带
+              - generic: 你
+              - generic: 剥
+              - generic: 开
+              - generic: 虾
+              - generic: 壳
+              - generic: 看
+              - generic: 本
+              - generic: 质
+          - generic: 北京公司数智化部 · 2026年5月
+    - region:
+      - generic:
+        - heading [level=2]: OpenClaw 横空出世
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img
+                  - heading [level=3]: 龙虾爆火
+                - generic:
+                  - generic:
+                    - img
+                    - generic: 375K+ Stars
+                    - generic: GitHub 历史级增速
+                  - generic:
+                    - img
+                    - generic: 全球开源排名第1
+                    - generic: OSRank 2026
+                  - generic:
+                    - img
+                    - generic: 发布数周登顶热榜
+                    - generic: GitHub Trending
+                  - generic:
+                    - img
+                    - generic: 社区贡献者遍布全球
+                    - generic: Contributors
+                - generic:
+                  - button
+            - generic:
+              - generic:
+                - generic:
+                  - img
+                  - heading [level=3]: 现象级 AI 应用诞生
+                - generic:
+                  - generic: AI贾维斯
+                  - generic: 爆款视频运营
+                  - generic: 自动交易
+                  - generic: 个人助理
+                  - generic: 赛博伴侣
+                  - generic: 龙虾游泳池
+                  - generic: 一人公司
+                  - generic: 全能生活管家
+                  - generic: Skills仓库
+                  - generic: AI办公团队
+                  - generic: 智能体蜂巢
+                  - generic: 资产归零
+                - generic:
+                  - generic:
+                    - generic: 🔥
+                    - generic: 催生现象级 AI 应用 Moltbook 诞生
+                  - generic:
+                    - generic: 🤖
+                    - generic: 全 AI Agent 自主讨论的论坛，人类旁观
+                  - generic:
+                    - generic: 👥
+                    - generic: 已有 170 万+ Agent 进入社群自主讨论
+                  - generic:
+                    - generic: 💬
+                    - generic: 出现「天网」「末世」「赛博永生」等帖子
+                - generic:
+                  - button
+            - generic:
+              - generic:
+                - generic:
+                  - img
+                  - heading [level=3]: 各家龙虾争奇斗艳
+                - generic:
+                  - generic: 中国移动
+                  - generic: 字节跳动
+                  - generic: 智普言清
+                  - generic: 腾讯科技
+                  - generic: 阿里巴巴
+                  - generic: 小红书
+                  - generic: 小米科技
+                  - generic: 网易科技
+                - generic:
+                  - generic: 各大厂商纷纷下场
+                  - text: 免费部署龙虾，token运营关键抓手
+                - generic:
+                  - button
+          - generic:
+            - paragraph:
+              - text: 点击收拢
+              - img
+        - generic: 点击继续
+    - region:
+      - generic:
+        - heading [level=2]: 目录
+        - generic:
+          - generic:
+            - generic: "01"
+            - generic:
+              - heading [level=3]: 第1章 · OpenClaw 的核心拆解
+              - paragraph: 系统本质 · 龙虾原理 · 能力演进
+          - generic:
+            - generic: "02"
+            - generic:
+              - heading [level=3]: 第2章 · 龙虾的应用场景
+              - paragraph: 部署模式 · 使用技巧 · 实战示范
+          - generic:
+            - generic: "03"
+            - generic:
+              - heading [level=3]: 第3章 · 未来展望与计划
+              - paragraph: 趋势判断 · 认知边界 · 行动建议
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: 系统三特性与智能成本
+        - paragraph: 输入 → 处理 → 输出：每项特性对应一类环节成本，三者不可兼得
+        - generic:
+          - generic:
+            - generic: ⚡
+            - generic: 便利性
+            - generic: Convenience
+            - generic: 操作便捷高效
+            - generic:
+              - generic: 操作智能成本
+              - text: 输入环节 — 人力调度与执行消耗
+            - paragraph: 用户与系统交互的便捷程度。便利性越低，人需要越多手动操作与反复配置。
+          - generic: →
+          - generic:
+            - generic: 🧩
+            - generic: 完备性
+            - generic: Completeness
+            - generic: 处理事务边界
+            - generic:
+              - generic: 开发智能成本
+              - text: 处理环节 — 系统开发与能力建设消耗
+            - paragraph: 系统覆盖场景范围与解决问题的广度。完备性越低，人需要花费越多精力开发场景与设计流程。
+          - generic: →
+          - generic:
+            - generic: 🎯
+            - generic: 确定性
+            - generic: Certainty
+            - generic: 输出可靠可预测
+            - generic:
+              - generic: 确认智能成本
+              - text: 输出环节 — 结果校验与纠错兜底消耗
+            - paragraph: 系统输出结果的可靠性与可预测程度。确定性越低，人需要越多反复检查、纠错与兜底。
+        - generic:
+          - img:
+            - generic: 开发投入
+            - generic: 验证投入
+            - generic: 操作投入
+            - generic:
+              - generic: 便利性
+              - generic: Convenience
+            - generic:
+              - generic: 完备性
+              - generic: Completeness
+            - generic:
+              - generic: 确定性
+              - generic: Certainty
+            - generic: 三项不可兼得
+            - generic: 成本不会消失，只会转移
+        - generic:
+          - paragraph: OpenClaw也是一个系统，一样逃脱不了这个规律
+          - generic:
+            - generic: 低便利性 → 操作智能成本
+            - generic: 低完备性 → 开发智能成本
+            - generic: 低确定性 → 确认智能成本
+        - generic: 点击继续 →
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: 四类角色：属性分配
+        - paragraph: 同样的智能预算，不同的加点策略
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic: 传统IT应用
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: 确定性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 完备性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 便利性
+                      - generic: "0"
+                - generic:
+                  - generic:
+                    - paragraph: 高确定，低完备，开发成本显著
+                  - generic: 开发成本↑↑
+                  - generic:
+                    - generic:
+                      - generic: +
+                      - generic: 逻辑完全可控，输出零偏差
+                    - generic:
+                      - generic: "-"
+                      - generic: 覆盖场景窄，灵活度最低
+              - generic:
+                - generic:
+                  - generic: 🪙
+                  - generic: "200"
+                - text: 点击上方卡片分配
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic: 低零代码应用
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: 确定性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 完备性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 便利性
+                      - generic: "0"
+                - generic:
+                  - generic:
+                    - paragraph: 流程标准化，灵活性受限
+                  - generic: 开发成本↑
+                  - generic:
+                    - generic:
+                      - generic: +
+                      - generic: 流程可控，工具善用，输出确定
+                    - generic:
+                      - generic: "-"
+                      - generic: 灵活性有限，使用者也是开发者
+              - generic:
+                - generic:
+                  - generic: 🪙
+                  - generic: "200"
+                - text: 点击上方卡片分配
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic: 机器学习驱动应用
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: 确定性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 完备性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 便利性
+                      - generic: "0"
+                - generic:
+                  - generic:
+                    - paragraph: 经验可封装，数据标注成本高
+                  - generic: 数据成本↑
+                  - generic:
+                    - generic:
+                      - generic: +
+                      - generic: 可处理非结构化数据，方法论通用
+                    - generic:
+                      - generic: "-"
+                      - generic: 标注成本高，场景迁移难
+              - generic:
+                - generic:
+                  - generic: 🪙
+                  - generic: "200"
+                - text: 点击上方卡片分配
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic: 大模型应用
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: 确定性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 完备性
+                      - generic: "0"
+                  - generic:
+                    - generic:
+                      - generic: 便利性
+                      - generic: "0"
+                - generic:
+                  - generic:
+                    - paragraph: 覆盖面广，输出不确定性显著
+                  - generic: 确认成本↑↑
+                  - generic:
+                    - generic:
+                      - generic: +
+                      - generic: 零门槛启动，覆盖场景最广
+                    - generic:
+                      - generic: "-"
+                      - generic: 输出不确定性高，需反复纠错
+              - generic:
+                - generic:
+                  - generic: 🪙
+                  - generic: "200"
+                - text: 点击上方卡片分配
+        - generic:
+          - button:
+            - generic:
+              - img
+            - generic:
+              - generic: OpenClaw
+              - text: 点击查看工程加持对比 →
+        - generic:
+          - generic:
+            - generic: 确定性 — 输出可靠可预测
+            - generic: 完备性 — 场景覆盖广
+            - generic: 便利性 — 操作便捷高效
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: OpenClaw 核心架构
+        - generic:
+          - generic:
+            - img:
+              - generic:
+                - generic: 接入层
+              - generic:
+                - generic: 认知层
+              - generic:
+                - generic: 执行层
+              - generic:
+                - generic: 基础服务
+              - generic:
+                - generic: 请求
+              - generic:
+                - generic: 路由
+              - generic:
+                - generic: 上下文
+              - generic:
+                - generic: 推理
+              - generic:
+                - generic: 执行
+              - generic:
+                - generic: 定义 / 执行
+              - generic:
+                - generic: 记录
+              - generic:
+                - generic: 唤醒
+              - generic:
+                - generic: 触发
+              - generic:
+                - generic: 📡
+                - generic: Channel
+                - generic: 多端通道
+              - generic:
+                - generic: 🌐
+                - generic: Gateway
+                - generic: 请求路由 · 访问控制
+              - generic:
+                - generic: 🎒
+                - generic: Context Assembly
+                - generic: 历史 · 提示词 · 记忆
+              - generic:
+                - generic: ⚡
+                - generic: ReAct Loop
+                - generic: 推理 · 决策 · 规划
+              - generic:
+                - generic: 🧠
+                - generic: LLM
+                - generic: 大模型 · 语言理解
+              - generic:
+                - generic: 📦
+                - generic: Skills
+                - generic: 技能库 · 定义集
+              - generic:
+                - generic: 🖥️
+                - generic: Node
+                - generic: 执行节点 · 命令执行
+              - generic:
+                - generic: 📖
+                - generic: Memory
+                - generic: 状态存储
+              - generic:
+                - generic: 💓
+                - generic: Heartbeat
+                - generic: 变动检测 · 主动行为
+              - generic:
+                - generic: 📅
+                - generic: Scheduler
+                - generic: 任务计划 · 条件触发
+            - generic:
+              - generic:
+                - generic: Harness 工程层
+              - generic:
+                - generic: Agent原生
+              - generic:
+                - generic: Skills 能力层
+              - generic:
+                - generic: 后台/反馈
+          - generic:
+            - generic:
+              - paragraph: 主流程（会话级）
+              - generic:
+                - generic:
+                  - generic: "1"
+                  - generic: Channel 接收消息
+                - generic:
+                  - generic: "2"
+                  - generic: Gateway 分配路由
+                - generic:
+                  - generic: "3"
+                  - generic: Context Assembly 组装上下文
+                - generic:
+                  - generic: "4"
+                  - generic: ReAct Loop 推理 → 决策
+                - generic:
+                  - generic: "5"
+                  - generic: 调用 Skills / Node 执行
+                - generic:
+                  - generic: "6"
+                  - generic: 结果反馈给 LLM 继续循环
+                - generic:
+                  - generic: "7"
+                  - generic: Memory 持久化
+            - generic:
+              - paragraph: 并行流程（后台）
+              - paragraph: Heartbeat：30min 定时巡检 Scheduler：条件触发，不中断主会话
+            - button:
+              - img
+              - text: 按分类归组 →
+        - generic:
+          - generic: 点击模块查看详情
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: 原生大模型三大核心问题
+        - generic:
+          - generic:
+            - img
+            - generic: 清北应届生：业务知识（输入）、业务系统（处理）、业务流程（输出）
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: 输入端
+            - heading [level=3]: 理解偏差 听不懂
+            - paragraph: 语言表达有偏差，默认智会难讲明
+            - paragraph: 自然语言天然存在歧义性，难以精确传达澄清。在缺乏结构化引导和人类默会知识时，模型对上下文语境的解读容易产生偏差。
+            - generic:
+              - generic: 操作成本↑
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: 处理端
+            - heading [level=3]: 信息遗漏 记不住
+            - paragraph: 长上下文记不住，复杂计算易出错
+            - paragraph: 随对话轮次增加与上下文累积，模型有效注意力被分散，导致关键信息遗漏，执行错误。需确定性程序代替执行，减少流程与计算工作。
+            - generic:
+              - generic: 开发成本↑
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: 输出端
+            - heading [level=3]: 结果失控、靠不准
+            - paragraph: 模型幻觉易编撰，结果偏差不自知
+            - paragraph: 大语言模型基于概率分布生成内容，本质上输出的是"最可能"，而不是清楚的"知道"；在知识边界之外，模型会生成看似合理但缺乏事实依据的内容。
+            - generic:
+              - generic: 确认成本↑
+        - generic:
+          - generic:
+            - paragraph: 三种不确定性 → 三种智能成本
+          - paragraph: 通过工程手段逐个击破
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: 装备演进三条线
+        - generic:
+          - generic: 2023 AI元年
+          - generic: 2025 Agent元年
+          - generic: 今天 ···
+        - generic:
+          - generic:
+            - generic:
+              - generic: 输入 / 理解偏差
+              - generic: 业务知识精准查询，自动输入
+            - generic:
+              - generic:
+                - generic: 提示词(Prompt)
+              - img
+              - generic:
+                - generic: 知识库检索(RAG)
+              - img
+              - generic:
+                - generic: Skills
+              - img
+              - generic: ···
+          - generic:
+            - generic:
+              - generic: 处理 / 信息遗漏
+              - generic: 已有工具代替模型处理
+            - generic:
+              - generic:
+                - generic: 函数调用(Function Call)
+              - img
+              - generic:
+                - generic: 工具协议(MCP)
+              - img
+              - generic:
+                - generic: Skills
+              - img
+              - generic: ···
+          - generic:
+            - generic:
+              - generic: 输出 / 结果失控
+              - generic: 流程把控，实时校验
+            - generic:
+              - generic:
+                - generic: 提示词工程(Prompt Engineering)
+              - img
+              - generic:
+                - generic: 工作流(Workflow)
+              - img
+              - generic:
+                - generic: 智能体(ReAct)
+              - img
+              - generic:
+                - generic: Harness Engineering
+              - img
+              - generic: ···
+          - generic:
+            - generic:
+              - paragraph: Skills — 复用
+              - paragraph: 复用业务知识与经验，降低模型的 操作成本与开发成本
+            - generic:
+              - paragraph: Harness — 积累
+              - paragraph: 积累行业实践经验，降低工程化的 开发成本与确认成本
+    - region:
+      - generic:
+        - generic:
+          - heading [level=2]:
+            - generic:
+              - generic: "1"
+            - text: Skills生态——所有人都能参与其中的开源社区
+          - generic: 橙装
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: 67.3K
+                  - paragraph: 社区 Skills
+                - generic:
+                  - paragraph: "17"
+                  - paragraph: 官方 Skills
+                - generic:
+                  - paragraph: 10+
+                  - paragraph: 精选仓库
+            - generic:
+              - generic:
+                - generic: ClawHub 技能市场
+                - generic: 67.3K skills
+              - generic:
+                - img
+            - generic:
+              - paragraph: 精选仓库
+              - generic:
+                - generic:
+                  - generic:
+                    - paragraph: anthropics/skills
+                    - paragraph: 官方仓库 · 17 个核心 Skill
+                  - generic: Anthropic 官方
+                - generic:
+                  - generic:
+                    - paragraph: mattpocock/skills
+                    - paragraph: 工程师实战派 · grill-me / tdd / caveman
+                  - generic: 社区热门
+                - generic:
+                  - generic:
+                    - paragraph: VoltAgent/awesome-agent-skills
+                    - paragraph: 67.3K Skills · 跨平台兼容
+                  - generic: 社区精选
+                - generic:
+                  - generic:
+                    - paragraph: Jeffallan/claude-skills
+                    - paragraph: 66 Skills · 12 类别 · 9.3k stars
+                  - generic: 社区精选
+                - generic:
+                  - generic:
+                    - paragraph: ComposioHQ/awesome-claude-skills
+                    - paragraph: 1000+ 生产级 Skills 合集
+                  - generic: 社区精选
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: 📄
+                  - generic: 文档生成
+                - generic:
+                  - generic:
+                    - generic: pptx
+                    - generic: PowerPoint 演示文稿创建
+                  - generic:
+                    - generic: docx
+                    - generic: Word 文档生成与编辑
+                  - generic:
+                    - generic: xlsx
+                    - generic: Excel 数据表格处理
+                  - generic:
+                    - generic: pdf
+                    - generic: PDF 解析与表单填写
+              - generic:
+                - generic:
+                  - generic: 🌐
+                  - generic: Web 抓取
+                - generic:
+                  - generic:
+                    - generic: firecrawl
+                    - generic: 网页抓取与结构化解析
+                  - generic:
+                    - generic: web-artifacts
+                    - generic: Web 组件打包构建
+                  - generic:
+                    - generic: mcp-builder
+                    - generic: MCP 服务器开发工具
+              - generic:
+                - generic:
+                  - generic: 📐
+                  - generic: 需求管理
+                - generic:
+                  - generic:
+                    - generic: grill-me
+                    - generic: 需求深度交叉质询
+                  - generic:
+                    - generic: to-prd
+                    - generic: 对话转产品需求文档
+                  - generic:
+                    - generic: to-issues
+                    - generic: 需求拆解为可执行任务
+                  - generic:
+                    - generic: triage
+                    - generic: Issue 状态流转管理
+              - generic:
+                - generic:
+                  - generic: 🎨
+                  - generic: 创意设计
+                - generic:
+                  - generic:
+                    - generic: canvas-design
+                    - generic: Canvas 艺术创作
+                  - generic:
+                    - generic: algorithmic-art
+                    - generic: 算法生成艺术
+                  - generic:
+                    - generic: theme-factory
+                    - generic: 主题风格批量生成
+                  - generic:
+                    - generic: frontend-design
+                    - generic: 前端界面设计实现
+              - generic:
+                - generic:
+                  - generic: 🧪
+                  - generic: 开发流程
+                - generic:
+                  - generic:
+                    - generic: tdd
+                    - generic: 测试驱动开发循环
+                  - generic:
+                    - generic: diagnose
+                    - generic: 系统化 Bug 诊断
+                  - generic:
+                    - generic: caveman
+                    - generic: 极致压缩 Token 输出
+                  - generic:
+                    - generic: webapp-testing
+                    - generic: Web 应用自动化测试
+              - generic:
+                - generic:
+                  - generic: 🛠
+                  - generic: Skill 创造
+                - generic:
+                  - generic:
+                    - generic: skill-creator
+                    - generic: Skill 开发脚手架
+                  - generic:
+                    - generic: doc-coauthoring
+                    - generic: 协作文档共编
+                  - generic:
+                    - generic: claude-api
+                    - generic: Claude API 多语言集成
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 📄
+                    - generic: Skill 元数据格式
+                  - generic: 点击展开
+                - generic: "--- name: report-gen description: 根据数据自动生成业务报告 version: 1.0.0 trigger: - \"写一份.*报告\" - \"生成.*周报\" tools: [read_file, web_search] ---"
+              - generic:
+                - generic:
+                  - paragraph: skills包含内容
+                  - generic: 点击展开
+                - generic:
+                  - generic:
+                    - generic: 📋
+                    - generic:
+                      - paragraph: reference
+                      - paragraph: 参考资料，相关业务知识，业务数据，业务流程的详细描述
+                  - generic:
+                    - generic: 🖥
+                    - generic:
+                      - paragraph: scripts
+                      - paragraph: 工具脚本，具体功能的执行与实现代码，结果更精准
+                  - generic:
+                    - generic: 📊
+                    - generic:
+                      - paragraph: examples
+                      - paragraph: 使用样例，举例说明不同情况与场景使用方法，使用更可控
+        - generic:
+          - paragraph: 无需自己开发，复用他人经验 — Skills 正在成为 AI Agent 的应用商店
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: Harness工程:众人智慧 共驭模型
+        - generic:
+          - generic:
+            - generic:
+              - generic: 🛠
+              - heading [level=3]: 流程体验优化
+            - generic:
+              - generic:
+                - generic: 🔌
+                - generic:
+                  - generic:
+                    - generic: Channel
+                    - generic: 更方便
+                  - paragraph: 接入日常办公软件，使用更方便
+              - generic:
+                - generic: ⏰
+                - generic:
+                  - generic:
+                    - generic: Scheduler
+                    - generic: 更主动
+                  - paragraph: 定时调度与任务编排，主动推进工作
+              - generic:
+                - generic: 🚪
+                - generic:
+                  - generic:
+                    - generic: Gateway
+                    - generic: 更可控
+                  - paragraph: 流量管控与安全审计，执行过程可控
+              - generic:
+                - generic: 💓
+                - generic:
+                  - generic:
+                    - generic: Heartbeat
+                    - generic: 更稳定
+                  - paragraph: 心跳检测与自动恢复，保障长时稳定
+          - generic:
+            - generic:
+              - generic: 📦
+              - heading [level=3]: 知识经验载入
+            - generic:
+              - generic:
+                - generic: 📚
+                - generic:
+                  - generic:
+                    - generic: Skills
+                    - generic: 更博学
+                  - paragraph: 按需加载领域知识与业务能力
+              - generic:
+                - generic: 🧠
+                - generic:
+                  - generic:
+                    - generic: Memory
+                    - generic: 更懂你
+                  - paragraph: 持久化记忆用户偏好与历史上下文
+              - generic:
+                - generic: 🔗
+                - generic:
+                  - generic:
+                    - generic: 上下文加载
+                    - generic: 更清晰
+                  - paragraph: 渐进式上下文管理，信息分层注入
+        - generic:
+          - paragraph: "Openclaw: 用工程手段众包开发成本——让每个使用者以极低门槛参与，在社区中深度沉淀与持续迭代"
+        - generic:
+          - paragraph: Skills解决"AI知道什么"，Harness解决"如何稳定执行"
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "1"
+          - text: 其它类龙虾产品定位
+        - generic:
+          - paragraph: "龙虾本质: 一个面向个人的，具备自我迭代机制的智能体框架"
+        - generic: 同类产品对比
+        - generic:
+          - generic:
+            - generic:
+              - button
+            - generic:
+              - heading [level=3]: Hermes Agent
+            - paragraph: 自动沉淀流程为Skill，自我优化闭环
+            - text: Skills思路实现
+            - paragraph: openclaw + skill自动沉淀 = hermes
+          - generic:
+            - generic:
+              - button
+            - generic:
+              - heading [level=3]: EvoMap
+            - paragraph: 社区投票筛选优质Skill，群体智慧择优
+            - text: Skills思路实现
+            - paragraph: openclaw + 群体择优 = evomap
+          - generic:
+            - generic:
+              - button
+            - generic:
+              - heading [level=3]: Claude Code
+            - paragraph: 能自我改造的Agent，干细胞级的适应力
+            - text: Harness思路实现
+            - paragraph: claude code(pi) + 便捷应用 = openclaw
+        - generic:
+          - generic:
+            - paragraph: "\"龙虾是Agent框架的一个产品实现，非行业标准亦非最终形态\""
+          - generic:
+            - paragraph: 同类产品共享Skills与Harness的核心思路，差异在于实现路径与场景侧重
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "2"
+          - text: 养虾三境界1 —— 部署龙虾
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - heading [level=3]: 云厂商方案
+              - generic: 云端虾
+            - paragraph: 托管服务，开箱即用，7*24小时在线
+            - generic:
+              - generic:
+                - img
+                - generic: ArkClaw
+              - generic:
+                - img
+                - generic: KimiClaw
+              - generic:
+                - img
+                - generic: MaxClaw
+              - generic:
+                - img
+                - generic: DuClaw
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - heading [level=3]: 本机部署方案
+              - generic: 本地虾
+            - paragraph: 自有服务器，完全可控，操作范围最广
+            - generic:
+              - generic:
+                - img
+                - generic: AutoClaw
+              - generic:
+                - img
+                - generic: WorkClaw
+              - generic:
+                - img
+                - generic: OpenClaw
+              - generic:
+                - img
+                - generic: EasyClaw
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - heading [level=3]: 生态推荐方案
+              - generic: 生态虾
+            - paragraph: 社区方案，快速上手，产品生态内无敌
+            - generic:
+              - generic:
+                - img
+                - generic: QClaw
+              - generic:
+                - img
+                - generic: 360Claw
+              - generic:
+                - img
+                - generic: MiClaw
+              - generic:
+                - img
+                - generic: RedClaw
+        - generic:
+          - paragraph: 精选推荐
+          - generic:
+            - generic:
+              - img
+              - img
+              - generic: QClaw
+              - generic: 首推 · 免费
+              - paragraph: 最便宜，最简单，免费白嫖，微信友好
+            - generic:
+              - img
+              - generic: ArkClaw
+              - generic: 打工人 · 友好
+              - paragraph: 24小时在线，飞书工具生态完整，
+            - generic:
+              - img
+              - generic: AutoClaw
+              - generic: 本地 · 实用
+              - paragraph: 浏览器自动化，安装快，能力强
+            - generic:
+              - img
+              - generic: OpenClaw
+              - generic: 折腾 · 上限高
+              - paragraph: 迭代快，门槛高，能力上限也最高
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "2"
+          - text: 养虾三境界2 —— 四类使用模式
+        - generic:
+          - generic:
+            - generic:
+              - generic: L1
+              - generic: 人设对话
+              - generic: 角色设定与知识注入
+            - paragraph: System Prompt + RAG，定义Agent身份与知识边界
+            - generic:
+              - button
+            - generic: 确定性 · 完备性↑
+          - generic:
+            - generic:
+              - generic: L2
+              - generic: 任务助理
+              - generic: 多轮对话完成任务
+            - paragraph: Function Call + MCP，多轮交互完成复杂任务
+            - generic:
+              - button
+            - generic: 完备性↑ 便利性↑
+          - generic:
+            - generic:
+              - generic: L3
+              - generic: 定时调度
+              - generic: Cron 自动化执行
+            - paragraph: Harness调度引擎，定时触发无人值守任务
+            - generic:
+              - button
+            - generic: 便利性↑↑ 确定性·
+          - generic:
+            - generic:
+              - generic: L4
+              - generic: 自主决策
+              - generic: 自主规划执行
+            - paragraph: Agent自主拆解目标、规划路径，需人工监管兜底
+            - generic:
+              - button
+            - generic: 三特性↑
+    - region "Slide 14 of 23" [ref=e197]:
+      - generic [ref=e198]:
+        - heading "2 为什么我感觉用不起来？" [level=2] [ref=e199]:
+          - generic [ref=e201]: "2"
+          - text: 为什么我感觉用不起来？
+        - paragraph [ref=e202]: 龙虾本质上没有脱离大模型的幻觉问题，逃过的课终究是要补回来
+        - generic [ref=e203]:
+          - generic [ref=e204]:
+            - generic [ref=e206]: L1
+            - generic [ref=e207]:
+              - generic [ref=e208]:
+                - heading "第一课:环境部署" [level=3] [ref=e209]
+                - generic [ref=e210]: 学习成本 · 操作成本
+              - paragraph [ref=e211]: 本地虾安全隐患高，得折腾；云虾需要服务器，门槛高
+          - generic [ref=e212]:
+            - generic [ref=e214]: L2
+            - generic [ref=e215]:
+              - generic [ref=e216]:
+                - heading "第二课:Token质量" [level=3] [ref=e217]
+                - generic [ref=e218]: 智能成本 · 算力成本
+              - paragraph [ref=e219]: Token成本高，模型智能不足，再多的工具也解决不了
+          - generic [ref=e220]:
+            - generic [ref=e222]: L3
+            - generic [ref=e223]:
+              - generic [ref=e224]:
+                - heading "第三课:模型幻觉" [level=3] [ref=e225]
+                - generic [ref=e226]: 开发成本 · 学习成本
+              - paragraph [ref=e227]: 输出总是可能出错，必须用确定性方式约束——代码执行、Skills介入
+          - generic [ref=e228]:
+            - generic [ref=e230]: L4
+            - generic [ref=e231]:
+              - generic [ref=e232]:
+                - heading "第四课:自主决策" [level=3] [ref=e233]
+                - generic [ref=e234]: 时间成本 · 确认成本
+              - paragraph [ref=e235]: 理想完美但结果偏差大，需要不断反馈决策，自己能闭环，才懂指导AI
+        - paragraph [ref=e237]: “成本不会消失，只会转移”
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "2"
+          - text: 养虾三步走3 —— 成本转移大法
+        - paragraph: 面对每个层级带来的挑战，有三条应对路径
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: "1"
+                - generic:
+                  - heading [level=3]: 扬长避短
+                  - text: 时间成本 → 操作成本
+              - generic:
+                - paragraph: · 时间不敏感：报表慢慢算，反正明天我才看
+                - paragraph: · 准确不敏感：计算不能错，文字创作有容错
+            - generic:
+              - generic:
+                - generic:
+                  - generic: 方式
+                  - generic: 首次耗时
+                  - generic: 重复使用
+                - generic:
+                  - generic: Excel 表
+                  - generic: 2 小时
+                  - generic: 5 秒
+                - generic:
+                  - generic: 大模型
+                  - generic: 25 分钟
+                  - generic: 25 分钟
+            - generic:
+              - paragraph: 💡 自动计算报表——重要不紧急的事，比如生成报表，我可以交给龙虾慢慢完成，
+              - paragraph: 💡 文字输出场景——检查文字比检查数据容易，确定性要求天然低。可以放心使用
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: "2"
+                - generic:
+                  - heading [level=3]: 继续氪金
+                  - text: 经济成本 → 开发成本
+              - generic:
+                - paragraph: · 使用更强的模型来解决更复杂的问题
+                - paragraph: · 用代码开发框架与程序，大幅增加确定性
+                - paragraph: · 高频场景边际成本会被无限降低，值得投入
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Claude 4.7 Opus
+                - generic:
+                  - generic: Claude Code
+                - generic:
+                  - generic: GPT 5.5
+                - generic:
+                  - generic: Codex
+                - generic:
+                  - generic: GLM 5 Turbo
+                - generic:
+                  - generic: Kimi 2.6
+            - generic:
+              - paragraph: 💡 Hermes 自己装自己，装得越多经验越顺
+              - paragraph: 💡 ClaudeCode 辅助开发，高代码也能高质量交付
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: "3"
+                - generic:
+                  - heading [level=3]: 人在回路
+                  - text: 操作成本 → 确认成本
+              - generic:
+                - paragraph: · 让自己成为理解和决策者，把握全局方向
+                - paragraph: · 每一步验证中间结果，确认正确再继续
+            - generic:
+              - generic:
+                - generic:
+                  - generic: 人工参与
+                - generic:
+                  - generic: 自动执行
+              - generic:
+                - generic:
+                  - generic: 人提出问题
+                - img
+                - generic:
+                  - generic: 模型询问澄清
+                - img
+                - generic:
+                  - generic: 标准 ReAct 执行
+                - img
+                - generic:
+                  - generic: 自动化测试
+                - img
+                - generic:
+                  - generic: 人工校验
+            - generic:
+              - paragraph: 💡 传文件给AI：自己开云盘上传 vs 让AI建服务器搭OSS——我来操作
+              - paragraph: 💡 先手动跑一遍 Skill，保证中间过程对
+        - generic:
+          - generic:
+            - paragraph: 成本互相转移——选择对某个成本最不敏感的场景，门槛就会降低
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "2"
+          - text: 实战示例：L2 任务助理 & L3 定时调度
+        - generic:
+          - generic:
+            - generic:
+              - generic: L2
+              - heading [level=3]: 任务助理：模型部署分析报告
+            - paragraph: 以时间换操作，30分钟释放双手
+            - generic:
+              - generic:
+                - generic: 人
+                - generic: 定义目标
+                - generic: 帮我整理模型参数信息，预估算力需求
+              - generic:
+                - generic: AI
+                - generic: 理解需求
+                - generic: 识别为浏览器自动化任务，加载 Playwright
+              - generic:
+                - generic: AI
+                - generic: 截屏分析
+                - generic: 截取页面 → 识别页面内容 → 确定列名行数
+              - generic:
+                - generic: AI
+                - generic: 执行脚本
+                - generic: 逐页抓取→ 编写代码 → 计算结果 → 生成报告
+              - generic:
+                - generic: 人
+                - generic: 审核结果
+                - generic: 检查数据完整性，遗漏则反馈修正
+            - generic:
+              - button
+            - generic:
+              - paragraph: 人负责「做什么」和「够不够好」，AI 负责「怎么做」和「做多少次」
+          - generic:
+            - generic:
+              - generic: L3
+              - heading [level=3]: 定时调度：运营日报自动生成
+            - paragraph: Harness 调度引擎定时触发，无人值守完成周期任务
+            - generic:
+              - generic:
+                - generic: 08:00
+                - generic: 调度引擎触发日报任务
+              - generic:
+                - generic: 08:01
+                - generic: Agent 调用数据源 Skill 计算指标
+              - generic:
+                - generic: 08:03
+                - generic: Agent 生成分析报告初稿
+              - generic:
+                - generic: 08:05
+                - generic: 自动校验数据一致性
+              - generic:
+                - generic: 08:06
+                - generic: 推送至审阅频道，等待人工确认
+            - generic:
+              - button
+            - generic:
+              - paragraph: 无人值守执行，人工仅需审核最终结果——确认成本最低化
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "2"
+          - text: 实战案例：L4 本课件的诞生——用"龙虾"讲"龙虾"
+        - generic:
+          - generic:
+            - generic:
+              - generic: "1"
+              - generic:
+                - paragraph: 第1轮
+                - paragraph: 需求描述 → 结构化大纲
+            - generic:
+              - generic: "2"
+              - generic:
+                - paragraph: 第2轮
+                - paragraph: 叙事重构 → 三特性框架确立
+            - generic:
+              - generic: "3"
+              - generic:
+                - paragraph: 第3轮
+                - paragraph: 内容填充 → 真实代码与数据替换
+            - generic:
+              - generic: "N"
+              - generic:
+                - paragraph: 第N轮
+                - paragraph: 逐页精调 → 文案、动画、配色优化
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: 🧑 人类职责
+            - generic:
+              - generic: 叙事结构
+              - generic: 审美判断
+              - generic: 内容取舍
+              - generic: 关键决策
+            - button
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic: 🤖 AI 职责
+            - generic:
+              - generic: 代码实现
+              - generic: 动画设计
+              - generic: 初稿生成
+              - generic: 批量修改
+            - button
+        - generic:
+          - paragraph: “你可以外包思考过程，但永远不能外包理解本身——karpathy”
+        - generic:
+          - paragraph: 本课件：确认成本换开发成本的工程实践
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "2"
+          - text: 汇聚众人力量，突破AI能力天花板
+        - generic:
+          - paragraph: 三条路径：以成本转移弥补不确定性
+          - generic:
+            - generic:
+              - generic:
+                - generic: 🎯
+                - generic: 精准描述
+                - generic: 操作成本↑
+              - paragraph: 使用更精准的描述要求，更多操作成本弥补不确定性
+            - generic:
+              - generic:
+                - generic: 🔧
+                - generic: 确定性开发
+                - generic: 开发成本↑
+              - paragraph: 使用更确定性的开发方式，开发成本弥补不确定性
+            - generic:
+              - generic:
+                - generic: ✅
+                - generic: 充分检查
+                - generic: 确认成本↑
+              - paragraph: 使用更多检查保证效果，确认成本弥补不确定性
+        - generic:
+          - paragraph: 突破：汇聚三方力量实现成本突破
+          - generic:
+            - generic:
+              - generic:
+                - generic: 👥
+                - heading [level=3]: 更精华的经验沉淀
+              - paragraph: 让所有人的经验都共同沉淀下来
+              - generic:
+                - generic:
+                  - paragraph: 从个人工具升级为团队基础设施，应对更复杂场景
+                - generic:
+                  - paragraph: 每个人完善场景丰富度，而非一人开发众人使用
+            - generic:
+              - generic:
+                - generic: 🔗
+                - heading [level=3]: 更完善的工具协同
+              - paragraph: 来自不同开发技术人员的工程化力量
+              - generic:
+                - generic:
+                  - paragraph: Vibe Coding + Workflow + Agent 框架组合部署
+                - generic:
+                  - paragraph: 工具生态日益丰富，不断扩展能力边界
+            - generic:
+              - generic:
+                - generic: 🧠
+                - heading [level=3]: 更强大的基座模型
+              - paragraph: 来自全世界研发人员与数据力量
+              - generic:
+                - generic:
+                  - paragraph: 更优模型 → 更高 Token 投入 → 更好推理与生成质量
+                - generic:
+                  - paragraph: 模型能力持续进化，降低所有人的使用门槛
+        - generic:
+          - generic:
+            - generic:
+              - generic: 👨‍💼
+            - generic: Skills 人类智慧
+          - generic: +
+          - generic:
+            - generic:
+              - generic: ⚙️
+            - generic: Workflow 工作流
+          - generic: +
+          - generic:
+            - generic:
+              - generic: 🎮
+            - generic: VibeCoding 大模型
+          - generic: →
+          - generic: 挑战更大的 Boss
+        - generic:
+          - paragraph: 众人拾柴火焰高，汇聚所有人的力量方可突破智能预算的天花板
+          - paragraph: 每个人都去完善场景的丰富度，而不是一个程序员独自开发其他人用
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "3"
+          - text: 公司发展计划
+        - paragraph: 从已有工具到开放生态，一步步构建 Agent 能力版图
+        - generic:
+          - generic:
+            - generic:
+              - generic: ✅
+              - heading [level=3]: 已有能力
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: 聚智平台
+                  - generic: 智能体
+                - paragraph: 工作流 Agent 构建，内部效率工具已上线运行
+              - generic:
+                - generic:
+                  - paragraph: 磐匠 Agent
+                  - generic: 数字员工
+                - paragraph: 自然语言描述流程，低门槛构建自动化任务
+              - generic:
+                - generic:
+                  - paragraph: 灵畿平台
+                  - generic: 代码开发
+                - paragraph: AI 辅助编码开发，提升研发效率与质量
+          - generic:
+            - generic:
+              - generic: 🔧
+              - heading [level=3]: 正在建设
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: 本地龙虾
+                - paragraph: 开箱即用的本地 Agent 运行环境
+              - generic:
+                - generic:
+                  - paragraph: 云虾沙箱
+                - paragraph: 安全隔离运行环境，Agent 无需本地部署
+              - generic:
+                - generic:
+                  - paragraph: 安全管控
+                - paragraph: 权限细粒度控制、环境隔离、合规审计链路
+          - generic:
+            - generic:
+              - generic: 🔮
+              - heading [level=3]: 未来方向
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: MobileClaw
+                - paragraph: 移动端智能体，随时随地调用 AI 能力
+              - generic:
+                - generic:
+                  - paragraph: JoinAI
+                - paragraph: 多人协作 Agent 平台，团队共构智能工作流
+              - generic:
+                - generic:
+                  - paragraph: 开放生态
+                - paragraph: Skill 市场共建共享，从单打独斗到集体智慧
+        - generic:
+          - generic:
+            - generic:
+              - generic: 聚智平台
+              - generic: 智能体平台
+            - generic:
+              - button
+          - generic:
+            - generic:
+              - generic: 灵畿平台
+              - generic: 代码开发
+            - generic:
+              - button
+          - generic:
+            - generic:
+              - generic: MobileClaw
+              - generic: 移动生态虾
+            - generic:
+              - button
+        - generic:
+          - generic:
+            - paragraph: 中国移动token运营战略方向！
+            - paragraph: 集团AI开发工具，省内办公AI助理，移动云服务龙虾携手打造数智化转型
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "3"
+          - text: 场景筛选与方案自评
+        - paragraph: 描述场景、完成判定，AI 给出落地建议
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic: 补充场景描述
+              - textbox:
+                - /placeholder: 描述你的具体场景，例如：每日自动汇总团队周报并发送邮件...
+            - generic:
+              - generic:
+                - generic: 判定路线（依次选择）
+                - generic: 0/6
+              - generic:
+                - generic:
+                  - generic: "1"
+                  - generic: 数据范围
+                - generic:
+                  - button:
+                    - generic:
+                      - generic: 内网 / 敏感数据
+                  - button:
+                    - generic:
+                      - generic: 公网可开放数据
+              - generic:
+                - generic:
+                  - generic: "2"
+                  - generic: 使用频率
+                - generic:
+                  - button:
+                    - generic:
+                      - generic: 频繁使用
+                  - button:
+                    - generic:
+                      - generic: 偶尔 / 低频
+              - generic:
+                - generic:
+                  - generic: "3"
+                  - generic: 准确性要求
+                - generic:
+                  - button:
+                    - generic:
+                      - generic: 高准确性
+                  - button:
+                    - generic:
+                      - generic: 中低准确性
+              - generic:
+                - generic:
+                  - generic: "4"
+                  - generic: 是否值得开发
+                - generic:
+                  - button:
+                    - generic:
+                      - generic: 值得投入开发
+                  - button:
+                    - generic:
+                      - generic: 不值得 / 赶时间
+              - generic:
+                - generic:
+                  - generic: "5"
+                  - generic: 是否已闭环
+                - generic:
+                  - button:
+                    - generic:
+                      - generic: 已闭环
+                  - button:
+                    - generic:
+                      - generic: 未闭环
+              - generic:
+                - generic:
+                  - generic: "6"
+                  - generic: 是否有定时需求
+                - generic:
+                  - button:
+                    - generic:
+                      - generic: 有定时需求
+                  - button:
+                    - generic:
+                      - generic: 无定时需求
+              - generic:
+                - generic: 完成后点击推荐，AI 自动分析
+                - generic:
+                  - button: 清空
+                  - button: 给出推荐
+          - generic:
+            - generic:
+              - generic:
+                - generic: 推荐方案
+              - generic:
+                - generic: 待确认
+              - generic: 三类方案含义 继续氪金：换更强模型/更确定性实现，提升开发成本来降低不确定性 扬长避短：多人协作调度与知识沉淀，让模型越做越好 人在回路：对结果持续校验、兜底与签发
+            - generic:
+              - generic:
+                - generic: AI 分析建议
+              - generic: 完成左侧判定后，AI 将给出具体落地建议。
+        - generic:
+          - button:
+            - img
+    - region:
+      - generic:
+        - heading [level=2]:
+          - generic:
+            - generic: "3"
+          - text: 在使用中体验边界
+        - paragraph: 边界是模糊的——可能是人的能力限制了效果，也可能是模型或框架的局限
+        - generic:
+          - generic:
+            - generic:
+              - generic: 🧑
+              - generic:
+                - heading [level=3]: 我的能力边界
+                - paragraph: 缺乏沉淀、总结与系统思考
+                - generic:
+                  - paragraph: → 更多实践、更多复盘、积累方法论
+          - generic:
+            - generic:
+              - generic: 🛠
+              - generic:
+                - heading [level=3]: 框架的能力边界
+                - paragraph: 工具链不完善，定制空间受限制
+                - generic:
+                  - paragraph: → 开发工具，甚至自己去迭代 AI 框架
+          - generic:
+            - generic:
+              - generic: 🤖
+              - generic:
+                - heading [level=3]: AI 的能力边界
+                - paragraph: 模型智能有上限，场景覆盖有限
+                - generic:
+                  - paragraph: → 氪金用更好模型，Coding Plan 省很多，等待技术演进
+        - generic:
+          - generic:
+            - paragraph: 我的认知边界决定了 AI 最终的使用上限
+            - paragraph: 去尝试、去学习、去玩——只有实际使用和投入精力调教，才有真正的手感与经验
+    - region:
+      - generic:
+        - generic:
+          - heading [level=2]:
+            - generic:
+              - generic: "3"
+            - text: 关于龙虾的最后总结
+          - generic:
+            - generic:
+              - generic:
+                - generic: "01"
+                - heading [level=3]: 三特性与智能成本的不可能三角
+                - list:
+                  - listitem:
+                    - generic: ●
+                    - text: 便利性 ↔ 操作成本
+                  - listitem:
+                    - generic: ●
+                    - text: 完备性 ↔ 开发成本
+                  - listitem:
+                    - generic: ●
+                    - text: 确定性 ↔ 确认成本
+              - generic:
+                - img:
+                  - generic: 成本
+                  - generic: 操作成本
+                  - generic: 开发成本
+                  - generic: 确认成本
+              - generic:
+                - generic:
+                  - paragraph: 三种智能成本
+                  - paragraph: 相互转移
+            - generic:
+              - generic:
+                - generic: "02"
+                - heading [level=3]: Harness 与 Skills 的角色
+                - list:
+                  - listitem:
+                    - generic: ●
+                    - text: 模型智能：众人之数据与时代发展
+                  - listitem:
+                    - generic: ●
+                    - text: Harness：开发人员与工程师经验的沉淀
+                  - listitem:
+                    - generic: ●
+                    - text: Skills：业务人员与业务经验的沉淀
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Skills 工具层
+                    - generic: Harness 编排层
+                    - generic: 大模型基座
+                  - img
+              - generic:
+                - generic:
+                  - paragraph: 智能体的发展史：
+                  - paragraph: 知识准确理解 + 过程确定可控
+            - generic:
+              - generic:
+                - generic: "03"
+                - heading [level=3]: 众人之力的托举会降低入手门槛
+                - list:
+                  - listitem:
+                    - generic: ●
+                    - text: 时间、精力、金钱的投入
+                  - listitem:
+                    - generic: ●
+                    - text: 让准入门槛变得可以接受
+                  - listitem:
+                    - generic: ●
+                    - text: 学习到的东西是未来的机会
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 时间
+                    - generic: 精力
+                    - generic: 金钱
+                    - img
+                    - generic: 投资
+                  - generic: AI 能力迭代 ── 托举跨越门槛，成本转化为投资
+              - generic:
+                - generic:
+                  - paragraph: 成本加上时间的可能性
+                  - paragraph: 就是投资
+    - region:
+      - generic:
+        - generic:
+          - heading [level=1]: 谢谢聆听
+          - paragraph: 北京公司数智化部
+          - generic: 2026年5月
+  - button "Table of contents" [ref=e49] [cursor=pointer]:
+    - img [ref=e50]
+  - navigation [ref=e51]:
+    - button "Previous slide" [ref=e52] [cursor=pointer]:
+      - img [ref=e53]
+      - generic [ref=e55]: Prev
+    - generic [ref=e56]:
+      - generic [ref=e57]: "14"
+      - generic [ref=e58]: /
+      - generic [ref=e59]: "23"
+    - button "Next slide" [ref=e60] [cursor=pointer]:
+      - generic [ref=e61]: Next
+      - img [ref=e62]
